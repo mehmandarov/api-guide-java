@@ -1,0 +1,48 @@
+### ============================
+### Session API — V1 CRUD
+### ============================
+
+### List all sessions
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+
+### Get a single session (replace {{session_id}} with a real ID)
+GET http://localhost:8080/api/v1/sessions/{{session_id}}
+Accept: application/json
+
+### Create a new session (requires ORGANIZER JWT)
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Cloud-Native Java in 2026",
+  "abstract": "A look at the state of cloud-native Java development.",
+  "level": "INTERMEDIATE",
+  "track": "Cloud",
+  "speakerId": "spk-duke",
+  "roomId": "room-hall-a",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Update a session (requires ORGANIZER JWT)
+PUT http://localhost:8080/api/v1/sessions/{{session_id}}
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Cloud-Native Java in 2026 — Updated",
+  "abstract": "Updated abstract with new content.",
+  "level": "ADVANCED",
+  "track": "Cloud",
+  "speakerId": "spk-duke",
+  "roomId": "room-hall-b",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 90
+}
+
+### Delete a session (requires ORGANIZER JWT)
+DELETE http://localhost:8080/api/v1/sessions/{{session_id}}
+Authorization: Bearer {{jwt_organizer}}
+

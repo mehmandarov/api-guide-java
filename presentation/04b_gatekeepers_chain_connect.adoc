@@ -1,0 +1,33 @@
+=== Ch1 — How It Connects
+==== The Full Request Lifecycle
+
+---
+
+```
+Client Request
+  │
+  ├─ InputSanitizationFilter     ← JAX-RS filter pipeline
+  ├─ InputSanitizationInterceptor   (runs automatically on every request)
+  ├─ AuditFilter                    (runs on @Audited endpoints)
+  │
+  ▼
+Resource Method(@Valid Session s) ← Bean Validation runs HERE
+        │
+        ▼ (fails?)
+ConstraintViolationException
+        │
+        ▼ (@Provider)
+ConstraintViolationExceptionMapper → 400 + RFC 9457 JSON
+```
+
+* Filters & interceptors — run *before* the method, managed by JAX-RS
+* `@Valid` — runs *at method entry*, managed by Bean Validation
+* `ExceptionMapper` — runs *after* a failure, managed by JAX-RS
+
+_Three separate mechanisms. Zero manual wiring. All standard APIs._
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:04_gatekeepers_validation.adoc[⬅️ Custom Validators] /
+link:05_security_jwt.adoc[➡️ The Security Shield]

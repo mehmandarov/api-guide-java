@@ -1,0 +1,42 @@
+=== Bonus — ExceptionMapper
+==== No `try/catch` in Resources. Ever.
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/error/ConstraintViolationExceptionMapper.java[ConstraintViolationExceptionMapper.java]
+
+[source,java]
+----
+@Provider
+public class ConstraintViolationExceptionMapper
+        implements ExceptionMapper<ConstraintViolationException> {
+
+    @Override
+    public Response toResponse(ConstraintViolationException ex) {
+        List<Map<String, String>> violations = ex.getConstraintViolations()
+                .stream().map(this::toMap).toList();
+
+        ProblemDetail problem = ProblemDetail.of(400, "Validation Failed")
+            .withType("urn:problem-type:validation-error")
+            .withExtension("violations", violations);
+
+        return Response.status(400)
+                .type("application/problem+json")
+                .entity(problem).build();
+    }
+}
+----
+
+==== One Mapper Per Error Category
+
+* link:../src/main/java/com/mehmandarov/confapi/error/ConstraintViolationExceptionMapper.java[ConstraintViolationExceptionMapper] → 400
+* link:../src/main/java/com/mehmandarov/confapi/error/NotFoundExceptionMapper.java[NotFoundExceptionMapper] → 404
+* link:../src/main/java/com/mehmandarov/confapi/error/NotAuthorizedExceptionMapper.java[NotAuthorizedExceptionMapper] → 401
+* link:../src/main/java/com/mehmandarov/confapi/error/ForbiddenExceptionMapper.java[ForbiddenExceptionMapper] → 403
+* link:../src/main/java/com/mehmandarov/confapi/error/CatchAllExceptionMapper.java[CatchAllExceptionMapper] → 500 (*never leaks stack traces*)
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:15_error_handling.adoc[⬅️ RFC 9457] /
+link:17_testing.adoc[➡️ Testing Strategy]

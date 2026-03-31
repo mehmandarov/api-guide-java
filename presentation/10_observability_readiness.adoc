@@ -1,0 +1,39 @@
+=== Ch3 — Readiness Check
+==== MicroProfile Health — Is the Data Loaded?
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/observability/DataReadinessCheck.java[DataReadinessCheck.java]
+
+[source,java]
+----
+@Readiness
+@ApplicationScoped
+public class DataReadinessCheck implements HealthCheck {
+
+    @Inject SessionRepository sessionRepo;
+
+    @Override
+    public HealthCheckResponse call() {
+        int count = sessionRepo.findAll().size();
+        return HealthCheckResponse.named("confapi-data-ready")
+                .withData("sessionCount", count)
+                .status(count > 0)
+                .build();
+    }
+}
+----
+
+* `@Readiness` — Kubernetes uses this to decide whether to *route traffic*
+
+```bash
+curl http://localhost:8080/health/ready | jq
+```
+
+[.small]#See also: https://github.com/mehmandarov/5-features-talk-demo/tree/main/demo-service1/src/main/java/health#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:09_observability_liveness.adoc[⬅️ Liveness Check] /
+link:11_living_contract.adoc[➡️ The Living Contract]

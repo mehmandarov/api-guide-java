@@ -1,0 +1,33 @@
+=== Ch3 — Liveness Check
+==== MicroProfile Health — Is the Process Alive?
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/observability/StartupHealthCheck.java[StartupHealthCheck.java]
+
+[source,java]
+----
+@Liveness
+@ApplicationScoped
+public class StartupHealthCheck implements HealthCheck {
+
+    @Override
+    public HealthCheckResponse call() {
+        return HealthCheckResponse.named("confapi-live")
+                .withData("javaVersion", Runtime.version().toString())
+                .up()
+                .build();
+    }
+}
+----
+
+* `@Liveness` — Kubernetes uses this to decide whether to *restart* the pod
+* Simple: if the process is alive, report UP
+
+[.small]#See also: https://github.com/mehmandarov/5-features-talk-demo/tree/main/demo-service1/src/main/java/health#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:08b_observability_tracing.adoc[⬅️ Tracing] /
+link:10_observability_readiness.adoc[➡️ Readiness Check]

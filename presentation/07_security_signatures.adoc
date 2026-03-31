@@ -1,0 +1,38 @@
+=== Ch2 — Request Signatures
+==== Beyond JWT — Payload Integrity with HMAC-SHA256
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/security/RequestSignatureFilter.java[RequestSignatureFilter.java] + link:../src/main/java/com/mehmandarov/confapi/security/SignatureRequired.java[SignatureRequired.java]
+
+[source,java]
+----
+@Provider
+@SignatureRequired                      // ← @NameBinding — opt-in per endpoint
+public class RequestSignatureFilter implements ContainerRequestFilter {
+
+    @Inject
+    @ConfigProperty(name = "api.signature.secret")
+    String secret;                      // ← Externalized, never hardcoded
+
+    @Override
+    public void filter(ContainerRequestContext ctx) {
+        String signature = ctx.getHeaderString("X-Signature");
+        byte[] body = readBody(ctx);
+        String expected = computeHmac(body);       // HMAC-SHA256
+
+        if (!secureEquals(expected, signature)) {   // Constant-time!
+            ctx.abortWith(Response.status(401).build());
+        }
+    }
+}
+----
+
+* *Real-world use*: webhook receivers, high-security mutation endpoints
+* *Constant-time comparison* prevents timing attacks
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:06_security_rbac.adoc[⬅️ RBAC] /
+link:08_observability.adoc[➡️ The Lens]

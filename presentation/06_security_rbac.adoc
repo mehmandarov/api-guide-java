@@ -1,0 +1,35 @@
+=== Ch2 — RBAC with Annotations
+==== Zero Security Logic in Business Methods
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/resource/v1/SessionResourceV1.java[SessionResourceV1.java]
+
+[source,java]
+----
+@GET
+@PermitAll                              // ← Public read
+public List<SessionDtoV1> listAll() { ... }
+
+@POST
+@RolesAllowed("ORGANIZER")             // ← Write requires ORGANIZER role
+@SecurityRequirement(name = "jwt")
+public Response create(@Valid Session session, @Context UriInfo uriInfo) {
+    Session saved = repo.save(session);
+    URI location = uriInfo.getAbsolutePathBuilder().path(saved.getId()).build();
+    return Response.created(location).entity(SessionDtoV1.from(saved)).build();
+}
+
+@DELETE
+@Path("/{id}")
+@RolesAllowed("ORGANIZER")             // ← Delete requires ORGANIZER role
+public Response delete(@PathParam("id") String id) { ... }
+----
+
+*Key insight*: The annotation IS the policy. If your endpoint contains `if (user.hasRole(...))`, something went wrong.
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:05_security_jwt.adoc[⬅️ JWT Setup] /
+link:07_security_signatures.adoc[➡️ Request Signatures]

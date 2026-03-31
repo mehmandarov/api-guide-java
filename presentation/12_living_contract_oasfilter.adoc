@@ -1,0 +1,26 @@
+=== Ch4 — OpenAPI Specification Filter (OASFilter)
+==== Programmatic Enrichment of the OpenAPI Spec
+
+---
+
+*Problem*: Some standards apply to _every_ endpoint — repeating annotations on 20+ methods is fragile.
+
+*Solution*: `OASFilter` — the runtime calls your filter for every operation in the spec, _after_ annotation scanning.
+
+_Examples:_
+
+* Adds `X-Request-Id` header to every response
+* Adds global 500 error response to all operations
+* Organization-wide standards — enforced in one place
+
+Registered via a single config property:
+
+```properties
+mp.openapi.filter=com.mehmandarov.confapi.openapi.ConferenceOASFilter
+```
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:11_living_contract.adoc[⬅️ OpenAPI Annotations] /
+link:12b_living_contract_oasfilter_code.adoc[➡️ OASFilter Code]

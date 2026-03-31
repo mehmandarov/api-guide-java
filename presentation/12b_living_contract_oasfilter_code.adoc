@@ -1,0 +1,45 @@
+=== Ch4 — OASFilter Code
+==== `filterOperation` — Called for Every Operation
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/openapi/ConferenceOASFilter.java[ConferenceOASFilter.java]
+
+[source,java]
+----
+public class ConferenceOASFilter implements OASFilter {
+
+    @Override
+    public Operation filterOperation(Operation operation) {
+        // Add X-Request-Id header to all responses
+        for (var entry : operation.getResponses().getAPIResponses().entrySet()) {
+            entry.getValue().addHeader("X-Request-Id",
+                    OASFactory.createHeader()
+                            .description("Unique request correlation ID")
+                            .schema(OASFactory.createSchema()
+                                    .type(List.of(Schema.SchemaType.STRING))));
+        }
+
+        // Ensure every operation documents a 500 response
+        if (!operation.getResponses().getAPIResponses().containsKey("500")) {
+            operation.getResponses().addAPIResponse("500",
+                    OASFactory.createAPIResponse()
+                            .description("Internal Server Error — RFC 9457"));
+        }
+
+        return operation;
+    }
+}
+----
+
+==== Demo
+
+```bash
+curl http://localhost:8080/openapi?format=json | jq '.paths["/api/v1/sessions"]'
+```
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:12_living_contract_oasfilter.adoc[⬅️ OASFilter] /
+link:13_evolution.adoc[➡️ The Evolution]

@@ -1,0 +1,38 @@
+=== Ch4 — The Living Contract
+==== OpenAPI from Code Annotations
+
+---
+
+*If your OpenAPI spec drifts from your code, one of them is lying.*
+
+link:../src/main/java/com/mehmandarov/confapi/ApiApplication.java[ApiApplication.java]
+
+[source,java]
+----
+@OpenAPIDefinition(
+    info = @Info(
+        title = "Conference Session API",
+        version = "1.0.0"
+    ),
+    tags = {
+        @Tag(name = "Sessions"),
+        @Tag(name = "Speakers"),
+        @Tag(name = "Rooms"),
+        @Tag(name = "v2", description = "Version 2 — enriched responses")
+    }
+)
+@SecurityScheme(
+    securitySchemeName = "jwt",
+    type = SecuritySchemeType.HTTP,
+    scheme = "bearer",
+    bearerFormat = "JWT"
+)
+----
+
+_Zero YAML files written. The code IS the contract._
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:10_observability_readiness.adoc[⬅️ Readiness Check] /
+link:12_living_contract_oasfilter.adoc[➡️ OASFilter]

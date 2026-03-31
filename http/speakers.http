@@ -1,0 +1,40 @@
+### ============================
+### Speaker API
+### ============================
+
+### List all speakers
+GET http://localhost:8080/api/v1/speakers
+Accept: application/json
+
+### Get a speaker by ID
+GET http://localhost:8080/api/v1/speakers/spk-duke
+Accept: application/json
+
+### Create a new speaker (requires ORGANIZER JWT)
+POST http://localhost:8080/api/v1/speakers
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "name": "Ada Lovelace",
+  "bio": "Pioneer of analytical computing.",
+  "company": "Babbage Labs",
+  "photoUrl": "https://example.com/ada.png"
+}
+
+### Update a speaker (requires ORGANIZER JWT)
+PUT http://localhost:8080/api/v1/speakers/{{speaker_id}}
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "name": "Ada Lovelace",
+  "bio": "Updated biography with more details.",
+  "company": "Babbage Labs International",
+  "photoUrl": "https://example.com/ada-v2.png"
+}
+
+### Delete a speaker (requires ORGANIZER JWT)
+DELETE http://localhost:8080/api/v1/speakers/{{speaker_id}}
+Authorization: Bearer {{jwt_organizer}}
+

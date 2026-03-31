@@ -1,0 +1,35 @@
+=== The Domain — A Conference API
+
+---
+
+```
+┌──────────────┐       ┌──────────────┐       ┌──────────────┐
+│   Speaker    │       │   Session    │       │     Room     │
+├──────────────┤       ├──────────────┤       ├──────────────┤
+│ id           │◄──────│ speakerId    │       │ id           │
+│ name         │       │ roomId       │──────►│ name         │
+│ bio          │       │ title        │       │ capacity     │
+│ company      │       │ abstract     │       │ building     │
+│ photoUrl     │       │ level        │       └──────────────┘
+└──────────────┘       │ track        │
+                       │ startTime    │
+                       │ duration     │
+                       └──────────────┘
+```
+
+==== Seed Data
+
+[cols="1,3"]
+|===
+| Speakers | Duke Java, Jane Coder
+| Sessions | "Bulletproof APIs with Java", "Security and Predictability in LLM-Powered Applications", "Getting Started with Jakarta EE 11"
+| Rooms    | Hall A (300), Hall B (150), Room C (60)
+|===
+
+_Simple enough to fit in your head. Complex enough to demonstrate all 5 patterns._
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:01b_overview.adoc[⬅️ Overview] /
+link:02_gatekeepers.adoc[➡️ The Gatekeepers]

@@ -1,0 +1,51 @@
+=== Ch1 — Audit Logging
+==== `@NameBinding` — Selective Filter Activation
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/gatekeepers/Audited.java[Audited.java]
+
+[source,java]
+----
+@NameBinding
+@Retention(RUNTIME)
+@Target({TYPE, METHOD})
+public @interface Audited { }
+----
+
+link:../src/main/java/com/mehmandarov/confapi/gatekeepers/AuditFilter.java[AuditFilter.java]
+
+[source,java]
+----
+@Provider
+@Audited                        // ← Only runs on @Audited endpoints
+public class AuditFilter
+        implements ContainerRequestFilter, ContainerResponseFilter {
+
+    @Override // ← BEFORE the resource method — log the incoming request
+    public void filter(ContainerRequestContext request) {
+        request.setProperty(START_TIME, System.nanoTime());
+        LOG.info(() -> String.format("[AUDIT] >>> %s %s | caller=%s",
+                request.getMethod(),
+                request.getUriInfo().getRequestUri(),
+                principalName(request.getSecurityContext())));
+    }
+
+    @Override // ← AFTER the resource method — log status + elapsed time
+    public void filter(ContainerRequestContext request,
+                       ContainerResponseContext response) {
+        long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
+        LOG.info(() -> String.format("[AUDIT] <<< %s | status=%d | elapsed=%dms",
+                request.getMethod(), response.getStatus(), elapsedMs));
+    }
+}
+----
+
+* link:../src/main/java/com/mehmandarov/confapi/resource/v1/SessionResourceV1.java[`SessionResourceV1`], link:../src/main/java/com/mehmandarov/confapi/resource/v2/SessionResourceV2.java[`SessionResourceV2`], link:../src/main/java/com/mehmandarov/confapi/resource/v1/SpeakerResource.java[`SpeakerResource`] — `@Audited`
+* link:../src/main/java/com/mehmandarov/confapi/resource/v1/RoomResource.java[`RoomResource`] — not annotated → no audit logging
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:03_gatekeepers_sanitization.adoc[⬅️ Sanitization Code] /
+link:04_gatekeepers_validation.adoc[➡️ Custom Validators]

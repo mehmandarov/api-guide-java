@@ -1,0 +1,27 @@
+### ============================
+### API Versioning
+### ============================
+
+### V1 (URI-based) — flat response with IDs
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+
+### V2 (URI-based) — enriched response with embedded speaker/room
+GET http://localhost:8080/api/v2/sessions
+Accept: application/json
+
+### Header-based versioning — route to V2 via X-API-Version header
+### (requests to /api/sessions without a version prefix)
+GET http://localhost:8080/api/sessions
+Accept: application/json
+X-API-Version: 2
+
+### Header-based versioning — route to V1 explicitly
+GET http://localhost:8080/api/sessions
+Accept: application/json
+X-API-Version: 1
+
+### Accept header parameter versioning
+GET http://localhost:8080/api/sessions
+Accept: application/json; version=2
+

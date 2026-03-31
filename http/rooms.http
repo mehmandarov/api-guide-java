@@ -1,0 +1,16 @@
+### ============================
+### Room API (read-only)
+### ============================
+
+### List all rooms
+GET http://localhost:8080/api/v1/rooms
+Accept: application/json
+
+### Get a room by ID
+GET http://localhost:8080/api/v1/rooms/room-hall-a
+Accept: application/json
+
+### Get a non-existent room → expect 404
+GET http://localhost:8080/api/v1/rooms/does-not-exist
+Accept: application/json
+

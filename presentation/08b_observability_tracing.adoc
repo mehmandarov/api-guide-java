@@ -1,0 +1,46 @@
+=== Ch3 — Tracing
+==== Enriching OpenTelemetry Spans with Domain Context
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/observability/TracingFilter.java[TracingFilter.java]
+
+[source,java]
+----
+@Provider
+public class TracingFilter
+        implements ContainerRequestFilter, ContainerResponseFilter {
+
+    @Override
+    public void filter(ContainerRequestContext req) {
+        Span span = Span.current();
+        if (span.isRecording()) {
+            span.setAttribute("api.version", "v2");          // ← search by version
+            span.setAttribute("resource.id", "...");          // ← search by entity
+            span.setAttribute("request.correlation_id", "…"); // ← link to client
+            span.setAttribute("enduser.id", "…");             // ← link to caller
+        }
+    }
+
+    @Override
+    public void filter(ContainerRequestContext req,
+                       ContainerResponseContext resp) {
+        Span span = Span.current();
+        if (span.isRecording()) {
+            span.setAttribute("http.response.status_code",
+                    resp.getStatus());                        // ← filter by status
+        }
+    }
+}
+----
+
+* *No OTel agent?* `Span.current()` returns a no-op — zero overhead
+* *With agent:* search Jaeger/Tempo by `api.version=v2`, `enduser.id=duke`, etc.
+* Standard OpenTelemetry API — works with any vendor's collector
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:08_observability.adoc[⬅️ Correlation IDs] /
+link:09_observability_liveness.adoc[➡️ Liveness Check]
+

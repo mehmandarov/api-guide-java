@@ -1,0 +1,32 @@
+=== Testing Strategy
+==== 74 Tests — Runtime-Agnostic by Design
+
+---
+
+==== Architecture
+
+[cols="1,2,3"]
+|===
+| Layer | Tests | How
+
+| *Unit* | 40 | Plain JUnit 5. No container, no Docker. ~3 seconds.
+| *Integration* | 34 | Testcontainers + REST Assured. Real HTTP. ~7 seconds.
+| *Total* | *74* | `mvn verify -Pquarkus`
+|===
+
+==== Zero Runtime-Specific Imports in Tests
+
+```
+ConfApiContainer → quarkusImage()   ← swap this for Liberty/Helidon
+TestTokens       → RS256 JWT        ← same for all runtimes
+REST Assured     → HTTP assertions  ← same for all runtimes
+```
+
+* No `@QuarkusTest`, no `@TestSecurity`, no `io.quarkus.*`
+* Security tests use *real RS256 JWTs* signed with a test keypair
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:16_error_handling_code.adoc[⬅️ ExceptionMapper Code] /
+link:18_testing_isolation.adoc[➡️ Test Isolation]

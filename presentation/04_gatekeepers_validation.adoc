@@ -1,0 +1,43 @@
+=== Ch1 — Custom Validators
+==== `@NoProfanity` — Domain-Specific Constraints
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/gatekeepers/NoProfanity.java[NoProfanity.java]
+
+[source,java]
+----
+@Constraint(validatedBy = NoProfanityValidator.class)
+@Target({FIELD, PARAMETER})
+@Retention(RUNTIME)
+public @interface NoProfanity {
+    String message() default "Text contains prohibited content";
+}
+----
+
+link:../src/main/java/com/mehmandarov/confapi/gatekeepers/NoProfanityValidator.java[NoProfanityValidator.java]
+
+[source,java]
+----
+public class NoProfanityValidator
+        implements ConstraintValidator<NoProfanity, String> {
+
+    private static final Set<String> BLOCKED = Set.of(
+            "spam", "scam", "phishing");
+
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext ctx) {
+        if (value == null) return true;  // @NotBlank handles nulls
+        String lower = value.toLowerCase();
+        return BLOCKED.stream().noneMatch(lower::contains);
+    }
+}
+----
+
+* Compose with `@NotBlank`, `@Size` — layer constraints on fields
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:02c_gatekeepers_audit.adoc[⬅️ Audit Logging] /
+link:04b_gatekeepers_chain_connect.adoc[➡️ How It Connects]

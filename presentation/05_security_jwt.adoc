@@ -1,0 +1,32 @@
+=== Ch2 — The Security Shield
+==== MicroProfile JWT — The Entire Setup
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/ApiApplication.java[ApiApplication.java]
+
+[source,java]
+----
+@ApplicationPath("/api")
+@LoginConfig(authMethod = "MP-JWT", realmName = "conference")
+@DeclareRoles({"ORGANIZER", "SPEAKER", "ATTENDEE"})
+public class ApiApplication extends Application { }
+----
+
+* That's it. The runtime handles token parsing, signature verification, and claim extraction.
+* Configuration — just two properties:
+
+link:../src/main/resources/META-INF/microprofile-config.properties[microprofile-config.properties]
+
+```properties
+mp.jwt.verify.publickey.location=META-INF/publicKey.pem
+mp.jwt.verify.issuer=https://confapi.example.com
+```
+
+link:../src/main/java/com/mehmandarov/confapi/security/TokenClaimsFilter.java[TokenClaimsFilter.java] extracts custom claims (`speaker_id`, `tenant`) from the JWT and propagates them as request properties.
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:04b_gatekeepers_chain_connect.adoc[⬅️ How It Connects] /
+link:06_security_rbac.adoc[➡️ RBAC with Annotations]

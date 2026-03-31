@@ -1,0 +1,52 @@
+### ============================
+### Security — JWT Testing
+### ============================
+### Generate tokens: ./generate-jwt.sh ORGANIZER
+###                  ./generate-jwt.sh SPEAKER
+###                  ./generate-jwt.sh ATTENDEE
+
+### Attempt to create without a token → expect 401
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+
+{
+  "title": "Unauthorized Session",
+  "abstract": "This should fail.",
+  "level": "BEGINNER",
+  "track": "Test",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Attempt to create with ATTENDEE token → expect 403
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_attendee}}
+
+{
+  "title": "Forbidden Session",
+  "abstract": "ATTENDEEs cannot create sessions.",
+  "level": "BEGINNER",
+  "track": "Test",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Create with ORGANIZER token → expect 201
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Authorized Session",
+  "abstract": "ORGANIZERs can create sessions.",
+  "level": "ADVANCED",
+  "track": "Security",
+  "speakerId": "spk-duke",
+  "roomId": "room-hall-a",
+  "startTime": "2026-10-16T14:00:00",
+  "durationMinutes": 50
+}
+

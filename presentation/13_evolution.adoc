@@ -1,0 +1,43 @@
+=== Ch5 — The Evolution
+==== API Versioning — Three Strategies
+
+---
+
+*Versioning is inevitable* — the question is how painfully you do it.
+
+[cols="1,3,3"]
+|===
+| Strategy | Pros | Cons
+
+| *URI-based* +
+`/api/v1/sessions` +
+`/api/v2/sessions`
+| ✅ Explicit, cacheable, easy to test
+| ❌ Multiple URLs for same resource
+
+| *Header-based* +
+`X-API-Version: 2`
+| ✅ Clean URIs
+| ❌ Harder to test, cache-unfriendly
+
+| *Media type* +
+`Accept:` +
+`application/vnd.confapi.v2+json`
+| ✅ Clean URIs, self-describing
+| ❌ Complex content negotiation
+|===
+
+*Opinion*: Start with URI versioning. Add header or media type if clients demand it.
+
+_This project implements URI + header-based versioning:_
+
+* V1: link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV1.java[SessionDtoV1] — flat with FK IDs
+* V2: link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV2.java[SessionDtoV2] — embedded speaker & room objects
+
+[.small]#All three methods: https://github.com/mehmandarov/randomstrings/blob/master/src/main/java/com/mehmandarov/randomstrings/apidemo/RandomStringsAPIDemoController.java#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:12b_living_contract_oasfilter_code.adoc[⬅️ OASFilter Code] /
+link:14_evolution_code.adoc[➡️ Version Routing Code]

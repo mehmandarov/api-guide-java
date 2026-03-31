@@ -1,0 +1,32 @@
+=== Testing — Container Lifecycle
+==== Testcontainers + Real JWTs
+
+---
+
+link:../src/test/java/com/mehmandarov/confapi/support/ConfApiContainer.java[ConfApiContainer.java] — singleton container, one per test run
+
+link:../src/test/java/com/mehmandarov/confapi/support/TestTokens.java[TestTokens.java] — generates real RS256 JWTs
+
+link:../src/test/java/com/mehmandarov/confapi/support/ConfApiExtension.java[ConfApiExtension.java] — JUnit 5 extension, configures REST Assured
+
+==== Test Isolation vs. Startup Time
+
+* *Singleton container* — starts once (~3 s), shared by all 34 IT tests
+* Trade-off: tests share mutable state (acceptable for demo with seed data)
+* For full isolation: per-class container (~3 s × 6 classes instead of ~3 s total)
+
+==== Running
+
+```bash
+# Unit only (no Docker)
+mvn test -Pquarkus
+
+# Full suite (requires Docker)
+mvn verify -Pquarkus
+```
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:17_testing.adoc[⬅️ Testing Strategy] /
+link:19_summary.adoc[➡️ Summary]

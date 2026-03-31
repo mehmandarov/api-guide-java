@@ -1,0 +1,29 @@
+=== Summary
+
+---
+
+==== 5 Patterns Recap
+
+[cols="1,3,4"]
+|===
+| # | Pattern | The Common Thread
+
+| 1 | *Gatekeepers* | Filters clean input before business logic sees it
+| 2 | *Security Shield* | JWT + RBAC with annotations, not if-statements
+| 3 | *The Lens* | Enrich traces with domain context, not just HTTP metadata
+| 4 | *Living Contract* | Generate OpenAPI from code, never maintain it separately
+| 5 | *Evolution* | Version with URI + headers, using filters to route
+| ⭐ | *Error Handling* | RFC 9457 Problem Details via `ExceptionMapper`
+|===
+
+*Filters and Mappers* are the backbone. They separate infrastructure from business logic.
+
+* *All standard APIs* — Jakarta EE 11 + MicroProfile 7
+* *Zero vendor lock-in* — same artifact deploys on Quarkus, Liberty, Helidon
+* *74 tests* — runtime-agnostic, Testcontainers-based
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:18_testing_isolation.adoc[⬅️ Test Isolation] /
+link:20_thank_you.adoc[➡️ Thank You]

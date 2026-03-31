@@ -1,0 +1,36 @@
+=== Ch3 — The Lens
+==== Correlation IDs & Tracing
+
+---
+
+*Observability ≠ Logging.* You need: traces, health checks, and structured context.
+
+link:../src/main/java/com/mehmandarov/confapi/observability/CorrelationIdFilter.java[CorrelationIdFilter.java]
+
+[source,java]
+----
+@Provider
+public class CorrelationIdFilter
+        implements ContainerRequestFilter, ContainerResponseFilter {
+
+    public static final String HEADER_NAME = "X-Request-Id";
+
+    @Override
+    public void filter(ContainerRequestContext request) {
+        String correlationId = request.getHeaderString(HEADER_NAME);
+        if (correlationId == null || correlationId.isBlank()) {
+            correlationId = UUID.randomUUID().toString();
+        }
+        request.setProperty("correlation.id", correlationId);
+    }
+}
+----
+
+* Client sends `X-Request-Id` → preserved. No header → UUID auto-generated.
+* link:../src/main/java/com/mehmandarov/confapi/observability/TracingFilter.java[TracingFilter.java] picks it up → adds to OpenTelemetry span → correlate logs ↔ traces ↔ client.
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:07_security_signatures.adoc[⬅️ Signatures] /
+link:08b_observability_tracing.adoc[➡️ Tracing]

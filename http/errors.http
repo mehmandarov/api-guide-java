@@ -1,0 +1,49 @@
+### ============================
+### Error Handling — RFC 9457 Problem Details
+### ============================
+
+### 404 — Non-existent session
+GET http://localhost:8080/api/v1/sessions/does-not-exist
+Accept: application/json
+
+### 400 — Validation error (empty title, missing required fields)
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "",
+  "level": "BEGINNER",
+  "speakerId": "spk-duke",
+  "durationMinutes": 5
+}
+
+### 400 — Custom validator: profanity check
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Learn about phishing attacks",
+  "abstract": "This title contains a blocked word.",
+  "level": "BEGINNER",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Input sanitization — HTML tags in body should be stripped
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Safe Session <script>alert('xss')</script>",
+  "abstract": "Clean abstract <b>bold</b> text.",
+  "level": "INTERMEDIATE",
+  "track": "Security",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+

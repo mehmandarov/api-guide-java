@@ -1,0 +1,58 @@
+=== 🛡️ An Opinionated Guide to Bulletproof APIs with Java
+==== Rustam Mehmandarov – https://rustam.no
+===== Table of Contents
+
+* link:00_title.adoc[Title]
+* link:00b_about_me.adoc[About Me]
+* link:01_intro.adoc[Introduction]
+* link:01b_overview.adoc[What We'll Cover — 5 Patterns]
+* link:01c_domain.adoc[The Domain — A Conference API]
+
+*Ch1 — The Gatekeepers*
+
+* link:02_gatekeepers.adoc[The Gatekeepers — Overview]
+* link:02b_gatekeepers_chain.adoc[The Filter Chain]
+* link:03_gatekeepers_sanitization.adoc[Input Sanitization — Code]
+* link:02c_gatekeepers_audit.adoc[Audit Logging — @NameBinding]
+* link:04_gatekeepers_validation.adoc[Custom Validators — @NoProfanity]
+* link:04b_gatekeepers_chain_connect.adoc[How It Connects — @Valid to RFC 9457]
+
+*Ch2 — The Security Shield*
+
+* link:05_security_jwt.adoc[MicroProfile JWT Setup]
+* link:06_security_rbac.adoc[RBAC with Annotations]
+* link:07_security_signatures.adoc[Request Signatures — HMAC-SHA256]
+
+*Ch3 — The Lens*
+
+* link:08_observability.adoc[Correlation IDs & Tracing]
+* link:08b_observability_tracing.adoc[Tracing — OpenTelemetry Spans]
+* link:09_observability_liveness.adoc[Liveness Check]
+* link:10_observability_readiness.adoc[Readiness Check]
+
+*Ch4 — The Living Contract*
+
+* link:11_living_contract.adoc[OpenAPI from Code Annotations]
+* link:12_living_contract_oasfilter.adoc[OASFilter — Programmatic Enrichment]
+* link:12b_living_contract_oasfilter_code.adoc[OASFilter — Code]
+
+*Ch5 — The Evolution*
+
+* link:13_evolution.adoc[Versioning Strategies]
+* link:14_evolution_code.adoc[Version Routing — Filter Code]
+* link:14b_evolution_demo.adoc[Version Demo]
+
+*Bonus — Error Handling*
+
+* link:15_error_handling.adoc[RFC 9457 Problem Details]
+* link:16_error_handling_code.adoc[ExceptionMapper — Code]
+
+*Testing & Wrap-Up*
+
+* link:17_testing.adoc[Testing Strategy — 74 Tests]
+* link:18_testing_isolation.adoc[Test Isolation & Container Lifecycle]
+* link:19_summary.adoc[Summary]
+* link:20_thank_you.adoc[Thank You]
+
+---
+===== Rustam Mehmandarov — link:https://rustam.no[@rustam.no]

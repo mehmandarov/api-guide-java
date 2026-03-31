@@ -1,0 +1,28 @@
+### ============================
+### Observability — MicroProfile Health
+### ============================
+
+### Overall health (liveness + readiness combined)
+GET http://localhost:8080/health
+Accept: application/json
+
+### Liveness probe — is the process alive?
+GET http://localhost:8080/health/live
+Accept: application/json
+
+### Readiness probe — is the app ready to serve traffic?
+GET http://localhost:8080/health/ready
+Accept: application/json
+
+### ============================
+### OpenAPI / Living Contract
+### ============================
+
+### Fetch the OpenAPI document (YAML)
+GET http://localhost:8080/openapi
+Accept: application/yaml
+
+### Fetch the OpenAPI document (JSON)
+GET http://localhost:8080/openapi
+Accept: application/json
+

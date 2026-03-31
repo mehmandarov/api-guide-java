@@ -1,0 +1,32 @@
+=== Bonus — Sane Error Handling
+==== RFC 9457 Problem Details
+
+---
+
+*The problem*: Every API invents its own error format. Clients hate this.
+
+==== RFC 9457 — A Standard Error Envelope
+
+```json
+{
+  "type": "urn:problem-type:validation-error",
+  "title": "Validation Failed",
+  "status": 400,
+  "detail": "The request body or parameters failed validation.",
+  "extensions": {
+    "violations": [
+      { "field": "title", "message": "Title is required" }
+    ]
+  }
+}
+```
+
+Content-Type: `application/problem+json`
+
+Built with: link:../src/main/java/com/mehmandarov/confapi/error/ProblemDetail.java[ProblemDetail.java] — fluent builder with `withType()`, `withExtension()`
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:14b_evolution_demo.adoc[⬅️ Version Demo] /
+link:16_error_handling_code.adoc[➡️ ExceptionMapper Code]

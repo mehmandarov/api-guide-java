@@ -1,0 +1,38 @@
+=== Ch1 — Input Sanitization
+==== `@PreMatching` Filter + `ReaderInterceptor`
+
+---
+
+link:../src/main/java/com/mehmandarov/confapi/gatekeepers/InputSanitizationFilter.java[InputSanitizationFilter.java]
+
+[source,java]
+----
+@Provider
+@PreMatching
+public class InputSanitizationFilter implements ContainerRequestFilter {
+
+    static final Pattern HTML_TAG = Pattern.compile("<[^>]+>");
+    static final Pattern JS_PROTOCOL = Pattern.compile("(?i)javascript\\s*:");
+
+    @Override
+    public void filter(ContainerRequestContext ctx) throws IOException {
+        // Sanitize every query parameter before URI matching
+        for (var entry : ctx.getUriInfo().getQueryParameters().entrySet()) {
+            for (String value : entry.getValue()) {
+                String sanitized = sanitize(value);
+                if (!sanitized.equals(value)) {
+                    uriBuilder.replaceQueryParam(entry.getKey(), sanitized);
+                }
+            }
+        }
+    }
+}
+----
+
+Body sanitization handled by link:../src/main/java/com/mehmandarov/confapi/gatekeepers/InputSanitizationInterceptor.java[InputSanitizationInterceptor.java] — a `ReaderInterceptor` that works with both blocking and reactive runtimes.
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:02b_gatekeepers_chain.adoc[⬅️ Filter Chain] /
+link:02c_gatekeepers_audit.adoc[➡️ Audit Logging]

@@ -1,0 +1,37 @@
+=== Ch1 — The Gatekeepers
+==== Filters, Sanitization & Validation
+
+---
+
+*Principle*: Business logic should never see dirty input. Period.
+
+==== ❌ Without Gatekeepers
+
+[source,java]
+----
+@POST
+public Response create(Session s, @Context HttpHeaders h) {
+    if (!jwtService.verify(h.getHeader("Authorization"))) return 401;
+    if (!roles.contains("ORGANIZER")) return 403;
+    s.setTitle(s.getTitle().replaceAll("<[^>]+>", ""));  // manual sanitize
+    if (s.getTitle().isBlank()) return 400;               // manual validate
+    return Response.created(...).entity(repo.save(s)).build();
+}
+----
+
+==== ✅ With Gatekeepers
+
+[source,java]
+----
+@POST
+@RolesAllowed("ORGANIZER")
+public Response create(@Valid Session s) {
+    return Response.created(...).entity(repo.save(s)).build();
+}
+----
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:01c_domain.adoc[⬅️ Domain] /
+link:02b_gatekeepers_chain.adoc[➡️ The Filter Chain]

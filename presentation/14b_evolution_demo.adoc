@@ -1,0 +1,24 @@
+=== Ch5 — Version Demo
+==== V1 vs V2 — Same Resource, Different Representations
+
+---
+
+See also: link:../src/main/java/com/mehmandarov/confapi/resource/v2/SessionResourceV2.java[SessionResourceV2.java]
+
+```bash
+curl .../api/v1/sessions | jq '.[0].speakerId'    # "spk-duke" (just an ID — need a 2nd call)
+curl .../api/v2/sessions | jq '.[0].speaker.id'    # {id, name, company} (nested — no 2nd call)
+curl -H "X-API-Version: 2" .../api/sessions | jq   # → same V2 response, via header
+```
+
+* *URI versioning* — explicit, cacheable, easy to test in a browser
+* *Header versioning* — clean URIs, clients just flip a header to upgrade
+* *Both land on the same resource class* — the filter normalizes everything
+
+[.small]#All three methods: https://github.com/mehmandarov/randomstrings/blob/master/src/main/java/com/mehmandarov/randomstrings/apidemo/RandomStringsAPIDemoController.java#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:14_evolution_code.adoc[⬅️ Version Routing Code] /
+link:15_error_handling.adoc[➡️ Error Handling]

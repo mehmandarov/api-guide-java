@@ -1,0 +1,23 @@
+=== What We'll Cover — 5 Patterns
+
+---
+
+[cols="1,3,4"]
+|===
+| # | Pattern | Key Tech
+
+| 1 | *The Gatekeepers* | `ContainerRequestFilter`, `ReaderInterceptor`, `@Valid`
+| 2 | *The Security Shield* | MicroProfile JWT, `@RolesAllowed`, HMAC-SHA256
+| 3 | *The Lens* | OpenTelemetry, MicroProfile Health, `X-Request-Id`
+| 4 | *The Living Contract* | MicroProfile OpenAPI, `OASFilter`
+| 5 | *The Evolution* | `@PreMatching` filter, URI rewriting
+| ⭐ | *Error Handling* | `ExceptionMapper`, RFC 9457 Problem Details
+|===
+
+_This same artifact runs on Quarkus, Open Liberty, and Helidon. *No runtime-specific code.*_
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:01_intro.adoc[⬅️ Introduction] /
+link:01c_domain.adoc[➡️ The Domain]
