@@ -9,7 +9,7 @@ a|
 link:https://rustam.no[@rustam.no]
 
 a|
-image::assets/title_img.png[Title image,300,align="right"]
+image::assets/title_img.png[Title image,500,align="right"]
 |===
 
 ---
