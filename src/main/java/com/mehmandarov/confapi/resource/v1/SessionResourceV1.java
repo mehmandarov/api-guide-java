@@ -4,7 +4,6 @@ import com.mehmandarov.confapi.domain.Session;
 import com.mehmandarov.confapi.dto.SessionDtoV1;
 import com.mehmandarov.confapi.gatekeepers.Audited;
 import com.mehmandarov.confapi.repository.SessionRepository;
-import com.mehmandarov.confapi.gatekeepers.NoProfanity;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
@@ -78,6 +77,10 @@ public class SessionResourceV1 {
     @APIResponse(responseCode = "403", description = "Insufficient role")
     public Response create(
             @RequestBody(description = "Session to create", required = true)
+            // NOTE: Using the domain model directly as the request body is a deliberate
+            // simplification for this demo. In production, a dedicated CreateSessionRequest DTO
+            // should own the API input shape so that internal refactoring never becomes a
+            // breaking change for clients (see domain/dto separation slide).
             @Valid Session session,
             @Context UriInfo uriInfo) {
         Session saved = repo.save(session);
@@ -98,6 +101,7 @@ public class SessionResourceV1 {
     public SessionDtoV1 update(
             @Parameter(description = "Session ID", required = true)
             @PathParam("id") String id,
+            // NOTE: Same deliberate simplification as create() — domain model used as input DTO.
             @Valid Session session) {
         if (!repo.exists(id)) {
             throw new NotFoundException("Session not found: " + id);

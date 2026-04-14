@@ -30,8 +30,12 @@ public Response create(@Valid Session s) {
 }
 ----
 
+[.small]#⚠️ *Demo simplification*: `Session` is used as both domain entity and API input model here.
+In production, a `CreateSessionRequest` DTO would own the request shape — decoupling clients from internal refactoring.
+See link:01d_api_domain_separation.adoc[API Model ≠ Domain Model].#
+
 ---
 
 link:toc.adoc[⬆️ TOC] /
-link:01c_domain.adoc[⬅️ Domain] /
+link:01d_api_domain_separation.adoc[⬅️ API Model ≠ Domain Model] /
 link:02b_gatekeepers_chain.adoc[➡️ The Filter Chain]

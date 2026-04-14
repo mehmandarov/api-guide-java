@@ -32,4 +32,4 @@ _Simple enough to fit in your head. Complex enough to demonstrate all 5 patterns
 
 link:toc.adoc[⬆️ TOC] /
 link:01b_overview.adoc[⬅️ Overview] /
-link:02_gatekeepers.adoc[➡️ The Gatekeepers]
+link:01d_api_domain_separation.adoc[➡️ API Model ≠ Domain Model]

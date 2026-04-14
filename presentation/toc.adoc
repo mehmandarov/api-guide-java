@@ -7,6 +7,7 @@
 * link:01_intro.adoc[Introduction]
 * link:01b_overview.adoc[What We'll Cover — 5 Patterns]
 * link:01c_domain.adoc[The Domain — A Conference API]
+* link:01d_api_domain_separation.adoc[API Model ≠ Domain Model]
 
 *Ch1 — The Gatekeepers*
 

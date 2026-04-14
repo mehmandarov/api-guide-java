@@ -1,0 +1,49 @@
+=== Foundation — API Model ≠ Domain Model
+==== Your Public Contract Is Not Your Internal Entity
+
+---
+
+The `domain/` package is your internal model — shaped for business rules and storage.
+The `dto/` package is your API contract — shaped for what clients need.
+
+```
+Client ──[JSON]──► SessionDtoV1  ─┐
+                   SessionDtoV2   ├─[.from()]──► Session (domain) ──► Repository
+                   (future V3...) ─┘
+```
+
+==== Why Separate Them?
+
+[cols="1,2,2"]
+|===
+| | ❌ Domain = API contract | ✅ With DTOs
+
+| Rename a field internally | Breaking change for clients | No client impact
+| Add internal-only fields | Exposed in the API | Hidden from clients
+| Evolve response shape per version | Impossible without breakage | Independent — V1 & V2 coexist
+| Validate differently at the boundary | Same rules for storage and API | Separate concerns, separate rules
+|===
+
+==== In This Project
+
+* *Output* ✅ — link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV1.java[SessionDtoV1.from()] /
+  link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV2.java[SessionDtoV2.from()] map `domain → API contract`
+* *Input* ⚠️ — Write endpoints accept `Session` directly as a *deliberate demo simplification*.
+  In production: a `CreateSessionRequest` DTO owns the API input shape, independently of how `Session` is stored.
+
+[NOTE]
+====
+*DDD in a nutshell:* `domain/` is your Aggregate — the source of truth for business rules.
+`dto/` is your Application/Presentation layer — shaped for callers.
+The `.from()` factory is your *Anti-Corruption Layer*: it translates between worlds without letting either side pollute the other. +
+
+_Full DDD (Bounded Contexts, Value Objects, Domain Events) is a talk of its own.
+This three-layer pattern — domain / mapping / contract — is the foundation worth taking home._
+====
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:01c_domain.adoc[⬅️ The Domain] /
+link:02_gatekeepers.adoc[➡️ The Gatekeepers]
+
