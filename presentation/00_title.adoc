@@ -1,14 +1,14 @@
-
 [cols="1,1",frame=none,grid=none]
 |===
-a|
+.^a|
 
 == 🛡️ An Opinionated Guide to Bulletproof APIs with Java
 
+---
 ===== Rustam Mehmandarov
 link:https://rustam.no[@rustam.no]
 
-a|
+.^a|
 image::assets/title_img.png[Title image,500,align="right"]
 |===
 
