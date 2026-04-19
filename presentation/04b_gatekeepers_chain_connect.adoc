@@ -6,23 +6,24 @@
 ```
 Client Request
   │
-  ├─ InputSanitizationFilter     ← JAX-RS filter pipeline
-  ├─ InputSanitizationInterceptor   (runs automatically on every request)
-  ├─ AuditFilter                    (runs on @Audited endpoints)
+  ├─ InputSanitizationFilter        ← JAX-RS filter pipeline
+  ├─ InputSanitizationInterceptor     (runs automatically on every request)
+  ├─ AuditFilter                      (runs on @Audited endpoints)
   │
   ▼
-Resource Method(@Valid Session s) ← Bean Validation runs HERE
+Resource Method(@Valid Session s)   ← Bean Validation runs HERE
         │
         ▼ (fails?)
 ConstraintViolationException
         │
         ▼ (@Provider)
-ConstraintViolationExceptionMapper → 400 + RFC 9457 JSON
+ConstraintViolationExceptionMapper  → 400 + RFC 9457 JSON
 ```
 
 * Filters & interceptors — run *before* the method, managed by JAX-RS
 * `@Valid` — runs *at method entry*, managed by Bean Validation
 * `ExceptionMapper` — runs *after* a failure, managed by JAX-RS
+* RFC 9457 — https://datatracker.ietf.org/doc/html/rfc9457[Problem Details for HTTP APIs]
 
 _Three separate mechanisms. Zero manual wiring. All standard APIs._
 

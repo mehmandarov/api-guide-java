@@ -7,8 +7,8 @@ The `domain/` package is your internal model — shaped for business rules and s
 The `dto/` package is your API contract — shaped for what clients need.
 
 ```
-Client ──[JSON]──► SessionDtoV1  ─┐
-                   SessionDtoV2   ├─[.from()]──► Session (domain) ──► Repository
+Client ──[JSON]──► SessionDtoV1   ─┐
+                   SessionDtoV2    ├─[.from()]──► Session (domain) ──► Repository
                    (future V3...) ─┘
 ```
 
