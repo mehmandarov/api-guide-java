@@ -7,7 +7,8 @@ https://github.com/mehmandarov/api-guide-java
 
 ====== More Resources
 [.small]#https://github.com/mehmandarov/5-features-talk-demo# +
-[.small]#https://github.com/mehmandarov/randomstrings#
+[.small]#https://github.com/mehmandarov/randomstrings# +
+[.small]#https://mehmandarov.com/api-versioning/#
 
 ---
 
