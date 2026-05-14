@@ -62,6 +62,8 @@ curl http://localhost:8080/api/v1/sessions | jq
 
 ## 🔐 JWT Authentication
 
+**Prerequisites:** `openssl` and `uuidgen` (or `/proc/sys/kernel/random/uuid`). Both ship with macOS and most Linux distros. On Windows, run the script under WSL or Git Bash.
+
 Generate test tokens using the included script:
 
 ```bash
@@ -75,15 +77,32 @@ Generate test tokens using the included script:
 ./generate-jwt.sh ATTENDEE
 ```
 
-Use the token:
+> 🚨 **First-run side effect:** if `/tmp/confapi_private.pem` doesn't exist, the script generates a fresh RSA key pair and **overwrites `src/main/resources/META-INF/publicKey.pem`**. You must rebuild and restart the runtime afterwards so it picks up the new public key. Subsequent runs reuse the existing key and have no side effects.
+
+Use the token from the command line:
 
 ```bash
+# The JWT is the only line in the script's output that starts with "ey"
+# (RS256 tokens always begin with the base64-encoded header {"alg":"RS256",...})
 TOKEN=$(./generate-jwt.sh ORGANIZER 2>/dev/null | grep -E '^ey')
 curl -H "Authorization: Bearer $TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"title":"New Session","abstract":"Description","level":"BEGINNER","speakerId":"spk-duke","startTime":"2026-10-16T11:00:00","durationMinutes":50}' \
      http://localhost:8080/api/v1/sessions
 ```
+
+Or use it from the [`.http` files](http/): copy the token into [`http/http-client.env.json`](http/http-client.env.json) under `jwt_organizer` / `jwt_speaker` / `jwt_attendee`, then fire requests from any `.http` file.
+
+### Two key pairs — runtime vs. tests
+
+The project uses **two independent RSA key pairs**, on purpose:
+
+| Used by | Private key | Public key (verifier side) |
+|---|---|---|
+| **Runtime** (live app + `generate-jwt.sh`) | `/tmp/confapi_private.pem` (generated on first script run) | `src/main/resources/META-INF/publicKey.pem` |
+| **Integration tests** | `src/test/resources/test-private-key.pem` (committed) | Loaded by the test container via `mp.jwt.verify.publickey.location` from test resources |
+
+This means a token generated with `./generate-jwt.sh` works against the **running app**, not against the test container — and vice versa. If you regenerate the runtime key, tests are unaffected.
 
 ## 📊 Observability
 
@@ -148,6 +167,20 @@ All errors return RFC 9457 Problem Details (`application/problem+json`):
   }
 }
 ```
+
+## 🌐 Try the API — `.http` files
+
+Ready-to-run requests for every demo live in [`http/`](http/). Open them in JetBrains IDEs or VS Code (REST Client extension) and fire requests one click at a time.
+
+| File | Use it for |
+|---|---|
+| [`http/demos.http`](http/demos.http) | **Presenter's walkthrough** — every demo from the talk, in slide order |
+| [`http/sessions.http`](http/sessions.http), [`speakers.http`](http/speakers.http), [`rooms.http`](http/rooms.http) | Per-resource CRUD reference |
+| [`http/security.http`](http/security.http), [`signatures.http`](http/signatures.http) | JWT/RBAC + HMAC signature flows |
+| [`http/versioning.http`](http/versioning.http) | URI vs. header-based versioning |
+| [`http/health.http`](http/health.http), [`errors.http`](http/errors.http) | Health probes and RFC 9457 Problem Details |
+
+See [`http/README.md`](http/README.md) for the full catalogue, setup steps, and a chapter → file map.
 
 ## 📁 Project Structure
 

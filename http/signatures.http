@@ -1,0 +1,49 @@
+### ============================================================
+### Request Signature (HMAC-SHA256) — @SignatureRequired demo
+### ============================================================
+### Backed by: src/main/java/.../security/RequestSignatureFilter.java
+### Binding:   @SignatureRequired
+### Secret:    api.signature.secret  (default "change-me-in-production")
+###
+### ⚠️  IMPORTANT — current state of the codebase:
+### The RequestSignatureFilter and the @SignatureRequired binding are
+### implemented, but NO resource method currently carries the
+### @SignatureRequired annotation. As-is, none of the requests below
+### will trigger the filter. To run this demo live, add @SignatureRequired
+### to a method (e.g. SessionResourceV1.createSession) and rebuild.
+###
+### Computing the signature for the requests below:
+###   echo -n '<exact-body>' | openssl dgst -sha256 -hmac 'change-me-in-production' -hex
+### Then paste the hex digest into the X-Signature header.
+### ============================================================
+
+
+### Demo 1 — Missing X-Signature header → 401 "Missing X-Signature header"
+### (only fires once @SignatureRequired is applied to this endpoint)
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{"title":"Signed payload","abstract":"Test","level":"BEGINNER","speakerId":"spk-duke","startTime":"2026-10-16T11:00:00","durationMinutes":50}
+
+
+### Demo 2 — Wrong signature → 401 "Invalid request signature"
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+X-Signature: deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef
+
+{"title":"Signed payload","abstract":"Test","level":"BEGINNER","speakerId":"spk-duke","startTime":"2026-10-16T11:00:00","durationMinutes":50}
+
+
+### Demo 3 — Valid signature → 201 Created
+### Recompute the digest if you change a single byte of the body!
+###   body='{"title":"Signed payload","abstract":"Test","level":"BEGINNER","speakerId":"spk-duke","startTime":"2026-10-16T11:00:00","durationMinutes":50}'
+###   echo -n "$body" | openssl dgst -sha256 -hmac 'change-me-in-production' -hex
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+X-Signature: REPLACE_WITH_HEX_DIGEST_FROM_OPENSSL
+
+{"title":"Signed payload","abstract":"Test","level":"BEGINNER","speakerId":"spk-duke","startTime":"2026-10-16T11:00:00","durationMinutes":50}
+

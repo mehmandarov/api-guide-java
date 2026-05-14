@@ -1,0 +1,280 @@
+### ============================================================
+### 🎤 Demos — Walkthrough in talk order
+### ============================================================
+### This file mirrors the demo flow of the talk and the
+### slides in /presentation. Run requests top-to-bottom during the
+### talk. Each section is labelled with the slide / chapter it backs.
+###
+### Setup once before the talk:
+###   ./generate-jwt.sh ORGANIZER   → paste into http-client.env.json as jwt_organizer
+###   ./generate-jwt.sh ATTENDEE    → paste as jwt_attendee
+###   ./generate-jwt.sh SPEAKER     → paste as jwt_speaker
+###   docker compose up -d          → starts Jaeger on http://localhost:16686
+### ============================================================
+
+
+### ============================================================
+### 0. Intro — show the running app (slide 01)
+### ============================================================
+
+### "Same WAR, no runtime-specific code"
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+
+
+### ============================================================
+### 0.5 API Model ≠ Domain Model (slide 01d)
+### ============================================================
+### Same domain, two API shapes. Show v1 (flat) vs v2 (enriched).
+
+### V1 — flat DTO with foreign-key IDs
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+
+### V2 — enriched DTO with embedded speaker + room
+GET http://localhost:8080/api/v2/sessions
+Accept: application/json
+
+
+### ============================================================
+### Ch1. The Gatekeepers — sanitization & validation (slides 02–04b)
+### ============================================================
+
+### Demo 1 — HTML/script tags in BODY get stripped (ReaderInterceptor)
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Safe Session <script>alert('xss')</script>",
+  "abstract": "Clean abstract <b>bold</b> text.",
+  "level": "INTERMEDIATE",
+  "track": "Security",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Demo 2 — HTML in QUERY PARAMS gets stripped (@PreMatching filter)
+GET http://localhost:8080/api/v1/sessions?track=<script>alert(1)</script>Cloud
+Accept: application/json
+
+### Demo 3 — Bean Validation: empty title + bad duration → 400 with violations[]
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "",
+  "level": "BEGINNER",
+  "speakerId": "spk-duke",
+  "durationMinutes": 5
+}
+
+### Demo 4 — Custom @NoProfanity validator rejects "phishing"
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Learn about phishing attacks",
+  "abstract": "This title contains a blocked word.",
+  "level": "BEGINNER",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Demo 5 — Audit filter (@Audited) fires here; check server logs for
+### "[AUDIT] method=POST uri=... caller=organizer status=201 elapsedMs=..."
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Audited Session Creation",
+  "abstract": "Watch the audit log for this one.",
+  "level": "INTERMEDIATE",
+  "track": "Observability",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T13:00:00",
+  "durationMinutes": 50
+}
+
+
+### ============================================================
+### Ch2. The Security Shield — JWT + RBAC (slides 05–07)
+### ============================================================
+
+### Demo 1 — No token → 401 Problem Details
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+
+{
+  "title": "Unauthorized Session",
+  "abstract": "This should fail.",
+  "level": "BEGINNER",
+  "track": "Test",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Demo 2 — ATTENDEE role → 403 Forbidden
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_attendee}}
+
+{
+  "title": "Forbidden Session",
+  "abstract": "ATTENDEEs cannot create sessions.",
+  "level": "BEGINNER",
+  "track": "Test",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Demo 3 — ORGANIZER role → 201 Created 🎉
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "Authorized Session",
+  "abstract": "ORGANIZERs can create sessions.",
+  "level": "ADVANCED",
+  "track": "Security",
+  "speakerId": "spk-duke",
+  "roomId": "room-hall-a",
+  "startTime": "2026-10-16T14:00:00",
+  "durationMinutes": 50
+}
+
+### Demo 4 — Read endpoints are @PermitAll — no token needed
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+
+### Demo 5 — Request Signature (HMAC) → see http/signatures.http
+### NOTE: the @SignatureRequired binding is currently not applied to any
+### endpoint. To run this demo live, annotate one resource method with
+### @SignatureRequired. See signatures.http for details.
+
+
+### ============================================================
+### Ch3. The Lens — Observability (slides 08–10)
+### ============================================================
+
+### Demo 1 — Liveness probe (process alive?)
+GET http://localhost:8080/health/live
+Accept: application/json
+
+### Demo 2 — Readiness probe (data loaded? sessionCount > 0)
+GET http://localhost:8080/health/ready
+Accept: application/json
+
+### Demo 3 — Combined health (liveness + readiness)
+GET http://localhost:8080/health
+Accept: application/json
+
+### Demo 4 — Server auto-generates X-Request-Id (check response headers)
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+
+### Demo 5 — Client-supplied X-Request-Id is preserved (check it echoes back)
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+X-Request-Id: demo-correlation-12345
+
+### Demo 6 — Tracing: make a few calls, then open Jaeger:
+###   http://localhost:16686  → service: confapi
+###   Look for span attributes: api.version, resource.id, enduser.id, x-request-id
+GET http://localhost:8080/api/v2/sessions/sess-cloud-native-java
+Accept: application/json
+X-Request-Id: trace-demo-1
+
+
+### ============================================================
+### Ch4. The Living Contract — OpenAPI (slides 11–12b)
+### ============================================================
+
+### Demo 1 — Generated OpenAPI doc (YAML)
+GET http://localhost:8080/openapi
+Accept: application/yaml
+
+### Demo 2 — Same doc as JSON
+GET http://localhost:8080/openapi
+Accept: application/json
+
+### Demo 3 — OASFilter effect: every operation has a 500 response and
+### every response has the X-Request-Id header (see ConferenceOASFilter.java).
+### Search the YAML output of demo 1 for "X-Request-Id" and "500".
+
+
+### ============================================================
+### Ch5. The Evolution — API Versioning (slides 13–14b)
+### ============================================================
+
+### Demo 1 — URI versioning: V1 (flat)
+GET http://localhost:8080/api/v1/sessions
+Accept: application/json
+
+### Demo 2 — URI versioning: V2 (enriched, embedded speaker/room)
+GET http://localhost:8080/api/v2/sessions
+Accept: application/json
+
+### Demo 3 — Header versioning: X-API-Version routes /api/sessions → V2
+GET http://localhost:8080/api/sessions
+Accept: application/json
+X-API-Version: 2
+
+### Demo 4 — Header versioning: X-API-Version → V1
+GET http://localhost:8080/api/sessions
+Accept: application/json
+X-API-Version: 1
+
+### Demo 5 — Accept-header parameter versioning
+GET http://localhost:8080/api/sessions
+Accept: application/json; version=2
+
+
+### ============================================================
+### Ch6. Sane Error Handling — RFC 9457 (slides 15–16)
+### ============================================================
+
+### Demo 1 — 404 Problem Details
+GET http://localhost:8080/api/v1/sessions/does-not-exist
+Accept: application/json
+
+### Demo 2 — 400 Problem Details with violations[]
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+Authorization: Bearer {{jwt_organizer}}
+
+{
+  "title": "",
+  "level": "BEGINNER",
+  "speakerId": "spk-duke",
+  "durationMinutes": 5
+}
+
+### Demo 3 — 401 Problem Details with WWW-Authenticate header
+POST http://localhost:8080/api/v1/sessions
+Content-Type: application/json
+
+{
+  "title": "No token",
+  "level": "BEGINNER",
+  "speakerId": "spk-duke",
+  "startTime": "2026-10-16T11:00:00",
+  "durationMinutes": 50
+}
+
+### Demo 4 — 403 Problem Details (wrong role)
+DELETE http://localhost:8080/api/v1/sessions/sess-cloud-native-java
+Authorization: Bearer {{jwt_attendee}}
+
+### Demo 5 — Content-Type is application/problem+json — clients can detect errors
+GET http://localhost:8080/api/v1/sessions/does-not-exist
+Accept: application/problem+json
+

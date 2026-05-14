@@ -8,10 +8,22 @@
 #
 # Roles: ORGANIZER (default), SPEAKER, ATTENDEE
 #
-# Prerequisites: openssl, base64 (macOS/Linux built-in)
+# Prerequisites: openssl, base64, uuidgen (macOS/Linux built-in;
+# on Windows use WSL or Git Bash).
 #
-# The script uses the private key at /tmp/confapi_private.pem
-# (generated during project setup). If missing, it creates one.
+# Keys:
+#   Private key → /tmp/confapi_private.pem  (runtime use only)
+#   Public key  → src/main/resources/META-INF/publicKey.pem
+#
+# ⚠️  FIRST-RUN SIDE EFFECT: if the private key is missing, this
+#     script generates a fresh RSA-2048 key pair AND OVERWRITES the
+#     committed src/main/resources/META-INF/publicKey.pem. You must
+#     rebuild and restart the runtime afterwards. Subsequent runs
+#     reuse the existing key and have no side effects.
+#
+# Note: Integration tests use a separate, committed key at
+#       src/test/resources/test-private-key.pem — they are unaffected
+#       by this script.
 # ============================================================
 
 set -euo pipefail
