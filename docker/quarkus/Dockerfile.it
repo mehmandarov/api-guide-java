@@ -1,0 +1,13 @@
+# syntax=docker/dockerfile:1.7
+# ============================================================
+# Conference API — Integration-test image (Quarkus)
+# ============================================================
+# Single-stage. Assumes `mvn package -Pquarkus` has already produced
+# target/quarkus-app/. Used by Testcontainers via ConfApiContainer.
+# ============================================================
+FROM eclipse-temurin:25-jre-alpine
+COPY quarkus-app /app
+WORKDIR /app
+EXPOSE 8080
+CMD ["java", "-jar", "quarkus-run.jar"]
+

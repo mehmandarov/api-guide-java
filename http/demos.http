@@ -39,6 +39,39 @@ Accept: application/json
 ### ============================================================
 ### Ch1. The Gatekeepers — sanitization & validation (slides 02–04b)
 ### ============================================================
+###
+### What you need before running this section:
+###   1. App is running:        mvn quarkus:dev -Pquarkus    (or via docker compose)
+###   2. ORGANIZER token is set: ./generate-jwt.sh ORGANIZER
+###                              → copy the line starting with "ey..." into
+###                                http/http-client.env.json under "jwt_organizer"
+###      (Demos 1, 3, 4, 5 POST a new session → require ORGANIZER role.
+###       Demo 2 is a GET → no token needed.)
+###   3. Server logs are visible (Demo 5 verifies via the AUDIT log line —
+###      tail your Quarkus terminal or `docker compose logs -f confapi`).
+###
+### What each demo proves:
+###   1. ReaderInterceptor strips <script>/<b> from JSON BODY fields.
+###      → 201 Created, then GET the new id and confirm title/abstract are clean.
+###   2. SanitizationFilter (@PreMatching) strips HTML from QUERY PARAMS.
+###      → 200 OK, response body lists sessions filtered by "Cloud" (not the
+###        injected script tag).
+###   3. Bean Validation (@Valid + @NotBlank, @Min) fires before the resource
+###      method runs. → 400 with RFC 9457 problem+json containing violations[].
+###   4. Custom @NoProfanity ConstraintValidator rejects blocked words.
+###      → 400 with violation { field: "title", message: contains profanity }.
+###   5. @Audited NameBinding triggers AuditFilter on the matched endpoint.
+###      → 201 Created AND two log lines in the server terminal:
+###          [AUDIT] >>> POST .../sessions | caller=organizer
+###          [AUDIT] <<< POST .../sessions | status=201 | elapsed=Nms
+###
+### Troubleshooting:
+###   • 401 Unauthorized on a POST → jwt_organizer is missing/expired in
+###     http-client.env.json. Re-run ./generate-jwt.sh ORGANIZER.
+###   • 403 Forbidden                 → you accidentally used jwt_attendee.
+###   • 415 Unsupported Media Type    → Content-Type: application/json header
+###                                     missing on a POST.
+### ============================================================
 
 ### Demo 1 — HTML/script tags in BODY get stripped (ReaderInterceptor)
 POST http://localhost:8080/api/v1/sessions
@@ -104,6 +137,38 @@ Authorization: Bearer {{jwt_organizer}}
 
 ### ============================================================
 ### Ch2. The Security Shield — JWT + RBAC (slides 05–07)
+### ============================================================
+###
+### What you need before running this section:
+###   1. App is running (mvn quarkus:dev -Pquarkus or docker compose up).
+###   2. Three JWTs in http/http-client.env.json:
+###        jwt_organizer   ← ./generate-jwt.sh ORGANIZER
+###        jwt_attendee    ← ./generate-jwt.sh ATTENDEE
+###        (jwt_speaker not needed for these 5 demos)
+###   3. The runtime public key must match the script's private key.
+###      First-time ./generate-jwt.sh run regenerates the key pair AND
+###      overwrites src/main/resources/META-INF/publicKey.pem — you must
+###      restart the app after that. Subsequent runs reuse the same keys.
+###
+### What each demo proves:
+###   1. No Authorization header → 401 Unauthorized + RFC 9457 problem+json
+###      + WWW-Authenticate: Bearer header (the MicroProfile JWT spec).
+###   2. Valid token but wrong role (ATTENDEE on a POST that requires
+###      ORGANIZER) → 403 Forbidden, problem+json.
+###   3. Valid token + correct role (ORGANIZER) → 201 Created. Note the
+###      Location header pointing at the new resource.
+###   4. Read endpoints are @PermitAll — same GET works without any token.
+###   5. HMAC request signatures are demoed in http/signatures.http.
+###      The @SignatureRequired binding is not applied to any endpoint by
+###      default — see the note on that demo.
+###
+### Troubleshooting:
+###   • 401 even with a token  → token expired (script sets short exp) OR
+###     the runtime public key was regenerated without restarting the app.
+###   • 401 right after running generate-jwt.sh for the first time
+###     → restart the app to load the new publicKey.pem.
+###   • 403 where you expected 201 → wrong token variable (jwt_attendee vs
+###     jwt_organizer). Check http-client.env.json.
 ### ============================================================
 
 ### Demo 1 — No token → 401 Problem Details
@@ -240,6 +305,41 @@ Accept: application/json; version=2
 
 ### ============================================================
 ### Ch6. Sane Error Handling — RFC 9457 (slides 15–16)
+### ============================================================
+###
+### What you need before running this section:
+###   1. App is running.
+###   2. jwt_organizer set (only Demo 2 actually needs it — sending a
+###      bad payload with a valid token to trigger validation, not auth).
+###   3. jwt_attendee set for Demo 4 (DELETE while logged in as a non-
+###      ORGANIZER → triggers 403, not 401).
+###
+### What each demo proves: every error response is
+###   • status code that matches reality (404 / 400 / 401 / 403),
+###   • Content-Type: application/problem+json,
+###   • body shaped per RFC 9457 (type, title, status, detail, instance,
+###     plus an extensions object for domain-specific data such as
+###     violations[] on 400s).
+###
+###   1. 404 — unknown id → NotFoundExceptionMapper produces problem+json.
+###   2. 400 — Bean Validation fails before the handler runs → mapper
+###      collects ConstraintViolations into extensions.violations[].
+###   3. 401 — no JWT on a protected POST → AuthenticationExceptionMapper
+###      adds the WWW-Authenticate: Bearer header (RFC 6750 + 9457).
+###   4. 403 — valid JWT, wrong role → ForbiddenExceptionMapper.
+###   5. Clients that explicitly Accept: application/problem+json still
+###      get the same response → mappers always serialize as problem+json.
+###
+### Troubleshooting:
+###   • Error body is plain text or HTML → the runtime's default error
+###     page is being served instead of the mapper. Confirm the mapper
+###     classes are scanned (no @ApplicationPath restriction excluding
+###     them) and that ApiApplication doesn't pin a getClasses() list
+###     that omits them.
+###   • 415 instead of 400 on Demo 2 → missing Content-Type header on
+###     the POST body.
+###   • 500 instead of 4xx → an unmapped exception is leaking; check the
+###     server log and add/extend the corresponding ExceptionMapper.
 ### ============================================================
 
 ### Demo 1 — 404 Problem Details

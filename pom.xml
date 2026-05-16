@@ -13,8 +13,8 @@
     <description>Demo repo for "An Opinionated Guide to Bulletproof APIs with Java"</description>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jakarta.ee.version>11.0.0</jakarta.ee.version>
         <microprofile.version>7.0</microprofile.version>
@@ -39,19 +39,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- OpenTelemetry API (for manual span enrichment) -->
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-api</artifactId>
-            <version>1.44.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-instrumentation-annotations</artifactId>
-            <version>2.11.0</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- OpenTelemetry API:
+             Intentionally NOT declared here. It is brought in transitively
+             by each runtime's own OTel extension (e.g. quarkus-opentelemetry
+             in the -Pquarkus profile), which guarantees a consistent
+             API/SDK/instrumentation version set. Pinning it here caused
+             NoSuchMethodError between API and SDK at runtime. -->
 
         <!-- Test -->
         <dependency>
@@ -106,7 +99,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <release>21</release>
+                    <release>25</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -156,7 +149,7 @@
         <profile>
             <id>quarkus</id>
             <properties>
-                <quarkus.version>3.17.5</quarkus.version>
+                <quarkus.version>3.35.3</quarkus.version>
             </properties>
             <dependencyManagement>
                 <dependencies>

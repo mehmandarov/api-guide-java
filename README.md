@@ -27,11 +27,17 @@ This project demonstrates **5 essential patterns** for building production-grade
 
 ### Prerequisites
 
-- Java 21+
+- Java 25+
 - Maven 3.9+
-- Docker (required for integration tests, optional for Jaeger traces)
+- Docker (required for integration tests, container runs, and Jaeger traces)
 
-### Option 1: Quarkus
+You can either run the app **locally on the JVM** (best for dev — live reload, fast feedback) or **fully in Docker** alongside Jaeger via Docker Compose.
+
+---
+
+### A. Run locally on the JVM
+
+#### Option 1: Quarkus (dev mode, live reload)
 
 ```bash
 mvn clean compile quarkus:dev -Pquarkus
@@ -39,7 +45,7 @@ mvn clean compile quarkus:dev -Pquarkus
 
 The app starts at `http://localhost:8080`. Quarkus dev mode enables live reload.
 
-### Option 2: Open Liberty
+#### Option 2: Open Liberty
 
 ```bash
 mvn clean package liberty:dev -Pliberty
@@ -47,18 +53,57 @@ mvn clean package liberty:dev -Pliberty
 
 Open Liberty dev mode at `http://localhost:8080`.
 
-### Option 3: Helidon
+#### Option 3: Helidon
 
 ```bash
 mvn clean package -Phelidon
 java -jar target/confapi.jar
 ```
 
-### Verify it works
+#### Verify it works
 
 ```bash
 curl http://localhost:8080/api/v1/sessions | jq
 ```
+
+> When the app runs locally, OpenTelemetry exports traces to `http://localhost:4317` (the value baked into `microprofile-config.properties`). Start just Jaeger with `docker compose up -d jaeger` to collect them — see **[Observability](#-observability)** below.
+
+---
+
+### B. Run in Docker (app + Jaeger via Docker Compose)
+
+The repo ships with Dockerfiles under [`docker/`](docker/) (one folder per runtime — see [`docker/README.md`](docker/README.md)) and a [`docker-compose.yml`](docker-compose.yml) that brings up the app and Jaeger together on a shared network. The compose `confapi` service builds from [`docker/quarkus/Dockerfile`](docker/quarkus/Dockerfile) (multi-stage, JDK 25 → JRE 25, Quarkus fast-jar).
+
+```bash
+# Build the image and start everything
+docker compose up -d --build
+
+# Tail app logs
+docker compose logs -f confapi
+
+# Verify it works
+curl http://localhost:8080/api/v1/sessions | jq
+
+# Stop everything
+docker compose down
+```
+
+Services:
+
+| Service | URL | Purpose |
+|---|---|---|
+| `confapi` | http://localhost:8080 | The API |
+| `jaeger`  | http://localhost:16686 | Jaeger UI (search service `confapi`) |
+
+**How the networking works:** Compose puts both services on a shared bridge network where containers resolve each other by **service name**. The compose file overrides `OTEL_EXPORTER_OTLP_ENDPOINT` to `http://jaeger:4317` for the `confapi` container, so the in-repo `microprofile-config.properties` value (`localhost:4317`) is untouched — local non-Docker dev keeps working unchanged.
+
+**Rebuild after code changes:**
+
+```bash
+docker compose up -d --build confapi
+```
+
+> The shipped Compose setup targets the **Quarkus** profile via `docker/quarkus/Dockerfile`. Liberty/Helidon equivalents would live alongside it as `docker/liberty/Dockerfile` etc. — the Testcontainers `.it` variants are already in place.
 
 ## 🔐 JWT Authentication
 
@@ -106,13 +151,17 @@ This means a token generated with `./generate-jwt.sh` works against the **runnin
 
 ## 📊 Observability
 
-Start the Jaeger trace collector:
+Traces are exported via OTLP/gRPC to a collector. Pick whichever startup matches how you're running the app:
 
 ```bash
-docker compose up -d
+# App running locally on the JVM → start only Jaeger
+docker compose up -d jaeger
+
+# App running in Docker → app + Jaeger come up together
+docker compose up -d --build
 ```
 
-Then make some API calls. View traces at: **http://localhost:16686**
+Then make some API calls and view traces at **http://localhost:16686** (service name: `confapi`).
 
 Health checks:
 
@@ -223,7 +272,7 @@ src/test/java/com/mehmandarov/confapi/
 
 ### Prerequisites
 
-- **Java 21+** and **Maven 3.9+** — for all tests
+- **Java 25+** and **Maven 3.9+** — for all tests
 - **Docker** — required for integration tests (Testcontainers builds and runs the app in a container)
 
 > **Colima / non-default Docker socket?** Set `DOCKER_HOST` before running:

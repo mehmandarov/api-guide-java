@@ -1,7 +1,8 @@
-# docker-compose.yml — Local observability stack for the Conference API
+# docker-compose.yml — Local observability stack + containerized Conference API
 #
-# Start with: docker compose up -d
-# Jaeger UI: http://localhost:16686
+# Start with: docker compose up -d --build
+# App:        http://localhost:8080
+# Jaeger UI:  http://localhost:16686  (search for service "confapi")
 
 services:
   jaeger:
@@ -12,4 +13,20 @@ services:
       - "16686:16686"   # Jaeger UI
     environment:
       COLLECTOR_OTLP_ENABLED: "true"
+
+  confapi:
+    build:
+      context: .
+      dockerfile: docker/quarkus/Dockerfile
+    image: confapi:local
+    depends_on:
+      - jaeger
+    ports:
+      - "8080:8080"
+    environment:
+      # Containers reach each other by service name on the Compose network.
+      # Overrides the "localhost:4317" baked into microprofile-config.properties,
+      # so local (non-Docker) dev keeps working unchanged.
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://jaeger:4317"
+      OTEL_SERVICE_NAME: "confapi"
 

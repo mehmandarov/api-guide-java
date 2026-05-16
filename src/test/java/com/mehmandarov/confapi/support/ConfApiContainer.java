@@ -59,6 +59,10 @@ public class ConfApiContainer extends GenericContainer<ConfApiContainer> {
     }
 
     // ── Image builders — one per runtime ───────────────────────────
+    //
+    // Dockerfiles live under docker/<runtime>/Dockerfile.it so they get
+    // proper syntax highlighting, linting, and diffs (instead of being
+    // embedded as Java text blocks).
 
     private static ImageFromDockerfile buildImage() {
         String runtime = System.getProperty("runtime.profile", "quarkus");
@@ -74,24 +78,16 @@ public class ConfApiContainer extends GenericContainer<ConfApiContainer> {
 
     private static ImageFromDockerfile quarkusImage() {
         return new ImageFromDockerfile("confapi-it", false)
-                .withFileFromString("Dockerfile", """
-                        FROM eclipse-temurin:21-jre-alpine
-                        COPY quarkus-app /app
-                        WORKDIR /app
-                        EXPOSE %d
-                        CMD ["java", "-jar", "quarkus-run.jar"]
-                        """.formatted(HTTP_PORT))
-                .withFileFromPath("quarkus-app", Path.of("target/quarkus-app"));
+                .withFileFromPath("Dockerfile",
+                        Path.of("docker/quarkus/Dockerfile.it"))
+                .withFileFromPath("quarkus-app",
+                        Path.of("target/quarkus-app"));
     }
 
     private static ImageFromDockerfile libertyImage() {
         return new ImageFromDockerfile("confapi-it-liberty", false)
-                .withFileFromString("Dockerfile", """
-                        FROM icr.io/appcafe/open-liberty:full-java21-openj9-ubi
-                        COPY server.xml /config/server.xml
-                        COPY confapi.war /config/apps/confapi.war
-                        EXPOSE %d
-                        """.formatted(HTTP_PORT))
+                .withFileFromPath("Dockerfile",
+                        Path.of("docker/liberty/Dockerfile.it"))
                 .withFileFromPath("server.xml",
                         Path.of("src/main/liberty/config/server.xml"))
                 .withFileFromPath("confapi.war",
@@ -100,15 +96,9 @@ public class ConfApiContainer extends GenericContainer<ConfApiContainer> {
 
     private static ImageFromDockerfile helidonImage() {
         return new ImageFromDockerfile("confapi-it-helidon", false)
-                .withFileFromString("Dockerfile", """
-                        FROM eclipse-temurin:21-jre-alpine
-                        COPY confapi.jar /app/confapi.jar
-                        WORKDIR /app
-                        EXPOSE %d
-                        CMD ["java", "-jar", "confapi.jar"]
-                        """.formatted(HTTP_PORT))
+                .withFileFromPath("Dockerfile",
+                        Path.of("docker/helidon/Dockerfile.it"))
                 .withFileFromPath("confapi.jar",
                         Path.of("target/confapi.jar"));
     }
 }
-
