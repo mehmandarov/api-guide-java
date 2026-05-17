@@ -25,8 +25,10 @@ Content-Type: `application/problem+json`
 
 Built with: link:../src/main/java/com/mehmandarov/confapi/error/ProblemDetail.java[ProblemDetail.java] — fluent builder with `withType()`, `withExtension()`
 
+[.small]#Why hand-rolled instead of a library? → link:15b_error_handling_libraries.adoc[Libraries & Trade-offs]#
+
 ---
 
 link:toc.adoc[⬆️ TOC] /
 link:14b_evolution_demo.adoc[⬅️ Version Demo] /
-link:16_error_handling_code.adoc[➡️ ExceptionMapper Code]
+link:15b_error_handling_libraries.adoc[➡️ Libraries & Trade-offs]

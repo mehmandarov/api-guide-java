@@ -46,6 +46,7 @@
 *Bonus — Error Handling*
 
 * link:15_error_handling.adoc[RFC 9457 Problem Details]
+* link:15b_error_handling_libraries.adoc[Libraries & Trade-offs]
 * link:16_error_handling_code.adoc[ExceptionMapper — Code]
 
 *Testing & Wrap-Up*

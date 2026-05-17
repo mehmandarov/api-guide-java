@@ -1,0 +1,53 @@
+=== Bonus — Do I Have to Build This Myself?
+==== RFC 9457 — Libraries & Trade-offs
+
+---
+
+*Short answer*: no. Spring Boot has it built in; on Jakarta there are good options too.
+
+[cols="1,3,2"]
+|===
+| Option | What it gives you | Runtimes
+
+| *Spring Boot 3+* +
+`org.springframework.http.ProblemDetail`
+| Built into the framework. Auto content negotiation, `@ExceptionHandler` integration.
+| Spring only
+
+| *Zalando Problem* +
+`org.zalando:problem` + `jackson-datatype-problem`
+| `Problem` / `ThrowableProblem` types, Jackson serialization. You write a small `ExceptionMapper`.
+| ✅ Quarkus +
+✅ Helidon +
+✅ Open Liberty
+
+| *`quarkus-resteasy-problem`* +
+(Quarkiverse extension)
+| Zero-boilerplate. Auto-maps `ConstraintViolationException`, `WebApplicationException`, and uncaught `Throwable` to `application/problem+json`.
+| ✅ Quarkus only +
+❌ Helidon (Jersey) +
+❌ Liberty (CXF)
+
+| *Hand-rolled record* +
+_(this project)_
+| ~30 lines. Zero deps. Identical on every runtime. Every line visible on a slide.
+| ✅ All three
+|===
+
+==== Why this project picked hand-rolled
+
+* *Portability*: the same artifact deploys on Quarkus, Helidon, and Liberty —
+  `quarkus-resteasy-problem` would only work on one of them.
+* *Clarity for a talk*: the `ExceptionMapper` is the demo — hiding it behind a
+  library would defeat the point.
+* *Tiny surface*: RFC 9457 is just a JSON shape. A record + one mapper per
+  category is honestly less code than wiring up a library.
+
+[.small]#In a Spring shop, use `ProblemDetail`. In a Quarkus-only shop, `quarkus-resteasy-problem` is the fastest path. For cross-runtime Jakarta — Zalando Problem or this hand-rolled approach.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:15_error_handling.adoc[⬅️ RFC 9457] /
+link:16_error_handling_code.adoc[➡️ ExceptionMapper Code]
+

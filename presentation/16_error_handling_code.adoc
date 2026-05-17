@@ -38,5 +38,5 @@ public class ConstraintViolationExceptionMapper
 ---
 
 link:toc.adoc[⬆️ TOC] /
-link:15_error_handling.adoc[⬅️ RFC 9457] /
+link:15b_error_handling_libraries.adoc[⬅️ Libraries & Trade-offs] /
 link:17_testing.adoc[➡️ Testing Strategy]
