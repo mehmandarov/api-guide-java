@@ -17,7 +17,7 @@ This project demonstrates **5 essential patterns** for building production-grade
 
 ## 🏗️ Tech Stack
 
-- **Java 21** (LTS)
+- **Java 25** (LTS)
 - **Jakarta EE 11** (Web Profile)
 - **MicroProfile 7.0** (JWT, OpenAPI, Health, Config, Telemetry)
 - **OpenTelemetry** (tracing)
