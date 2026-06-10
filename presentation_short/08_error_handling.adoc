@@ -1,0 +1,29 @@
+=== Bonus — Sane Error Handling
+==== RFC 9457 Problem Details
+
+---
+
+*The problem*: every API invents its own error format. Clients hate this.
+
+```json
+{
+  "type": "urn:problem-type:validation-error",
+  "title": "Validation Failed",
+  "status": 400,
+  "detail": "The request body or parameters failed validation.",
+  "extensions": {
+    "violations": [ { "field": "title", "message": "Title is required" } ]
+  }
+}
+```
+
+Content-Type: `application/problem+json`
+
+[.small]#📝 Deep dive blog post: link:https://mehmandarov.com/rfc-9457-problem-details-jakarta-ee/[RFC 9457 Problem Details in Jakarta EE].#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:07b_evolution_demo.adoc[⬅️ V1 vs V2] /
+link:08b_error_handling_code.adoc[➡️ ExceptionMapper]
+

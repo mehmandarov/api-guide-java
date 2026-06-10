@@ -1,0 +1,21 @@
+=== Introduction
+==== Jakarta EE 11 + MicroProfile 7 — Zero Vendor Lock-In
+
+---
+
+* "Hello World" endpoints are easy. +
+  *Production-grade* APIs are not.
+* The *gap*: validation, security, observability, versioning, error handling.
+* The *trap*: cross-cutting concerns leaking into business logic.
+
+[.lead]
+*Thesis*: Jakarta EE + MicroProfile already give you the building blocks.
+
+[.small]#⏱️ This is the *short edition* — the full-length talk goes deeper and adds bonus topics.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:00b_about_me.adoc[⬅️ About Me] /
+link:01b_overview.adoc[➡️ What We'll Cover]
+

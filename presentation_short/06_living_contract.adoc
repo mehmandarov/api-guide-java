@@ -1,0 +1,28 @@
+=== Ch4 — The Living Contract
+==== OpenAPI Generated From Code
+
+---
+
+[.lead]
+If your OpenAPI spec drifts from your code, one of them is lying.
+
+[source,java]
+----
+@OpenAPIDefinition(
+    info = @Info(title = "Conference Session API", version = "1.0.0"),
+    tags = { @Tag(name = "Sessions"), @Tag(name = "v2") }
+)
+@SecurityScheme(
+    securitySchemeName = "jwt", type = SecuritySchemeType.HTTP,
+    scheme = "bearer", bearerFormat = "JWT")
+public class ApiApplication extends Application { }
+----
+
+_Zero YAML written. The code IS the contract._
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:05b_observability_tracing.adoc[⬅️ Tracing & Health] /
+link:06b_oasfilter.adoc[➡️ OASFilter]
+

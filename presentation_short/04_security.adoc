@@ -1,0 +1,26 @@
+=== Ch2 — The Security Shield
+==== MicroProfile JWT — The Entire Setup
+
+---
+
+[source,java]
+----
+@ApplicationPath("/api")
+@LoginConfig(authMethod = "MP-JWT", realmName = "conference")
+@DeclareRoles({"ORGANIZER", "SPEAKER", "ATTENDEE"})
+public class ApiApplication extends Application { }
+----
+
+```properties
+mp.jwt.verify.publickey.location=META-INF/publicKey.pem
+mp.jwt.verify.issuer=https://confapi.example.com
+```
+
+_The runtime handles token parsing, signature verification, and claim extraction._
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:03b_gatekeepers_chain.adoc[⬅️ The Filter Chain] /
+link:04b_security_rbac.adoc[➡️ RBAC]
+

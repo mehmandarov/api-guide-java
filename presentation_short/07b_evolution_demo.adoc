@@ -1,0 +1,27 @@
+=== Ch5 — V1 vs V2
+==== One Routing Mechanism, Two Client Options
+
+---
+
+```bash
+# Flat — speakerId only, needs a 2nd call
+curl .../api/v1/sessions | jq '.[0].speakerId'   # "spk-duke"
+
+# Embedded speaker object — no 2nd call
+curl .../api/v2/sessions | jq '.[0].speaker.id'  # {id,name,company}
+
+# Same V2 response, via header
+curl -H "X-API-Version: 2" .../api/sessions
+```
+
+* A `@PreMatching` `HeaderVersionFilter` rewrites header requests onto `/v2/`.
+* V1 & V2 are separate DTOs from the *same* domain object.
+
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/versioning/HeaderVersionFilter.java[HeaderVersionFilter], link:../src/main/java/com/mehmandarov/confapi/resource/v2/SessionResourceV2.java[SessionResourceV2]. *Full talk:* the URI-rewrite filter internals.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:07_evolution.adoc[⬅️ Versioning Strategies] /
+link:08_error_handling.adoc[➡️ Error Handling]
+

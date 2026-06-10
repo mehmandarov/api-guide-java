@@ -1,0 +1,25 @@
+=== Ch2 — RBAC with Annotations
+==== The Annotation IS the Policy
+
+---
+
+[source,java]
+----
+@GET  @PermitAll                       // ← Public read
+public List<SessionDtoV1> listAll() { ... }
+
+@POST @RolesAllowed("ORGANIZER")       // ← Write requires ORGANIZER
+public Response create(@Valid Session session) { ... }
+----
+
+[.lead]
+If your endpoint contains `if (user.hasRole(...))`, something went wrong.
+
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/ApiApplication.java[ApiApplication], link:../src/main/java/com/mehmandarov/confapi/resource/v1/SessionResourceV1.java[SessionResourceV1]. Try the 401→403→201 flow with `./generate-jwt.sh`. *Full talk:* HMAC-SHA256 request signatures + custom claim propagation.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:04_security.adoc[⬅️ JWT Setup] /
+link:05_observability.adoc[➡️ The Lens]
+

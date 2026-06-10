@@ -1,0 +1,19 @@
+[cols="1,1",frame=none,grid=none]
+|===
+.^a|
+
+== 🛡️ An Opinionated Guide to Bulletproof APIs with Java
+==== ⏱️ 5 Patterns in ~25 min
+
+---
+===== Rustam Mehmandarov
+link:https://rustam.no[@ rustam.no]
+
+.^a|
+image::../presentation/assets/title_img.png[Title image,500,align="right"]
+|===
+
+---
+
+link:00b_about_me.adoc[➡️ About Me]
+

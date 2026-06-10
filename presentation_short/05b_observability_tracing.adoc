@@ -1,0 +1,28 @@
+=== Ch3 — Tracing & Health
+==== Enrich Spans With Domain Context
+
+---
+
+[source,java]
+----
+Span span = Span.current();        // no agent? no-op span, zero overhead
+if (span.isRecording()) {
+    span.setAttribute("api.version", "v2");           // search by version
+    span.setAttribute("enduser.id", "duke");           // link to caller
+    span.setAttribute("request.correlation_id", "…");  // link to client
+}
+----
+
+==== Health Checks
+
+* `@Liveness` — is the process alive? → Kubernetes *restarts* the pod
+* `@Readiness` — is the data loaded? → Kubernetes *routes traffic*
+
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/observability/TracingFilter.java[TracingFilter]. *Full talk:* live Jaeger demo + liveness/readiness in depth.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:05_observability.adoc[⬅️ Correlation IDs] /
+link:06_living_contract.adoc[➡️ The Living Contract]
+

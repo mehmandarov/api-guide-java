@@ -1,0 +1,32 @@
+=== Bonus — ExceptionMapper
+==== No `try/catch` in Resources. Ever.
+
+---
+
+[source,java]
+----
+@Provider
+public class ConstraintViolationExceptionMapper
+        implements ExceptionMapper<ConstraintViolationException> {
+    @Override
+    public Response toResponse(ConstraintViolationException ex) {
+        ProblemDetail problem = ProblemDetail.of(400, "Validation Failed")
+            .withType("urn:problem-type:validation-error")
+            .withExtension("violations", toViolations(ex));
+        return Response.status(400).type("application/problem+json")
+                .entity(problem).build();
+    }
+}
+----
+
+* One mapper per category: 400 / 404 / 401 / 403 + a `CatchAll` → 500.
+* `CatchAll` *never leaks stack traces*. Throw → the mapper handles the rest.
+
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/error/ConstraintViolationExceptionMapper.java[mappers] + link:../src/main/java/com/mehmandarov/confapi/error/ProblemDetail.java[ProblemDetail]. *Full talk:* library trade-offs (Spring / Zalando / Quarkus), unknown JSON fields, binary uploads.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:08_error_handling.adoc[⬅️ RFC 9457] /
+link:09_summary.adoc[➡️ Summary]
+

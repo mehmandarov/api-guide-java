@@ -1,0 +1,32 @@
+=== Ch3 — The Lens
+==== Observability ≠ Logging -> Start With Correlation IDs
+
+---
+
+[source,java]
+----
+@Provider
+public class CorrelationIdFilter
+        implements ContainerRequestFilter, ContainerResponseFilter {
+
+    public static final String HEADER_NAME = "X-Request-Id";
+
+    @Override
+    public void filter(ContainerRequestContext request) {
+        String id = request.getHeaderString(HEADER_NAME);
+        if (id == null || id.isBlank()) id = UUID.randomUUID().toString();
+        request.setProperty("correlation.id", id);
+    }
+}
+----
+
+_Client sends `X-Request-Id` → preserved. No header → UUID auto-generated._
+
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/observability/CorrelationIdFilter.java[CorrelationIdFilter].#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:04b_security_rbac.adoc[⬅️ RBAC] /
+link:05b_observability_tracing.adoc[➡️ Tracing & Health]
+

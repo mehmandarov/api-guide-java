@@ -1,0 +1,25 @@
+=== Ch4 — OASFilter
+==== Cross-Cutting Spec Rules in One Place
+
+---
+
+*Problem*: some standards apply to _every_ endpoint — repeating annotations on 20+ methods is fragile.
+
+*Solution*: the runtime calls your `OASFilter.filterOperation()` for every operation.
+
+* Add `X-Request-Id` to every response
+* Add a global 500 response
+* Enforce org-wide standards centrally
+
+```properties
+mp.openapi.filter=com.mehmandarov.confapi.openapi.ConferenceOASFilter
+```
+
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/openapi/ConferenceOASFilter.java[ConferenceOASFilter]. Try `curl localhost:8080/openapi?format=json | jq`. *Full talk:* the complete `filterOperation` walkthrough.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:06_living_contract.adoc[⬅️ OpenAPI From Code] /
+link:07_evolution.adoc[➡️ The Evolution]
+

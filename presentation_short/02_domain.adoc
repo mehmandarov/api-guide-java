@@ -1,0 +1,23 @@
+=== The Domain — A Conference API
+
+---
+
+```
+┌──────────────┐       ┌──────────────┐       ┌──────────────┐
+│   Speaker    │       │   Session    │       │     Room     │
+├──────────────┤       ├──────────────┤       ├──────────────┤
+│ id           │◄──────│ speakerId    │       │ id           │
+│ name         │       │ roomId       │──────►│ name         │
+│ company      │       │ title        │       │ capacity     │
+└──────────────┘       │ startTime    │       └──────────────┘
+                       └──────────────┘
+```
+
+_Simple enough to fit in your head. Enough to demonstrate all 5 patterns._
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:01b_overview.adoc[⬅️ Overview] /
+link:02b_api_domain.adoc[➡️ API ≠ Domain]
+

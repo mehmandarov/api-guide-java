@@ -1,0 +1,24 @@
+=== Foundation — API Model ≠ Domain Model
+
+---
+
+```
+Client ──[JSON]──► SessionDtoV1   ─┐
+                   SessionDtoV2    ├─[.from()]──► Session ──► Repository
+                   (future V3...) ─┘
+```
+
+* `domain/` — internal model, shaped for business rules
+* `dto/` — API contract, shaped for clients, versioned independently
+* `.from()` — the *Anti-Corruption Layer* between the two
+
+_Rename a field internally → zero client impact._
+
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV1.java[SessionDtoV1] / link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV2.java[SessionDtoV2]. Full DDD framing is in the long-form talk.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:02_domain.adoc[⬅️ The Domain] /
+link:03_gatekeepers.adoc[➡️ The Gatekeepers]
+

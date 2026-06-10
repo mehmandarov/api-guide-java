@@ -1,0 +1,27 @@
+=== Thank You! 🎉
+
+---
+
+==== Clone It, Run It, Try It
+
+https://github.com/mehmandarov/api-guide-java
+
+* _Code, tests, integration tests_
+* _Try the `.http` files in link:../http/[http/]_
+
+[.small]_This was the *short edition* — the link:../presentation/toc.adoc[full-length talk] goes deeper on every pattern *plus* three bonus topics._
+
+====== More Resources
+[.small]#https://github.com/mehmandarov/5-features-talk-demo# +
+[.small]#https://github.com/mehmandarov/randomstrings#
+
+---
+
+==== Questions?
+===== Rustam Mehmandarov — link:https://rustam.no[@ rustam.no]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:09_summary.adoc[⬅️ Summary]
+
