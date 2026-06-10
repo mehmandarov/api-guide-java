@@ -1,0 +1,52 @@
+### ============================
+### Binary uploads (demo)
+### ============================
+### Companion to the blog post:
+### "Receiving binary: REST endpoints that take file uploads in Jakarta EE and Quarkus"
+###
+### The /multipart and /raw endpoints use only standard jakarta.ws.rs and run on
+### any Jakarta REST 3.1+ runtime. The /quarkus endpoint requires the Quarkus
+### profile plus the snippet at snippets/QuarkusUploadResource.java.
+###
+### Note: the JetBrains HTTP Client and the VS Code REST Client both support
+### multipart bodies and the `< ./file` syntax for streaming a file from disk.
+### Adjust the file paths below to point at real files on your machine.
+
+### 1. Multipart upload (standard EntityPart): a description + a file part
+POST http://localhost:8080/api/uploads/multipart
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="description"
+
+Conference floor plan
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="floorplan.pdf"
+Content-Type: application/pdf
+
+< ./floorplan.pdf
+--WebAppBoundary--
+
+### 2. Raw binary body (application/octet-stream): the body IS the file
+### Metadata travels in headers since there is no multipart part to carry it.
+POST http://localhost:8080/api/uploads/raw
+Content-Type: image/png
+X-File-Name: headshot.png
+
+< ./headshot.png
+
+### 3. Quarkus @RestForm variant (only when running -Pquarkus with the snippet wired in)
+POST http://localhost:8080/api/uploads/quarkus
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="description"
+
+Speaker headshot
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="headshot.png"
+Content-Type: image/png
+
+< ./headshot.png
+--WebAppBoundary--
+

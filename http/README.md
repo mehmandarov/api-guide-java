@@ -50,6 +50,15 @@ Use these for ad-hoc exploration or when you want all calls for one resource in 
 | [`health.http`](health.http) | MicroProfile Health probes | `GET /health`, `/health/live`, `/health/ready` |
 | [`errors.http`](errors.http) | RFC 9457 Problem Details responses | 404, 400 (validation + profanity), sanitization, OpenAPI |
 
+### ⭐ Bonus demos (blog companions)
+
+These back the standalone bonus features and their companion blog posts.
+
+| File | Covers | Endpoints |
+|---|---|---|
+| [`unknown-fields.http`](unknown-fields.http) | What each JSON provider does with extra fields (JSON-B ignores, stock Jackson throws) — see `Ch7_UnknownFieldsTest` | `GET /api/unknown-fields/{id}` |
+| [`uploads.http`](uploads.http) | Binary uploads via multipart (`EntityPart`) and raw `application/octet-stream`; plus the Quarkus `@RestForm` variant — see `Ch8_UploadIT` | `POST /api/uploads/multipart`, `/api/uploads/raw`, `/api/uploads/quarkus` |
+
 ### ⚙️ Configuration
 
 | File | Purpose |
@@ -70,6 +79,8 @@ If you're looking for the HTTP calls that back a specific chapter of the talk:
 | Ch4 — The Living Contract (OpenAPI) | `demos.http` § Ch4 | `errors.http` (OpenAPI section) |
 | Ch5 — The Evolution (versioning) | `demos.http` § Ch5 | `versioning.http` |
 | Ch6 — Sane Error Handling (RFC 9457) | `demos.http` § Ch6 | `errors.http` |
+| ⭐ Bonus — Unknown JSON fields | `unknown-fields.http` | `Ch7_UnknownFieldsTest` (unit) |
+| ⭐ Bonus — Binary uploads | `uploads.http` | `Ch8_UploadIT` (integration) |
 
 ---
 

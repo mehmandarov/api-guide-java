@@ -1,0 +1,34 @@
+=== Bonus — Unknown JSON Fields
+==== What Each Provider Does With Extra Fields
+
+---
+
+*The trap*: the server adds a new field. Your client maps the response onto a lean DTO. Does it break? *It depends entirely on the JSON provider.*
+
+[cols="1,2,2"]
+|===
+| Provider | Unknown field — default | How to change it
+
+| *JSON-B / Yasson* | ✅ Ignored silently (per the JSON-B spec) | Lenient by default — nothing to do
+| *Jackson (stock)* | ❌ Throws `UnrecognizedPropertyException` | Disable `FAIL_ON_UNKNOWN_PROPERTIES` or add `@JsonIgnoreProperties(ignoreUnknown = true)`
+|===
+
+link:../src/main/java/com/mehmandarov/confapi/unknownfields/UnknownFieldsResource.java[UnknownFieldsResource.java] returns a 6-field room; link:../src/main/java/com/mehmandarov/confapi/unknownfields/Room.java[Room.java] is a lean 3-field record.
+
+[source,java]
+----
+// JSON-B / Yasson — keeps id/name/capacity, ignores the other three
+Room room = jsonb.fromJson(overStuffedJson, Room.class);   // no exception
+
+// Stock Jackson — same payload, blows up
+new JsonMapper().readValue(overStuffedJson, Room.class);   // throws!
+----
+
+[.small]#Proven both ways in link:../src/test/java/com/mehmandarov/confapi/unit/Ch7_UnknownFieldsTest.java[Ch7_UnknownFieldsTest] — companion to the MicroProfile REST Client blog post.#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:16_error_handling_code.adoc[⬅️ ExceptionMapper Code] /
+link:16c_uploads.adoc[➡️ Binary Uploads]
+

@@ -14,6 +14,8 @@ This project demonstrates **5 essential patterns** for building production-grade
 | 4 | **The Living Contract** — OpenAPI as source of truth | `openapi` | MicroProfile OpenAPI, `OASFilter` |
 | 5 | **The Evolution** — API versioning (URI + header-based) | `versioning`, `resource.v1`, `resource.v2` | `@PreMatching` filter, URI rewriting |
 | ⭐ | **Bonus: Sane Error Handling** — RFC 9457 Problem Details | `error` | `ExceptionMapper`, `application/problem+json` |
+| ⭐ | **Bonus: Unknown JSON Fields** — what each provider does with extra fields | `unknownfields` | JSON-B vs Jackson defaults, `@JsonIgnoreProperties` |
+| ⭐ | **Bonus: Binary Uploads** — receiving files as multipart or raw body | `upload` | Jakarta REST `EntityPart`, `application/octet-stream` |
 
 ## 🏗️ Tech Stack
 
@@ -247,15 +249,18 @@ src/main/java/com/mehmandarov/confapi/
 ├── observability/                   # Ch3: Tracing, correlation IDs, health checks
 ├── openapi/                         # Ch4: OASFilter for OpenAPI enrichment
 ├── versioning/                      # Ch5: Header-based version routing
-└── error/                           # Bonus: RFC 9457 Problem Details mappers
+├── error/                           # Bonus: RFC 9457 Problem Details mappers
+├── unknownfields/                   # Bonus: extra-field demo endpoint + lean Room DTO
+└── upload/                          # Bonus: binary uploads (multipart EntityPart + raw body)
 
 src/test/java/com/mehmandarov/confapi/
-├── unit/                            # 48 unit tests (no container, no Docker)
+├── unit/                            # Unit tests (no container, no Docker)
 │   ├── Ch1_GatekeepersTest.java     #   Sanitization, ReaderInterceptor, @NoProfanity
 │   ├── Ch2_SecurityShieldTest.java  #   HMAC-SHA256, constant-time comparison
 │   ├── Ch3_ObservabilityTest.java   #   Correlation ID, health checks
 │   ├── Ch5_EvolutionTest.java       #   V1/V2 DTOs, version detection
-│   └── Ch6_ErrorHandlingTest.java   #   RFC 9457 ProblemDetail builder
+│   ├── Ch6_ErrorHandlingTest.java   #   RFC 9457 ProblemDetail builder
+│   └── Ch7_UnknownFieldsTest.java   #   JSON-B vs Jackson unknown-field defaults
 ├── support/                         # Test infrastructure (runtime-agnostic)
 │   ├── ConfApiContainer.java        #   Singleton Testcontainer (Docker image per runtime)
 │   ├── ConfApiExtension.java        #   JUnit 5 extension (starts container, configures REST Assured)
@@ -265,7 +270,8 @@ src/test/java/com/mehmandarov/confapi/
 ├── Ch3_ObservabilityIT.java         # IT: health checks, X-Request-Id correlation
 ├── Ch4_LivingContractIT.java        # IT: OpenAPI spec structure, security scheme, OASFilter
 ├── Ch5_EvolutionIT.java             # IT: URI + header-based versioning
-└── Ch6_ErrorHandlingIT.java         # IT: 404/400/401/403 → RFC 9457 Problem Details
+├── Ch6_ErrorHandlingIT.java         # IT: 404/400/401/403 → RFC 9457 Problem Details
+└── Ch8_UploadIT.java                # IT (bonus): multipart + raw binary uploads
 ```
 
 ## 🧪 Running the Tests
@@ -280,7 +286,7 @@ src/test/java/com/mehmandarov/confapi/
 > export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
 > ```
 
-### Unit Tests Only (48 tests — fast, no Docker)
+### Unit Tests Only (44 tests — fast, no Docker)
 
 ```bash
 mvn test -Pquarkus
@@ -288,18 +294,18 @@ mvn test -Pquarkus
 
 These run in ~3 seconds. No container, no Docker. Pure JUnit 5.
 
-### Full Suite: Unit + Integration (74 tests)
+### Full Suite: Unit + Integration (82 tests)
 
 ```bash
 mvn verify -Pquarkus
 ```
 
 This:
-1. Compiles and runs 40 unit tests (surefire)
+1. Compiles and runs 44 unit tests (surefire)
 2. Packages the application
 3. Builds a Docker image from the build output (Testcontainers)
 4. Starts the container, waits for `/api/v1/sessions` to return 200
-5. Runs 34 integration tests against the live container (failsafe)
+5. Runs 38 integration tests against the live container (failsafe)
 6. Stops the container
 
 ### How the Integration Tests Work
@@ -321,7 +327,7 @@ mvn verify -Phelidon -Druntime.profile=helidon   # Helidon (future)
 
 ### Test Isolation vs. Startup Time
 
-The integration tests share a **single container** across all 6 IT classes. This keeps the total IT run under 10 seconds (container starts once in ~3 s, then 34 tests run against it).
+The integration tests share a **single container** across all IT classes. This keeps the total IT run under 10 seconds (container starts once in ~3 s, then 38 tests run against it).
 
 **Trade-off:** tests share mutable state. A session created in `Ch2_SecurityShieldIT` is visible to later tests. This is acceptable for a demo API with seed data, but if full isolation is required, replace the singleton in `ConfApiContainer` with a per-class container — at the cost of ~3 s startup per IT class (~18 s total instead of ~7 s).
 
@@ -329,9 +335,9 @@ The integration tests share a **single container** across all 6 IT classes. This
 
 | Phase | Tests | Docker? |
 |-------|-------|---------|
-| Unit (`mvn test`) | 40 | No |
-| Integration (`mvn verify`) | 34 | Yes |
-| **Total** | **74** | |
+| Unit (`mvn test`) | 44 | No |
+| Integration (`mvn verify`) | 38 | Yes |
+| **Total** | **82** | |
 
 ## 📝 License
 

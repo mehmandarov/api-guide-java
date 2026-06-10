@@ -12,6 +12,8 @@
 | 4 | *The Living Contract* | MicroProfile OpenAPI, `OASFilter`
 | 5 | *The Evolution* | `@PreMatching` filter, URI rewriting
 | ⭐ | *Error Handling* | `ExceptionMapper`, RFC 9457 Problem Details
+| ⭐ | *Unknown JSON Fields* | JSON-B vs Jackson defaults, `@JsonIgnoreProperties`
+| ⭐ | *Binary Uploads* | Jakarta REST `EntityPart`, `application/octet-stream`
 |===
 
 _This same artifact runs on Quarkus, Open Liberty, and Helidon. *No runtime-specific code.*_

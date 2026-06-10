@@ -1,0 +1,15 @@
+### ============================
+### Unknown JSON fields (demo)
+### ============================
+### Companion to the blog post:
+### "Extra fields, ignored or not: unknown JSON properties in the MicroProfile REST Client"
+###
+### This endpoint deliberately returns SIX fields. A client mapping the response
+### onto a three-field DTO keeps id/name/capacity and must ignore the rest -
+### whether it does so depends on the JSON provider (JSON-B ignores by default,
+### stock Jackson throws). See the Ch7_UnknownFieldsTest unit test for the proof.
+
+### Get an over-stuffed room payload (id, name, capacity, building, floor, accessibility)
+GET http://localhost:8080/api/unknown-fields/room-7
+Accept: application/json
+

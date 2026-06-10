@@ -1,5 +1,5 @@
 === Testing Strategy
-==== 74 Tests — Runtime-Agnostic by Design
+==== 82 Tests — Runtime-Agnostic by Design
 
 ---
 
@@ -9,9 +9,9 @@
 |===
 | Layer | Tests | How
 
-| *Unit* | 40 | Plain JUnit 5. No container, no Docker. ~3 seconds.
-| *Integration* | 34 | Testcontainers + REST Assured. Real HTTP. ~7 seconds.
-| *Total* | *74* | `mvn verify -Pquarkus`
+| *Unit* | 44 | Plain JUnit 5. No container, no Docker. ~3 seconds.
+| *Integration* | 38 | Testcontainers + REST Assured. Real HTTP. ~7 seconds.
+| *Total* | *82* | `mvn verify -Pquarkus`
 |===
 
 ==== Zero Runtime-Specific Imports in Tests
@@ -28,5 +28,5 @@ REST Assured     → HTTP assertions  ← same for all runtimes
 ---
 
 link:toc.adoc[⬆️ TOC] /
-link:16_error_handling_code.adoc[⬅️ ExceptionMapper Code] /
+link:16c_uploads.adoc[⬅️ Binary Uploads] /
 link:18_testing_isolation.adoc[➡️ Test Isolation]

@@ -11,9 +11,9 @@ link:../src/test/java/com/mehmandarov/confapi/support/ConfApiExtension.java[Conf
 
 ==== Test Isolation vs. Startup Time
 
-* *Singleton container* — starts once (~3 s), shared by all 34 IT tests
+* *Singleton container* — starts once (~3 s), shared by all 38 IT tests
 * Trade-off: tests share mutable state (acceptable for demo with seed data)
-* For full isolation: per-class container (~3 s × 6 classes instead of ~3 s total)
+* For full isolation: per-class container (~3 s × 7 classes instead of ~3 s total)
 
 ==== Running
 

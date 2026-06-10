@@ -49,9 +49,14 @@
 * link:15b_error_handling_libraries.adoc[Libraries & Trade-offs]
 * link:16_error_handling_code.adoc[ExceptionMapper — Code]
 
+*Bonus — More Patterns*
+
+* link:16b_unknown_fields.adoc[Unknown JSON Fields — Provider Defaults]
+* link:16c_uploads.adoc[Binary Uploads — Multipart & Raw]
+
 *Testing & Wrap-Up*
 
-* link:17_testing.adoc[Testing Strategy — 74 Tests]
+* link:17_testing.adoc[Testing Strategy — 82 Tests]
 * link:18_testing_isolation.adoc[Test Isolation & Container Lifecycle]
 * link:19_summary.adoc[Summary]
 * link:20_thank_you.adoc[Thank You]

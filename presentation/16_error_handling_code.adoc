@@ -39,4 +39,4 @@ public class ConstraintViolationExceptionMapper
 
 link:toc.adoc[⬆️ TOC] /
 link:15b_error_handling_libraries.adoc[⬅️ Libraries & Trade-offs] /
-link:17_testing.adoc[➡️ Testing Strategy]
+link:16b_unknown_fields.adoc[➡️ Unknown JSON Fields]
