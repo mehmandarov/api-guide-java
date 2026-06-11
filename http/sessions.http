@@ -1,5 +1,5 @@
 ### ============================
-### Session API — V1 CRUD
+### Session API – V1 CRUD
 ### ============================
 
 ### List all sessions
@@ -32,7 +32,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt_organizer}}
 
 {
-  "title": "Cloud-Native Java in 2026 — Updated",
+  "title": "Cloud-Native Java in 2026 – Updated",
   "abstract": "Updated abstract with new content.",
   "level": "ADVANCED",
   "track": "Cloud",

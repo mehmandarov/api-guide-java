@@ -1,16 +1,16 @@
 ### ============================
-### Observability — MicroProfile Health
+### Observability – MicroProfile Health
 ### ============================
 
 ### Overall health (liveness + readiness combined)
 GET http://localhost:8080/health
 Accept: application/json
 
-### Liveness probe — is the process alive?
+### Liveness probe – is the process alive?
 GET http://localhost:8080/health/live
 Accept: application/json
 
-### Readiness probe — is the app ready to serve traffic?
+### Readiness probe – is the app ready to serve traffic?
 GET http://localhost:8080/health/ready
 Accept: application/json
 

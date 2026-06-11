@@ -18,8 +18,8 @@
 
 *Filters and Mappers* are the backbone. They separate infrastructure from business logic.
 
-* *All standard APIs* — Jakarta EE 11 + MicroProfile 7
-* *Zero vendor lock-in* — same artifact deploys on Quarkus, Liberty, Helidon
+* *All standard APIs* – Jakarta EE 11 + MicroProfile 7
+* *Zero vendor lock-in* – same artifact deploys on Quarkus, Liberty, Helidon
 
 [.small]#🔎 *Want more?* The link:../presentation/toc.adoc[full-length talk] adds more info + request signatures, the Jaeger tracing demo, liveness/readiness internals, the OASFilter walkthrough, version-routing internals, unknown JSON fields, binary uploads, and the testing strategy.#
 

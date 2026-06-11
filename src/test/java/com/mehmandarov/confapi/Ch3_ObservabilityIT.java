@@ -9,17 +9,17 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 /**
- * <strong>Pattern 3: The Lens — End-to-End</strong>
+ * <strong>Pattern 3: The Lens – End-to-End</strong>
  * <p>
  * Proves: health endpoints report system state accurately, and every
  * response carries a correlation ID for end-to-end traceability.
  */
 @ExtendWith(ConfApiExtension.class)
-@DisplayName("Ch3 IT — The Lens (Observability)")
+@DisplayName("Ch3 IT – The Lens (Observability)")
 class Ch3_ObservabilityIT {
 
     @Nested
-    @DisplayName("Health Checks — Kubernetes readiness and liveness probes")
+    @DisplayName("Health Checks – Kubernetes readiness and liveness probes")
     class HealthChecks {
 
         @Test
@@ -52,7 +52,7 @@ class Ch3_ObservabilityIT {
     }
 
     @Nested
-    @DisplayName("Correlation ID — every request/response carries X-Request-Id")
+    @DisplayName("Correlation ID – every request/response carries X-Request-Id")
     class CorrelationId {
 
         @Test

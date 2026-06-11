@@ -1,4 +1,4 @@
-=== Ch1 — The Filter Chain
+=== Ch1 – The Filter Chain
 ==== How Gatekeepers Work
 
 ---
@@ -8,11 +8,11 @@ Client Request
   │
   ▼
 ┌────────────────────────────────┐
-│ InputSanitizationFilter        │  ← @PreMatching — runs before URI matching
+│ InputSanitizationFilter        │  ← @PreMatching – runs before URI matching
 ├────────────────────────────────┤
-│ InputSanitizationInterceptor   │  ← ReaderInterceptor — sanitizes body
+│ InputSanitizationInterceptor   │  ← ReaderInterceptor – sanitizes body
 ├────────────────────────────────┤
-│ AuditFilter                    │  ← @NameBinding — activated on @Audited endpoints
+│ AuditFilter                    │  ← @NameBinding – activated on @Audited endpoints
 ├────────────────────────────────┤
 │ Bean Validation (@Valid)       │  ← @NotBlank, @Size, @Min, @NoProfanity
 └────────────────────────────────┘
@@ -21,10 +21,16 @@ Client Request
 Resource Method (clean input only!)
 ```
 
-_Each layer is a standard Jakarta EE API — no framework magic._
+_Each layer is a standard Jakarta EE API – no framework magic._
 
 ---
 
 link:toc.adoc[⬆️ TOC] /
 link:02_gatekeepers.adoc[⬅️ Gatekeepers] /
 link:03_gatekeepers_sanitization.adoc[➡️ Sanitization Code]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:02_gatekeepers.adoc[⬅️ The Gatekeepers] /
+link:03_gatekeepers_sanitization.adoc[➡️ Input Sanitization]

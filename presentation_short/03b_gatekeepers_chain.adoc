@@ -1,4 +1,4 @@
-=== Ch1 — The Filter Chain
+=== Ch1 – The Filter Chain
 ==== Each Layer Is a Standard Jakarta EE API
 
 ---
@@ -6,9 +6,9 @@
 ```
 Client Request
    │
-   ├─ InputSanitizationFilter      ← @PreMatching — cleans query params
-   ├─ InputSanitizationInterceptor ← ReaderInterceptor — sanitizes the body
-   ├─ AuditFilter                  ← @NameBinding (@Audited) — opt-in
+   ├─ InputSanitizationFilter      ← @PreMatching – cleans query params
+   ├─ InputSanitizationInterceptor ← ReaderInterceptor – sanitizes the body
+   ├─ AuditFilter                  ← @NameBinding (@Audited) – opt-in
    │
    ▼
 Resource(@Valid Session s)         ← @NotBlank, @Size, @NoProfanity
@@ -17,9 +17,9 @@ Resource(@Valid Session s)         ← @NotBlank, @Size, @NoProfanity
 ConstraintViolationExceptionMapper → 400 + RFC 9457 JSON
 ```
 
-_Three mechanisms, zero manual wiring — no framework magic._
+_Three mechanisms, zero manual wiring – no framework magic._
 
-[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/gatekeepers/InputSanitizationFilter.java[InputSanitizationFilter], link:../src/main/java/com/mehmandarov/confapi/gatekeepers/AuditFilter.java[AuditFilter], link:../src/main/java/com/mehmandarov/confapi/gatekeepers/NoProfanityValidator.java[NoProfanityValidator] — clone it and run the tests.#
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/gatekeepers/InputSanitizationFilter.java[InputSanitizationFilter], link:../src/main/java/com/mehmandarov/confapi/gatekeepers/AuditFilter.java[AuditFilter], link:../src/main/java/com/mehmandarov/confapi/gatekeepers/NoProfanityValidator.java[NoProfanityValidator] – clone it and run the tests.#
 
 ---
 

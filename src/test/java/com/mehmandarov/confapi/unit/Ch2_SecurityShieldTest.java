@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests prove: HMAC-SHA256 guarantees payload integrity, and constant-time
  * comparison prevents timing-attack information leaks.
  */
-@DisplayName("Ch2 — The Security Shield")
+@DisplayName("Ch2 – The Security Shield")
 class Ch2_SecurityShieldTest {
 
     private RequestSignatureFilter filter;
@@ -27,7 +27,7 @@ class Ch2_SecurityShieldTest {
     }
 
     @Nested
-    @DisplayName("HMAC-SHA256 Signature — verifying payload integrity")
+    @DisplayName("HMAC-SHA256 Signature – verifying payload integrity")
     class HmacSignature {
 
         @Test
@@ -67,7 +67,7 @@ class Ch2_SecurityShieldTest {
             String sig2 = filter.computeHmac(payload);
 
             assertNotEquals(sig1, sig2,
-                    "A different secret must produce a different signature — this proves the sender has the right key");
+                    "A different secret must produce a different signature – this proves the sender has the right key");
         }
 
         @Test
@@ -80,7 +80,7 @@ class Ch2_SecurityShieldTest {
     }
 
     @Nested
-    @DisplayName("Constant-Time Comparison — preventing timing attacks")
+    @DisplayName("Constant-Time Comparison – preventing timing attacks")
     class TimingSafety {
 
         @Test

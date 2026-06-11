@@ -1,4 +1,4 @@
-=== Ch4 — The Living Contract
+=== Ch4 – The Living Contract
 ==== OpenAPI from Code Annotations
 
 ---
@@ -18,7 +18,7 @@ link:../src/main/java/com/mehmandarov/confapi/ApiApplication.java[ApiApplication
         @Tag(name = "Sessions"),
         @Tag(name = "Speakers"),
         @Tag(name = "Rooms"),
-        @Tag(name = "v2", description = "Version 2 — enriched responses")
+        @Tag(name = "v2", description = "Version 2 – enriched responses")
     }
 )
 @SecurityScheme(
@@ -36,3 +36,9 @@ _Zero YAML files written. The code IS the contract._
 link:toc.adoc[⬆️ TOC] /
 link:10_observability_readiness.adoc[⬅️ Readiness Check] /
 link:12_living_contract_oasfilter.adoc[➡️ OASFilter]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:10_observability_readiness.adoc[⬅️ Readiness Check] /
+link:12_living_contract_oasfilter.adoc[➡️ OpenAPI Specification Filte...]

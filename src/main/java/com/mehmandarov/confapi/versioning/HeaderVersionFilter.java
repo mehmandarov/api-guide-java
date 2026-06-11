@@ -10,7 +10,7 @@ import java.net.URI;
 import java.util.logging.Logger;
 
 /**
- * <strong>The Evolution — Header-based Version Router</strong>
+ * <strong>The Evolution – Header-based Version Router</strong>
  * <p>
  * A {@code @PreMatching} filter that supports <em>header-based</em> API
  * versioning alongside the existing URI-based versioning.
@@ -67,8 +67,7 @@ public class HeaderVersionFilter implements ContainerRequestFilter {
 
             URI newUri = URI.create(newAbsolute);
 
-            LOG.info(() -> String.format(
-                    "[VERSIONING] Rewriting %s → %s (version=%s)",
+            LOG.info(() -> "[VERSIONING] Rewriting %s → %s (version=%s)".formatted(
                     ctx.getUriInfo().getRequestUri(), newUri, version));
 
             ctx.setRequestUri(baseUri, newUri);

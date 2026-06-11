@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-# generate-jwt.sh — Generate test JWTs for the Conference API
+# generate-jwt.sh – Generate test JWTs for the Conference API
 # ============================================================
 #
 # Usage:
@@ -22,7 +22,7 @@
 #     reuse the existing key and have no side effects.
 #
 # Note: Integration tests use a separate, committed key at
-#       src/test/resources/test-private-key.pem — they are unaffected
+#       src/test/resources/test-private-key.pem – they are unaffected
 #       by this script.
 # ============================================================
 
@@ -74,7 +74,7 @@ JWT="${HEADER}.${PAYLOAD}.${SIGNATURE}"
 
 echo ""
 echo "═══════════════════════════════════════════════════════"
-echo "  Generated JWT — Role: $ROLE"
+echo "  Generated JWT – Role: $ROLE"
 echo "═══════════════════════════════════════════════════════"
 echo ""
 echo "$JWT"

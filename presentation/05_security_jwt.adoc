@@ -1,5 +1,5 @@
-=== Ch2 — The Security Shield
-==== MicroProfile JWT — The Entire Setup
+=== Ch2 – The Security Shield
+==== MicroProfile JWT – The Entire Setup
 
 ---
 
@@ -14,7 +14,7 @@ public class ApiApplication extends Application { }
 ----
 
 * That's it. The runtime handles token parsing, signature verification, and claim extraction.
-* Configuration — just two properties:
+* Configuration – just two properties:
 
 link:../src/main/resources/META-INF/microprofile-config.properties[microprofile-config.properties]
 
@@ -24,6 +24,12 @@ mp.jwt.verify.issuer=https://confapi.example.com
 ```
 
 link:../src/main/java/com/mehmandarov/confapi/security/TokenClaimsFilter.java[TokenClaimsFilter.java] extracts custom claims (`speaker_id`, `tenant`) from the JWT and propagates them as request properties.
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:04b_gatekeepers_chain_connect.adoc[⬅️ How It Connects] /
+link:06_security_rbac.adoc[➡️ RBAC with Annotations]
 
 ---
 

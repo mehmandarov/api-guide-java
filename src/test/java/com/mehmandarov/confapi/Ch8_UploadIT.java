@@ -11,26 +11,26 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 /**
- * <strong>Bonus: Binary Uploads — End-to-End</strong>
+ * <strong>Bonus: Binary Uploads – End-to-End</strong>
  * <p>
  * Exercises the portable {@code jakarta.ws.rs} upload endpoints over real HTTP:
  * <ul>
- *   <li>{@code POST /api/uploads/multipart} — a {@code multipart/form-data}
+ *   <li>{@code POST /api/uploads/multipart} – a {@code multipart/form-data}
  *       request with a text part and a binary part, read via {@code EntityPart}.</li>
- *   <li>{@code POST /api/uploads/raw} — a single binary body
+ *   <li>{@code POST /api/uploads/raw} – a single binary body
  *       ({@code application/octet-stream}); the body <em>is</em> the file.</li>
  * </ul>
  * Companion to the blog post "Receiving binary: REST endpoints that take file
  * uploads in Jakarta EE and Quarkus". The Quarkus {@code @RestForm} variant
  * ({@code snippets/QuarkusUploadResource.java}) is intentionally not covered
- * here — it is a reference snippet that is not part of the default build.
+ * here – it is a reference snippet that is not part of the default build.
  */
 @ExtendWith(ConfApiExtension.class)
-@DisplayName("Bonus IT — Binary Uploads")
+@DisplayName("Bonus IT – Binary Uploads")
 class Ch8_UploadIT {
 
     @Nested
-    @DisplayName("Multipart — standard EntityPart")
+    @DisplayName("Multipart – standard EntityPart")
     class Multipart {
 
         @Test
@@ -69,7 +69,7 @@ class Ch8_UploadIT {
     }
 
     @Nested
-    @DisplayName("Raw — application/octet-stream body")
+    @DisplayName("Raw – application/octet-stream body")
     class Raw {
 
         @Test

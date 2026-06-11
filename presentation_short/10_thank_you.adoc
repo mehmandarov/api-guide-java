@@ -9,7 +9,7 @@ https://github.com/mehmandarov/api-guide-java
 * _Code, tests, integration tests_
 * _Try the `.http` files in link:../http/[http/]_
 
-[.small]_This was the *short edition* — the link:../presentation/toc.adoc[full-length talk] goes deeper on every pattern *plus* three bonus topics._
+[.small]_This was the *short edition* – the link:../presentation/toc.adoc[full-length talk] goes deeper on every pattern *plus* three bonus topics._
 
 ====== More Resources
 [.small]#https://github.com/mehmandarov/5-features-talk-demo# +
@@ -18,7 +18,7 @@ https://github.com/mehmandarov/api-guide-java
 ---
 
 ==== Questions?
-===== Rustam Mehmandarov — link:https://rustam.no[@ rustam.no]
+===== Rustam Mehmandarov – link:https://rustam.no[@ rustam.no]
 
 ---
 

@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <strong>The Security Shield — Request Signature Verification Filter</strong>
+ * <strong>The Security Shield – Request Signature Verification Filter</strong>
  * <p>
  * Verifies that incoming request payloads have not been tampered with
  * by checking an HMAC-SHA256 signature sent in the {@code X-Signature} header.

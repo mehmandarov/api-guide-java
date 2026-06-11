@@ -1,4 +1,4 @@
-=== Ch2 — RBAC with Annotations
+=== Ch2 – RBAC with Annotations
 ==== The Annotation IS the Policy
 
 ---

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.extension.ExtensionContext;
  * and configures REST Assured to point at it.
  * <p>
  * Usage: annotate each IT class with {@code @ExtendWith(ConfApiExtension.class)}.
- * The container is a singleton — it starts once and is reused by every test class.
+ * The container is a singleton – it starts once and is reused by every test class.
  */
 public class ConfApiExtension implements BeforeAllCallback {
 

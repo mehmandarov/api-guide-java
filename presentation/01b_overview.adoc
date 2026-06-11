@@ -1,4 +1,4 @@
-=== What We'll Cover — 5 Patterns
+=== What We'll Cover – 5 Patterns
 
 ---
 
@@ -23,3 +23,9 @@ _This same artifact runs on Quarkus, Open Liberty, and Helidon. *No runtime-spec
 link:toc.adoc[⬆️ TOC] /
 link:01_intro.adoc[⬅️ Introduction] /
 link:01c_domain.adoc[➡️ The Domain]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:01_intro.adoc[⬅️ Introduction] /
+link:01c_domain.adoc[➡️ The Domain – A Conference API]

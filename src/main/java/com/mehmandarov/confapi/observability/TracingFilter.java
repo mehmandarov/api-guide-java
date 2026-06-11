@@ -10,12 +10,12 @@ import jakarta.ws.rs.ext.Provider;
 import java.io.IOException;
 
 /**
- * <strong>The Lens — Tracing Filter</strong>
+ * <strong>The Lens – Tracing Filter</strong>
  * <p>
  * Enriches the current OpenTelemetry span with domain-specific attributes
  * so you can search traces by session ID, API version, or caller.
  * <p>
- * This is purely additive — if no OTel agent is attached, the
+ * This is purely additive – if no OTel agent is attached, the
  * {@link Span#current()} call returns a no-op span and the filter
  * has zero overhead.
  */

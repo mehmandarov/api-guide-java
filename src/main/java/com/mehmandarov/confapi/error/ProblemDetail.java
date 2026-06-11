@@ -1,14 +1,13 @@
 package com.mehmandarov.confapi.error;
 
 import jakarta.json.bind.annotation.JsonbProperty;
-import jakarta.json.bind.annotation.JsonbTransient;
 
 import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * RFC 9457 — Problem Details for HTTP APIs.
+ * RFC 9457 – Problem Details for HTTP APIs.
  * <p>
  * A single, consistent error envelope used by every {@code ExceptionMapper}
  * in this application. Keeps clients happy with predictable error shapes.
@@ -32,7 +31,7 @@ public class ProblemDetail {
     /** A URI reference identifying the specific occurrence. */
     private URI instance;
 
-    /** Extension members — arbitrary extra context (e.g. validation violations). */
+    /** Extension members – arbitrary extra context (e.g. validation violations). */
     private final Map<String, Object> extensions = new LinkedHashMap<>();
 
     // --- Factory helpers ---

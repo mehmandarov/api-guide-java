@@ -31,11 +31,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * These tests prove the core thesis: <em>business logic should never see dirty input.</em>
  * We test the sanitization logic, the interceptor pattern, and custom validators.
  */
-@DisplayName("Ch1 — The Gatekeepers")
+@DisplayName("Ch1 – The Gatekeepers")
 class Ch1_GatekeepersTest {
 
     @Nested
-    @DisplayName("Input Sanitization — strips dangerous content before business logic sees it")
+    @DisplayName("Input Sanitization – strips dangerous content before business logic sees it")
     class Sanitization {
 
         @Test
@@ -54,14 +54,14 @@ class Ch1_GatekeepersTest {
         }
 
         @Test
-        @DisplayName("Clean input passes through unchanged — no false positives")
+        @DisplayName("Clean input passes through unchanged – no false positives")
         void cleanInputUnchanged() {
             String title = "Building APIs with Jakarta EE 11 & MicroProfile 7";
             assertEquals(title, InputSanitizationFilter.sanitize(title));
         }
 
         @Test
-        @DisplayName("Null input is handled safely — no NPE")
+        @DisplayName("Null input is handled safely – no NPE")
         void nullSafe() {
             assertNull(InputSanitizationFilter.sanitize(null));
         }
@@ -80,7 +80,7 @@ class Ch1_GatekeepersTest {
     }
 
     @Nested
-    @DisplayName("ReaderInterceptor — transforms body BEFORE deserialization (runtime-safe)")
+    @DisplayName("ReaderInterceptor – transforms body BEFORE deserialization (runtime-safe)")
     class BodyInterceptor {
 
         @Test
@@ -116,7 +116,7 @@ class Ch1_GatekeepersTest {
 
         /**
          * Creates a minimal ReaderInterceptorContext that captures the input stream
-         * at the point proceed() is called — proving the interceptor modified it.
+         * at the point proceed() is called – proving the interceptor modified it.
          */
         private ReaderInterceptorContext createMockReaderContext(
                 String body, AtomicReference<String> capturedStream) {
@@ -154,7 +154,7 @@ class Ch1_GatekeepersTest {
     }
 
     @Nested
-    @DisplayName("Custom Validators — domain-specific constraints via @NoProfanity")
+    @DisplayName("Custom Validators – domain-specific constraints via @NoProfanity")
     class CustomValidation {
 
         private NoProfanityValidator validator;
@@ -186,10 +186,10 @@ class Ch1_GatekeepersTest {
         }
 
         @Test
-        @DisplayName("Null and blank are allowed — @NotBlank handles those separately")
+        @DisplayName("Null and blank are allowed – @NotBlank handles those separately")
         void nullAndBlankDelegatedToOtherConstraints() {
-            assertTrue(validator.isValid(null, ctx), "null should pass — @NotBlank's job");
-            assertTrue(validator.isValid("  ", ctx), "blank should pass — @NotBlank's job");
+            assertTrue(validator.isValid(null, ctx), "null should pass – @NotBlank's job");
+            assertTrue(validator.isValid("  ", ctx), "blank should pass – @NotBlank's job");
         }
 
         @Test

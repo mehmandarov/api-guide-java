@@ -6,7 +6,7 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
 
 /**
- * Liveness probe — confirms the application process is running.
+ * Liveness probe – confirms the application process is running.
  * <p>
  * In a real deployment, this is what Kubernetes uses to decide
  * whether to restart the pod.

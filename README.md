@@ -2,20 +2,20 @@
 
 > Demo repository for the conference talk *"An Opinionated Guide to Bulletproof APIs with Java"*.
 
-This project demonstrates **5 essential patterns** for building production-grade APIs using **Jakarta EE 11** and **MicroProfile 7** — with zero runtime-specific code. The same WAR runs on Quarkus, Open Liberty, and Helidon.
+This project demonstrates **5 essential patterns** for building production-grade APIs using **Jakarta EE 11** and **MicroProfile 7** – with zero runtime-specific code. The same WAR runs on Quarkus, Open Liberty, and Helidon.
 
 ## 📋 What's Inside
 
 | # | Pattern | Package | Key Tech |
 |---|---------|---------|----------|
-| 1 | **The Gatekeepers** — Input sanitization, validation, auditing | `gatekeepers` | `ContainerRequestFilter`, `ReaderInterceptor`, `@Valid`, `@NameBinding` |
-| 2 | **The Security Shield** — JWT, RBAC, request signatures | `security` | MicroProfile JWT, `@RolesAllowed`, HMAC-SHA256 signature verification |
-| 3 | **The Lens** — Observability, tracing, correlation IDs | `observability` | OpenTelemetry, MicroProfile Health, `X-Request-Id` |
-| 4 | **The Living Contract** — OpenAPI as source of truth | `openapi` | MicroProfile OpenAPI, `OASFilter` |
-| 5 | **The Evolution** — API versioning (URI + header-based) | `versioning`, `resource.v1`, `resource.v2` | `@PreMatching` filter, URI rewriting |
-| ⭐ | **Bonus: Sane Error Handling** — RFC 9457 Problem Details | `error` | `ExceptionMapper`, `application/problem+json` |
-| ⭐ | **Bonus: Unknown JSON Fields** — what each provider does with extra fields | `unknownfields` | JSON-B vs Jackson defaults, `@JsonIgnoreProperties` |
-| ⭐ | **Bonus: Binary Uploads** — receiving files as multipart or raw body | `upload` | Jakarta REST `EntityPart`, `application/octet-stream` |
+| 1 | **The Gatekeepers** – Input sanitization, validation, auditing | `gatekeepers` | `ContainerRequestFilter`, `ReaderInterceptor`, `@Valid`, `@NameBinding` |
+| 2 | **The Security Shield** – JWT, RBAC, request signatures | `security` | MicroProfile JWT, `@RolesAllowed`, HMAC-SHA256 signature verification |
+| 3 | **The Lens** – Observability, tracing, correlation IDs | `observability` | OpenTelemetry, MicroProfile Health, `X-Request-Id` |
+| 4 | **The Living Contract** – OpenAPI as source of truth | `openapi` | MicroProfile OpenAPI, `OASFilter` |
+| 5 | **The Evolution** – API versioning (URI + header-based) | `versioning`, `resource.v1`, `resource.v2` | `@PreMatching` filter, URI rewriting |
+| ⭐ | **Bonus: Sane Error Handling** – RFC 9457 Problem Details | `error` | `ExceptionMapper`, `application/problem+json` |
+| ⭐ | **Bonus: Unknown JSON Fields** – what each provider does with extra fields | `unknownfields` | JSON-B vs Jackson defaults, `@JsonIgnoreProperties` |
+| ⭐ | **Bonus: Binary Uploads** – receiving files as multipart or raw body | `upload` | Jakarta REST `EntityPart`, `application/octet-stream` |
 
 ## 🏗️ Tech Stack
 
@@ -33,7 +33,7 @@ This project demonstrates **5 essential patterns** for building production-grade
 - Maven 3.9+
 - Docker (required for integration tests, container runs, and Jaeger traces)
 
-You can either run the app **locally on the JVM** (best for dev — live reload, fast feedback) or **fully in Docker** alongside Jaeger via Docker Compose.
+You can either run the app **locally on the JVM** (best for dev – live reload, fast feedback) or **fully in Docker** alongside Jaeger via Docker Compose.
 
 ---
 
@@ -68,13 +68,13 @@ java -jar target/confapi.jar
 curl http://localhost:8080/api/v1/sessions | jq
 ```
 
-> When the app runs locally, OpenTelemetry exports traces to `http://localhost:4317` (the value baked into `microprofile-config.properties`). Start just Jaeger with `docker compose up -d jaeger` to collect them — see **[Observability](#-observability)** below.
+> When the app runs locally, OpenTelemetry exports traces to `http://localhost:4317` (the value baked into `microprofile-config.properties`). Start just Jaeger with `docker compose up -d jaeger` to collect them – see **[Observability](#-observability)** below.
 
 ---
 
 ### B. Run in Docker (app + Jaeger via Docker Compose)
 
-The repo ships with Dockerfiles under [`docker/`](docker/) (one folder per runtime — see [`docker/README.md`](docker/README.md)) and a [`docker-compose.yml`](docker-compose.yml) that brings up the app and Jaeger together on a shared network. The compose `confapi` service builds from [`docker/quarkus/Dockerfile`](docker/quarkus/Dockerfile) (multi-stage, JDK 25 → JRE 25, Quarkus fast-jar).
+The repo ships with Dockerfiles under [`docker/`](docker/) (one folder per runtime – see [`docker/README.md`](docker/README.md)) and a [`docker-compose.yml`](docker-compose.yml) that brings up the app and Jaeger together on a shared network. The compose `confapi` service builds from [`docker/quarkus/Dockerfile`](docker/quarkus/Dockerfile) (multi-stage, JDK 25 → JRE 25, Quarkus fast-jar).
 
 ```bash
 # Build the image and start everything
@@ -97,7 +97,7 @@ Services:
 | `confapi` | http://localhost:8080 | The API |
 | `jaeger`  | http://localhost:16686 | Jaeger UI (search service `confapi`) |
 
-**How the networking works:** Compose puts both services on a shared bridge network where containers resolve each other by **service name**. The compose file overrides `OTEL_EXPORTER_OTLP_ENDPOINT` to `http://jaeger:4317` for the `confapi` container, so the in-repo `microprofile-config.properties` value (`localhost:4317`) is untouched — local non-Docker dev keeps working unchanged.
+**How the networking works:** Compose puts both services on a shared bridge network where containers resolve each other by **service name**. The compose file overrides `OTEL_EXPORTER_OTLP_ENDPOINT` to `http://jaeger:4317` for the `confapi` container, so the in-repo `microprofile-config.properties` value (`localhost:4317`) is untouched – local non-Docker dev keeps working unchanged.
 
 **Rebuild after code changes:**
 
@@ -105,7 +105,7 @@ Services:
 docker compose up -d --build confapi
 ```
 
-> The shipped Compose setup targets the **Quarkus** profile via `docker/quarkus/Dockerfile`. Liberty/Helidon equivalents would live alongside it as `docker/liberty/Dockerfile` etc. — the Testcontainers `.it` variants are already in place.
+> The shipped Compose setup targets the **Quarkus** profile via `docker/quarkus/Dockerfile`. Liberty/Helidon equivalents would live alongside it as `docker/liberty/Dockerfile` etc. – the Testcontainers `.it` variants are already in place.
 
 ## 🔐 JWT Authentication
 
@@ -140,7 +140,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 Or use it from the [`.http` files](http/): copy the token into [`http/http-client.env.json`](http/http-client.env.json) under `jwt_organizer` / `jwt_speaker` / `jwt_attendee`, then fire requests from any `.http` file.
 
-### Two key pairs — runtime vs. tests
+### Two key pairs – runtime vs. tests
 
 The project uses **two independent RSA key pairs**, on purpose:
 
@@ -149,7 +149,7 @@ The project uses **two independent RSA key pairs**, on purpose:
 | **Runtime** (live app + `generate-jwt.sh`) | `/tmp/confapi_private.pem` (generated on first script run) | `src/main/resources/META-INF/publicKey.pem` |
 | **Integration tests** | `src/test/resources/test-private-key.pem` (committed) | Loaded by the test container via `mp.jwt.verify.publickey.location` from test resources |
 
-This means a token generated with `./generate-jwt.sh` works against the **running app**, not against the test container — and vice versa. If you regenerate the runtime key, tests are unaffected.
+This means a token generated with `./generate-jwt.sh` works against the **running app**, not against the test container – and vice versa. If you regenerate the runtime key, tests are unaffected.
 
 ## 📊 Observability
 
@@ -219,13 +219,13 @@ All errors return RFC 9457 Problem Details (`application/problem+json`):
 }
 ```
 
-## 🌐 Try the API — `.http` files
+## 🌐 Try the API – `.http` files
 
 Ready-to-run requests for every demo live in [`http/`](http/). Open them in JetBrains IDEs or VS Code (REST Client extension) and fire requests one click at a time.
 
 | File | Use it for |
 |---|---|
-| [`http/demos.http`](http/demos.http) | **Presenter's walkthrough** — every demo from the talk, in slide order |
+| [`http/demos.http`](http/demos.http) | **Presenter's walkthrough** – every demo from the talk, in slide order |
 | [`http/sessions.http`](http/sessions.http), [`speakers.http`](http/speakers.http), [`rooms.http`](http/rooms.http) | Per-resource CRUD reference |
 | [`http/security.http`](http/security.http), [`signatures.http`](http/signatures.http) | JWT/RBAC + HMAC signature flows |
 | [`http/versioning.http`](http/versioning.http) | URI vs. header-based versioning |
@@ -278,15 +278,15 @@ src/test/java/com/mehmandarov/confapi/
 
 ### Prerequisites
 
-- **Java 25+** and **Maven 3.9+** — for all tests
-- **Docker** — required for integration tests (Testcontainers builds and runs the app in a container)
+- **Java 25+** and **Maven 3.9+** – for all tests
+- **Docker** – required for integration tests (Testcontainers builds and runs the app in a container)
 
 > **Colima / non-default Docker socket?** Set `DOCKER_HOST` before running:
 > ```bash
 > export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
 > ```
 
-### Unit Tests Only (44 tests — fast, no Docker)
+### Unit Tests Only (44 tests – fast, no Docker)
 
 ```bash
 mvn test -Pquarkus
@@ -310,15 +310,15 @@ This:
 
 ### How the Integration Tests Work
 
-The IT tests are **completely runtime-agnostic** — they contain zero Quarkus, Liberty, or Helidon imports. The architecture:
+The IT tests are **completely runtime-agnostic** – they contain zero Quarkus, Liberty, or Helidon imports. The architecture:
 
 | Component | Role |
 |---|---|
 | `ConfApiContainer` | Singleton Testcontainer. Builds a Docker image from the Maven build output and starts it once per test run. |
-| `ConfApiExtension` | JUnit 5 `@ExtendWith` — starts the container and points REST Assured at its dynamic port. |
-| `TestTokens` | Generates **real RS256 JWT tokens** (signed with `test-private-key.pem`) for security tests. The container validates them through the standard MicroProfile JWT pipeline — no mocks. |
+| `ConfApiExtension` | JUnit 5 `@ExtendWith` – starts the container and points REST Assured at its dynamic port. |
+| `TestTokens` | Generates **real RS256 JWT tokens** (signed with `test-private-key.pem`) for security tests. The container validates them through the standard MicroProfile JWT pipeline – no mocks. |
 
-To switch runtimes, only the Docker image builder changes — the tests stay identical:
+To switch runtimes, only the Docker image builder changes – the tests stay identical:
 ```bash
 mvn verify -Pquarkus                       # Quarkus (default)
 mvn verify -Pliberty -Druntime.profile=liberty   # Open Liberty (future)
@@ -329,7 +329,7 @@ mvn verify -Phelidon -Druntime.profile=helidon   # Helidon (future)
 
 The integration tests share a **single container** across all IT classes. This keeps the total IT run under 10 seconds (container starts once in ~3 s, then 38 tests run against it).
 
-**Trade-off:** tests share mutable state. A session created in `Ch2_SecurityShieldIT` is visible to later tests. This is acceptable for a demo API with seed data, but if full isolation is required, replace the singleton in `ConfApiContainer` with a per-class container — at the cost of ~3 s startup per IT class (~18 s total instead of ~7 s).
+**Trade-off:** tests share mutable state. A session created in `Ch2_SecurityShieldIT` is visible to later tests. This is acceptable for a demo API with seed data, but if full isolation is required, replace the singleton in `ConfApiContainer` with a per-class container – at the cost of ~3 s startup per IT class (~18 s total instead of ~7 s).
 
 ### Test Counts
 

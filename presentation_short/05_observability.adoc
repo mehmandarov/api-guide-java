@@ -1,4 +1,4 @@
-=== Ch3 — The Lens
+=== Ch3 – The Lens
 ==== Observability ≠ Logging -> Start With Correlation IDs
 
 ---

@@ -1,4 +1,4 @@
-=== Bonus — Binary Uploads
+=== Bonus – Binary Uploads
 ==== Receiving Files the Portable Way
 
 ---
@@ -15,7 +15,7 @@ public Response upload(List<EntityPart> parts) throws IOException {
     for (EntityPart part : parts) {
         switch (part.getName()) {
             case "description" -> part.getContent(String.class);
-            case "file"        -> part.getContent();   // InputStream — streamed, not buffered
+            case "file"        -> part.getContent();   // InputStream – streamed, not buffered
         }
     }
 }
@@ -26,11 +26,11 @@ public Response uploadRaw(InputStream body,
         @HeaderParam("X-File-Name") String fileName) { ... }   // body IS the file
 ----
 
-* *Multipart* — `List<EntityPart>` (Jakarta REST 3.1+) — text + binary parts in one request
-* *Raw* — `application/octet-stream` — the body is the file, metadata travels in headers
-* *Quarkus flavour* — `@RestForm` + `FileUpload` in link:../snippets/QuarkusUploadResource.java[snippets/QuarkusUploadResource.java] (reference only — not in the default build)
+* *Multipart* – `List<EntityPart>` (Jakarta REST 3.1+) – text + binary parts in one request
+* *Raw* – `application/octet-stream` – the body is the file, metadata travels in headers
+* *Quarkus flavour* – `@RestForm` + `FileUpload` in link:../snippets/QuarkusUploadResource.java[snippets/QuarkusUploadResource.java] (reference only – not in the default build)
 
-[.small]#Exercised end-to-end in link:../src/test/java/com/mehmandarov/confapi/Ch8_UploadIT.java[Ch8_UploadIT] — multipart + raw over real HTTP.#
+[.small]#Exercised end-to-end in link:../src/test/java/com/mehmandarov/confapi/Ch8_UploadIT.java[Ch8_UploadIT] – multipart + raw over real HTTP.#
 
 ---
 
@@ -38,3 +38,8 @@ link:toc.adoc[⬆️ TOC] /
 link:16b_unknown_fields.adoc[⬅️ Unknown JSON Fields] /
 link:17_testing.adoc[➡️ Testing Strategy]
 
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:16b_unknown_fields.adoc[⬅️ Unknown JSON Fields] /
+link:17_testing.adoc[➡️ Testing Strategy]

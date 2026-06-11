@@ -1,5 +1,5 @@
 ### ============================
-### Security — JWT Testing
+### Security – JWT Testing
 ### ============================
 ### Generate tokens: ./generate-jwt.sh ORGANIZER
 ###                  ./generate-jwt.sh SPEAKER

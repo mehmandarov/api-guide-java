@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Catch-all mapper — turns unexpected exceptions into a 500 Problem Detail
+ * Catch-all mapper – turns unexpected exceptions into a 500 Problem Detail
  * <strong>without leaking implementation details</strong> to the client.
  */
 @Provider

@@ -10,14 +10,14 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 /**
- * <strong>Pattern 2: The Security Shield — End-to-End</strong>
+ * <strong>Pattern 2: The Security Shield – End-to-End</strong>
  * <p>
  * Proves the full RBAC chain: no token → 401, wrong role → 403,
  * right role → success. Uses real RS256 JWTs validated by the container's
- * MicroProfile JWT pipeline — no mocks, no fakes.
+ * MicroProfile JWT pipeline – no mocks, no fakes.
  */
 @ExtendWith(ConfApiExtension.class)
-@DisplayName("Ch2 IT — The Security Shield")
+@DisplayName("Ch2 IT – The Security Shield")
 class Ch2_SecurityShieldIT {
 
     private static final String SESSION_BODY = """
@@ -33,7 +33,7 @@ class Ch2_SecurityShieldIT {
             """;
 
     @Nested
-    @DisplayName("Unauthenticated — no token means no access to write operations")
+    @DisplayName("Unauthenticated – no token means no access to write operations")
     class Unauthenticated {
 
         @Test
@@ -49,7 +49,7 @@ class Ch2_SecurityShieldIT {
         }
 
         @Test
-        @DisplayName("GET is public — no token needed → 200")
+        @DisplayName("GET is public – no token needed → 200")
         void getIsPublic() {
             given()
                 .accept(ContentType.JSON)
@@ -61,7 +61,7 @@ class Ch2_SecurityShieldIT {
     }
 
     @Nested
-    @DisplayName("Wrong Role — authenticated but insufficient privileges")
+    @DisplayName("Wrong Role – authenticated but insufficient privileges")
     class WrongRole {
 
         @Test
@@ -97,7 +97,7 @@ class Ch2_SecurityShieldIT {
     }
 
     @Nested
-    @DisplayName("Correct Role — ORGANIZER has full CRUD access")
+    @DisplayName("Correct Role – ORGANIZER has full CRUD access")
     class CorrectRole {
 
         @Test

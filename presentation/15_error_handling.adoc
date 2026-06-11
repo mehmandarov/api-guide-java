@@ -1,11 +1,11 @@
-=== Bonus — Sane Error Handling
+=== Bonus – Sane Error Handling
 ==== RFC 9457 Problem Details
 
 ---
 
 *The problem*: Every API invents its own error format. Clients hate this.
 
-==== RFC 9457 — A Standard Error Envelope
+==== RFC 9457 – A Standard Error Envelope
 
 ```json
 {
@@ -23,12 +23,18 @@
 
 Content-Type: `application/problem+json`
 
-Built with: link:../src/main/java/com/mehmandarov/confapi/error/ProblemDetail.java[ProblemDetail.java] — fluent builder with `withType()`, `withExtension()`
+Built with: link:../src/main/java/com/mehmandarov/confapi/error/ProblemDetail.java[ProblemDetail.java] – fluent builder with `withType()`, `withExtension()`
 
-[.small]#Why hand-rolled instead of a library? → link:15b_error_handling_libraries.adoc[Libraries & Trade-offs]#
+[.small]#Why hand-written instead of a library? → link:15b_error_handling_libraries.adoc[Libraries & Trade-offs]#
 
 ---
 
 link:toc.adoc[⬆️ TOC] /
 link:14b_evolution_demo.adoc[⬅️ Version Demo] /
 link:15b_error_handling_libraries.adoc[➡️ Libraries & Trade-offs]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:14b_evolution_demo.adoc[⬅️ Version Demo] /
+link:15b_error_handling_libraries.adoc[➡️ Do I Have to Build This Mys...]

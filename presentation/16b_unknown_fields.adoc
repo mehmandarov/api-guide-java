@@ -1,4 +1,4 @@
-=== Bonus — Unknown JSON Fields
+=== Bonus – Unknown JSON Fields
 ==== What Each Provider Does With Extra Fields
 
 ---
@@ -7,9 +7,9 @@
 
 [cols="1,2,2"]
 |===
-| Provider | Unknown field — default | How to change it
+| Provider | Unknown field – default | How to change it
 
-| *JSON-B / Yasson* | ✅ Ignored silently (per the JSON-B spec) | Lenient by default — nothing to do
+| *JSON-B / Yasson* | ✅ Ignored silently (per the JSON-B spec) | Lenient by default – nothing to do
 | *Jackson (stock)* | ❌ Throws `UnrecognizedPropertyException` | Disable `FAIL_ON_UNKNOWN_PROPERTIES` or add `@JsonIgnoreProperties(ignoreUnknown = true)`
 |===
 
@@ -17,14 +17,14 @@ link:../src/main/java/com/mehmandarov/confapi/unknownfields/UnknownFieldsResourc
 
 [source,java]
 ----
-// JSON-B / Yasson — keeps id/name/capacity, ignores the other three
+// JSON-B / Yasson – keeps id/name/capacity, ignores the other three
 Room room = jsonb.fromJson(overStuffedJson, Room.class);   // no exception
 
-// Stock Jackson — same payload, blows up
+// Stock Jackson – same payload, blows up
 new JsonMapper().readValue(overStuffedJson, Room.class);   // throws!
 ----
 
-[.small]#Proven both ways in link:../src/test/java/com/mehmandarov/confapi/unit/Ch7_UnknownFieldsTest.java[Ch7_UnknownFieldsTest] — companion to the MicroProfile REST Client blog post.#
+[.small]#Proven both ways in link:../src/test/java/com/mehmandarov/confapi/unit/Ch7_UnknownFieldsTest.java[Ch7_UnknownFieldsTest] – companion to the MicroProfile REST Client blog post.#
 
 ---
 
@@ -32,3 +32,8 @@ link:toc.adoc[⬆️ TOC] /
 link:16_error_handling_code.adoc[⬅️ ExceptionMapper Code] /
 link:16c_uploads.adoc[➡️ Binary Uploads]
 
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:16_error_handling_code.adoc[⬅️ ExceptionMapper] /
+link:16c_uploads.adoc[➡️ Binary Uploads]

@@ -9,11 +9,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import java.time.LocalDateTime;
 
 /**
- * V2 response DTO — enriched representation with embedded speaker &amp; room.
+ * V2 response DTO – enriched representation with embedded speaker &amp; room.
  * Demonstrates how a new API version can evolve the response shape
  * without breaking V1 clients.
  */
-@Schema(description = "Session (V2) — enriched with embedded speaker and room objects")
+@Schema(description = "Session (V2) – enriched with embedded speaker and room objects")
 public class SessionDtoV2 {
 
     private String id;

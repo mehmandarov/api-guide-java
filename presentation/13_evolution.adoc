@@ -1,9 +1,9 @@
-=== Ch5 — The Evolution
-==== API Versioning — Three Strategies
+=== Ch5 – The Evolution
+==== API Versioning – Three Strategies
 
 ---
 
-*Versioning is inevitable* — the question is how painfully you do it.
+*Versioning is inevitable* – the question is how painfully you do it.
 
 [cols="1,3,3"]
 |===
@@ -31,8 +31,8 @@
 
 _This project implements URI + header-based versioning:_
 
-* V1: link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV1.java[SessionDtoV1] — flat with FK IDs
-* V2: link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV2.java[SessionDtoV2] — embedded speaker & room objects
+* V1: link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV1.java[SessionDtoV1] – flat with FK IDs
+* V2: link:../src/main/java/com/mehmandarov/confapi/dto/SessionDtoV2.java[SessionDtoV2] – embedded speaker & room objects
 
 [.small]#All three methods: https://github.com/mehmandarov/randomstrings/blob/master/src/main/java/com/mehmandarov/randomstrings/apidemo/RandomStringsAPIDemoController.java#
 
@@ -41,3 +41,9 @@ _This project implements URI + header-based versioning:_
 link:toc.adoc[⬆️ TOC] /
 link:12b_living_contract_oasfilter_code.adoc[⬅️ OASFilter Code] /
 link:14_evolution_code.adoc[➡️ Version Routing Code]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:12b_living_contract_oasfilter_code.adoc[⬅️ OASFilter Code] /
+link:14_evolution_code.adoc[➡️ Version Routing]

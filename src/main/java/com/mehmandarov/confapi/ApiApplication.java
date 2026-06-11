@@ -14,7 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.servers.Server;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 /**
- * JAX-RS application root — runtime-agnostic.
+ * JAX-RS application root – runtime-agnostic.
  * <p>
  * The {@code @LoginConfig} triggers MicroProfile JWT authentication.
  * The {@code @DeclareRoles} registers RBAC roles used by
@@ -39,7 +39,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
         @Tag(name = "Sessions",  description = "Conference session management"),
         @Tag(name = "Speakers",  description = "Speaker profiles"),
         @Tag(name = "Rooms",     description = "Venue rooms"),
-        @Tag(name = "v2",        description = "Version 2 — enriched responses")
+        @Tag(name = "v2",        description = "Version 2 – enriched responses")
     }
 )
 @SecurityScheme(
@@ -47,9 +47,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
     type = SecuritySchemeType.HTTP,
     scheme = "bearer",
     bearerFormat = "JWT",
-    description = "MicroProfile JWT — pass a signed Bearer token"
+    description = "MicroProfile JWT – pass a signed Bearer token"
 )
 public class ApiApplication extends Application {
-    // No overrides — let the runtime scan for @Path / @Provider classes.
+    // No overrides – let the runtime scan for @Path / @Provider classes.
 }
 

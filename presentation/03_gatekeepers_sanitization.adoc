@@ -1,4 +1,4 @@
-=== Ch1 — Input Sanitization
+=== Ch1 – Input Sanitization
 ==== `@PreMatching` Filter + `ReaderInterceptor`
 
 ---
@@ -29,10 +29,16 @@ public class InputSanitizationFilter implements ContainerRequestFilter {
 }
 ----
 
-Body sanitization handled by link:../src/main/java/com/mehmandarov/confapi/gatekeepers/InputSanitizationInterceptor.java[InputSanitizationInterceptor.java] — a `ReaderInterceptor` that works with both blocking and reactive runtimes.
+Body sanitization handled by link:../src/main/java/com/mehmandarov/confapi/gatekeepers/InputSanitizationInterceptor.java[InputSanitizationInterceptor.java] – a `ReaderInterceptor` that works with both blocking and reactive runtimes.
 
 ---
 
 link:toc.adoc[⬆️ TOC] /
 link:02b_gatekeepers_chain.adoc[⬅️ Filter Chain] /
+link:02c_gatekeepers_audit.adoc[➡️ Audit Logging]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:02b_gatekeepers_chain.adoc[⬅️ The Filter Chain] /
 link:02c_gatekeepers_audit.adoc[➡️ Audit Logging]

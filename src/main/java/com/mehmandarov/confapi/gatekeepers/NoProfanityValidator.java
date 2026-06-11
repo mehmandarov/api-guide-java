@@ -9,13 +9,13 @@ import java.util.regex.Pattern;
 /**
  * Validator for {@link NoProfanity}.
  * <p>
- * Uses a trivially small blocklist for demo purposes — in production
+ * Uses a trivially small blocklist for demo purposes – in production
  * you'd plug in a real content-moderation service or a larger dictionary.
  */
 public class NoProfanityValidator implements ConstraintValidator<NoProfanity, String> {
 
     /**
-     * Demo blocklist — intentionally mild words for a conference setting.
+     * Demo blocklist – intentionally mild words for a conference setting.
      */
     private static final Set<String> BLOCKED = Set.of(
             "spam", "scam", "phishing"

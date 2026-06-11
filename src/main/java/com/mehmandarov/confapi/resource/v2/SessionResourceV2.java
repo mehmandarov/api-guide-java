@@ -20,7 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import java.util.List;
 
 /**
- * V2 Session resource — enriched responses with embedded speaker &amp; room.
+ * V2 Session resource – enriched responses with embedded speaker &amp; room.
  * <p>
  * This is the "evolved" version: same data, richer contract.
  * V1 clients are completely unaffected.
@@ -38,7 +38,7 @@ public class SessionResourceV2 {
     @Inject RoomRepository roomRepo;
 
     @GET
-    @Operation(summary = "List all sessions (V2 — enriched)",
+    @Operation(summary = "List all sessions (V2 – enriched)",
                description = "Returns sessions with embedded speaker and room objects")
     @APIResponse(responseCode = "200", description = "List of enriched sessions")
     public List<SessionDtoV2> listAll() {
@@ -49,7 +49,7 @@ public class SessionResourceV2 {
 
     @GET
     @Path("/{id}")
-    @Operation(summary = "Get session by ID (V2 — enriched)")
+    @Operation(summary = "Get session by ID (V2 – enriched)")
     @APIResponse(responseCode = "200", description = "Enriched session found")
     @APIResponse(responseCode = "404", description = "Session not found")
     public SessionDtoV2 getById(

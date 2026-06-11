@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
- * <strong>The Gatekeeper — Input Sanitization Filter (Query Params)</strong>
+ * <strong>The Gatekeeper – Input Sanitization Filter (Query Params)</strong>
  * <p>
  * A {@code @PreMatching} request filter that strips potentially dangerous
  * content (HTML tags, script injections) from all query parameters.

@@ -1,9 +1,9 @@
-=== Ch5 — The Evolution
+=== Ch5 – The Evolution
 ==== API Versioning Without the Pain
 
 ---
 
-*Versioning is inevitable* — the question is how painfully you do it.
+*Versioning is inevitable* – the question is how painfully you do it.
 
 [cols="1,3,3"]
 |===

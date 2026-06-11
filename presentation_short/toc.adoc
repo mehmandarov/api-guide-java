@@ -1,46 +1,46 @@
 === 🛡️ An Opinionated Guide to Bulletproof APIs with Java
-==== ⏱️ Short Edition — Jakarta EE 11 + MicroProfile 7
+==== ⏱️ Short Edition – Jakarta EE 11 + MicroProfile 7
 ===== Table of Contents
 
 * link:00_title.adoc[Title]
 * link:00b_about_me.adoc[About Me]
 * link:01_intro.adoc[Introduction]
-* link:01b_overview.adoc[What We'll Cover — 5 Patterns]
+* link:01b_overview.adoc[What We'll Cover – 5 Patterns]
 * link:02_domain.adoc[The Domain]
 * link:02b_api_domain.adoc[API ≠ Domain Model]
 
-*Ch1 — The Gatekeepers*
+*Ch1 – The Gatekeepers*
 
 * link:03_gatekeepers.adoc[Without vs With Gatekeepers]
 * link:03b_gatekeepers_chain.adoc[The Filter Chain]
 
-*Ch2 — The Security Shield*
+*Ch2 – The Security Shield*
 
 * link:04_security.adoc[MicroProfile JWT Setup]
 * link:04b_security_rbac.adoc[RBAC with Annotations]
 
-*Ch3 — The Lens*
+*Ch3 – The Lens*
 
 * link:05_observability.adoc[Correlation IDs]
 * link:05b_observability_tracing.adoc[Tracing & Health]
 
-*Ch4 — The Living Contract*
+*Ch4 – The Living Contract*
 
 * link:06_living_contract.adoc[OpenAPI From Code]
 * link:06b_oasfilter.adoc[OASFilter]
 
-*Ch5 — The Evolution*
+*Ch5 – The Evolution*
 
 * link:07_evolution.adoc[Versioning Strategies]
 * link:07b_evolution_demo.adoc[V1 vs V2]
 
 *Bonus & Wrap-Up*
 
-* link:08_error_handling.adoc[Error Handling — RFC 9457]
+* link:08_error_handling.adoc[Error Handling – RFC 9457]
 * link:08b_error_handling_code.adoc[ExceptionMapper]
 * link:09_summary.adoc[Summary]
 * link:10_thank_you.adoc[Thank You]
 
 ---
-===== Rustam Mehmandarov — link:https://rustam.no[@rustam.no]
+===== Rustam Mehmandarov – link:https://rustam.no[@rustam.no]
 

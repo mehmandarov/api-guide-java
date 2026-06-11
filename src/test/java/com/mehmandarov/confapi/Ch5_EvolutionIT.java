@@ -9,18 +9,18 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 /**
- * <strong>Pattern 5: The Evolution — End-to-End</strong>
+ * <strong>Pattern 5: The Evolution – End-to-End</strong>
  * <p>
  * Proves: V1 and V2 coexist, URI-based versioning works, and
  * header-based versioning transparently routes to the correct version.
  * Clients can upgrade at their own pace.
  */
 @ExtendWith(ConfApiExtension.class)
-@DisplayName("Ch5 IT — The Evolution (API Versioning)")
+@DisplayName("Ch5 IT – The Evolution (API Versioning)")
 class Ch5_EvolutionIT {
 
     @Nested
-    @DisplayName("URI-Based Versioning — /api/v1/ vs /api/v2/")
+    @DisplayName("URI-Based Versioning – /api/v1/ vs /api/v2/")
     class UriVersioning {
 
         @Test
@@ -75,7 +75,7 @@ class Ch5_EvolutionIT {
     }
 
     @Nested
-    @DisplayName("Header-Based Versioning — transparent routing via X-API-Version")
+    @DisplayName("Header-Based Versioning – transparent routing via X-API-Version")
     class HeaderVersioning {
 
         @Test

@@ -1,4 +1,4 @@
-=== Ch4 — The Living Contract
+=== Ch4 – The Living Contract
 ==== OpenAPI Generated From Code
 
 ---

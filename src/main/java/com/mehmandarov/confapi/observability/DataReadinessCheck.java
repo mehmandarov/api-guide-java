@@ -8,7 +8,7 @@ import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
 
 /**
- * Readiness probe — verifies the application data is loaded and ready
+ * Readiness probe – verifies the application data is loaded and ready
  * to serve traffic.
  * <p>
  * Kubernetes uses this to decide whether to route traffic to the pod.

@@ -12,18 +12,18 @@ import java.time.Duration;
  * <p>
  * The image is built from the Maven build output (e.g. {@code target/quarkus-app/}
  * for Quarkus, a WAR for Liberty, etc.). Because the container is shared across
- * all IT classes, it starts once per test run — keeping the feedback loop fast.
+ * all IT classes, it starts once per test run – keeping the feedback loop fast.
  * <p>
  * <strong>Runtime-agnostic by design:</strong> swap the {@code buildImage()}
  * implementation (via {@code -Druntime.profile=liberty}) to test against
  * Open Liberty, Helidon, or any other MicroProfile runtime. The IT tests
- * themselves don't change — only the container image does.
+ * themselves don't change – only the container image does.
  * <p>
  * <strong>Trade-off: startup time vs. test isolation.</strong>
  * A single shared container is fast (~3 s startup amortized across 34 tests)
  * but means tests share mutable state (e.g. a created session is visible to
  * later tests). If full isolation is required, replace the singleton with a
- * per-class container — at the cost of ~3 s per IT class.
+ * per-class container – at the cost of ~3 s per IT class.
  */
 public class ConfApiContainer extends GenericContainer<ConfApiContainer> {
 
@@ -34,7 +34,7 @@ public class ConfApiContainer extends GenericContainer<ConfApiContainer> {
         super(image);
         withExposedPorts(HTTP_PORT);
 
-        // Disable OpenTelemetry — no collector running during tests.
+        // Disable OpenTelemetry – no collector running during tests.
         // OTEL_SDK_DISABLED is the standard OpenTelemetry env var (works on any runtime).
         withEnv("OTEL_SDK_DISABLED", "true");
 
@@ -44,7 +44,7 @@ public class ConfApiContainer extends GenericContainer<ConfApiContainer> {
                         .withStartupTimeout(Duration.ofSeconds(30)));
     }
 
-    /** Lazy singleton — starts the container on first access, reuses afterwards. */
+    /** Lazy singleton – starts the container on first access, reuses afterwards. */
     public static synchronized ConfApiContainer getInstance() {
         if (instance == null) {
             instance = new ConfApiContainer(buildImage());
@@ -58,7 +58,7 @@ public class ConfApiContainer extends GenericContainer<ConfApiContainer> {
         return "http://" + getHost() + ":" + getMappedPort(HTTP_PORT);
     }
 
-    // ── Image builders — one per runtime ───────────────────────────
+    // ── Image builders – one per runtime ───────────────────────────
     //
     // Dockerfiles live under docker/<runtime>/Dockerfile.it so they get
     // proper syntax highlighting, linting, and diffs (instead of being

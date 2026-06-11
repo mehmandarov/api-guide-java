@@ -1,5 +1,5 @@
-=== Ch5 — Version Routing
-==== `@PreMatching` Filter — Transparent URI Rewriting
+=== Ch5 – Version Routing
+==== `@PreMatching` Filter – Transparent URI Rewriting
 
 ---
 
@@ -25,10 +25,16 @@ public class HeaderVersionFilter implements ContainerRequestFilter {
 }
 ----
 
-*Why combine URI + header?* Resource classes just live at `/v1/` and `/v2/`. The filter normalizes header-versioned requests to the same URI paths — one routing mechanism, two client options.
+*Why combine URI + header?* Resource classes just live at `/v1/` and `/v2/`. The filter normalizes header-versioned requests to the same URI paths – one routing mechanism, two client options.
 
 ---
 
 link:toc.adoc[⬆️ TOC] /
 link:13_evolution.adoc[⬅️ Versioning Strategies] /
+link:14b_evolution_demo.adoc[➡️ Version Demo]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:13_evolution.adoc[⬅️ The Evolution] /
 link:14b_evolution_demo.adoc[➡️ Version Demo]

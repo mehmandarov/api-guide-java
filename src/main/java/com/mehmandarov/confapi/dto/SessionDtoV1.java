@@ -7,9 +7,9 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import java.time.LocalDateTime;
 
 /**
- * V1 response DTO — flat representation with foreign-key IDs only.
+ * V1 response DTO – flat representation with foreign-key IDs only.
  */
-@Schema(description = "Session (V1) — flat representation with speaker/room IDs")
+@Schema(description = "Session (V1) – flat representation with speaker/room IDs")
 public class SessionDtoV1 {
 
     private String id;

@@ -1,5 +1,5 @@
-=== Bonus — Do I Have to Build This Myself?
-==== RFC 9457 — Libraries & Trade-offs
+=== Bonus – Do I Have to Build This Myself?
+==== RFC 9457 – Libraries & Trade-offs
 
 ---
 
@@ -28,22 +28,22 @@
 ❌ Helidon (Jersey) +
 ❌ Liberty (CXF)
 
-| *Hand-rolled record* +
+| *Hand-written record* +
 _(this project)_
 | ~30 lines. Zero deps. Identical on every runtime. Every line visible on a slide.
 | ✅ All three
 |===
 
-==== Why this project picked hand-rolled
+==== Why this project picked hand-written
 
-* *Portability*: the same artifact deploys on Quarkus, Helidon, and Liberty —
+* *Portability*: the same artifact deploys on Quarkus, Helidon, and Liberty –
   `quarkus-resteasy-problem` would only work on one of them.
-* *Clarity for a talk*: the `ExceptionMapper` is the demo — hiding it behind a
+* *Clarity for a talk*: the `ExceptionMapper` is the demo – hiding it behind a
   library would defeat the point.
 * *Tiny surface*: RFC 9457 is just a JSON shape. A record + one mapper per
   category is honestly less code than wiring up a library.
 
-[.small]#In a Spring shop, use `ProblemDetail`. In a Quarkus-only shop, `quarkus-resteasy-problem` is the fastest path. For cross-runtime Jakarta — Zalando Problem or this hand-rolled approach.#
+[.small]#In a Spring shop, use `ProblemDetail`. In a Quarkus-only shop, `quarkus-resteasy-problem` is the fastest path. For cross-runtime Jakarta – Zalando Problem or this hand-written approach.#
 
 ---
 
@@ -51,3 +51,8 @@ link:toc.adoc[⬆️ TOC] /
 link:15_error_handling.adoc[⬅️ RFC 9457] /
 link:16_error_handling_code.adoc[➡️ ExceptionMapper Code]
 
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:15_error_handling.adoc[⬅️ Sane Error Handling] /
+link:16_error_handling_code.adoc[➡️ ExceptionMapper]

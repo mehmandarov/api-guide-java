@@ -1,4 +1,4 @@
-=== Ch3 — The Lens
+=== Ch3 – The Lens
 ==== Correlation IDs & Tracing
 
 ---
@@ -33,4 +33,10 @@ public class CorrelationIdFilter
 
 link:toc.adoc[⬆️ TOC] /
 link:07_security_signatures.adoc[⬅️ Signatures] /
+link:08b_observability_tracing.adoc[➡️ Tracing]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:07_security_signatures.adoc[⬅️ Request Signatures] /
 link:08b_observability_tracing.adoc[➡️ Tracing]

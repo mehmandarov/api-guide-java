@@ -7,13 +7,17 @@ https://github.com/mehmandarov/api-guide-java
 
 ====== More Resources
 [.small]#https://github.com/mehmandarov/5-features-talk-demo# +
-[.small]#https://github.com/mehmandarov/randomstrings# +
-[.small]#https://mehmandarov.com/api-versioning/#
+[.small]#https://github.com/mehmandarov/randomstrings#
 
 ---
 
 ==== Questions?
-===== Rustam Mehmandarov — link:https://rustam.no[@rustam.no]
+===== Rustam Mehmandarov – link:https://rustam.no[@rustam.no]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:19_summary.adoc[⬅️ Summary]
 
 ---
 

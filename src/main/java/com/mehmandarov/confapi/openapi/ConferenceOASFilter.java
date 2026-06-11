@@ -2,7 +2,6 @@ package com.mehmandarov.confapi.openapi;
 
 import org.eclipse.microprofile.openapi.OASFilter;
 import org.eclipse.microprofile.openapi.models.Operation;
-import org.eclipse.microprofile.openapi.models.headers.Header;
 import org.eclipse.microprofile.openapi.models.media.Schema;
 import org.eclipse.microprofile.openapi.models.responses.APIResponse;
 
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <strong>The Living Contract — OAS Filter</strong>
+ * <strong>The Living Contract – OAS Filter</strong>
  * <p>
  * A MicroProfile OpenAPI filter that programmatically enhances the
  * generated OpenAPI document at build/deploy time. This is where you
@@ -44,7 +43,7 @@ public class ConferenceOASFilter implements OASFilter {
                 && !operation.getResponses().getAPIResponses().containsKey("500")) {
             operation.getResponses().addAPIResponse("500",
                     org.eclipse.microprofile.openapi.OASFactory.createAPIResponse()
-                            .description("Internal Server Error — see RFC 9457 Problem Details body"));
+                            .description("Internal Server Error – see RFC 9457 Problem Details body"));
         }
 
         return operation;

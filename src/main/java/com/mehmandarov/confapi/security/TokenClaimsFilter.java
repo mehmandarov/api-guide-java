@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
- * <strong>The Security Shield — Token Claims Filter</strong>
+ * <strong>The Security Shield – Token Claims Filter</strong>
  * <p>
  * Extracts custom JWT claims and propagates them as JAX-RS request
  * properties, so downstream resources can use them without coupling
@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  * <p>
  * Example claims extracted:
  * <ul>
- *   <li>{@code speaker_id} — the speaker profile linked to this user</li>
- *   <li>{@code tenant} — multi-tenancy identifier</li>
+ *   <li>{@code speaker_id} – the speaker profile linked to this user</li>
+ *   <li>{@code tenant} – multi-tenancy identifier</li>
  * </ul>
  */
 @Provider
@@ -43,12 +43,11 @@ public class TokenClaimsFilter implements ContainerRequestFilter {
                 propagateClaim(ctx, "speaker_id");
                 propagateClaim(ctx, "tenant");
 
-                LOG.fine(() -> String.format(
-                        "[SECURITY] JWT sub=%s iss=%s groups=%s",
+                LOG.fine(() -> "[SECURITY] JWT sub=%s iss=%s groups=%s".formatted(
                         jwt.getSubject(), jwt.getIssuer(), jwt.getGroups()));
             }
         } catch (IllegalStateException e) {
-            // Not a real JWT (e.g. test security principal) — skip claim extraction
+            // Not a real JWT (e.g. test security principal) – skip claim extraction
             LOG.fine(() -> "[SECURITY] Non-JWT principal, skipping claim extraction");
         }
     }

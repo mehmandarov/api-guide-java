@@ -14,18 +14,24 @@
 | 4 | *Living Contract* | Generate OpenAPI from code, never maintain it separately
 | 5 | *Evolution* | Version with URI + headers, using filters to route
 | ⭐ | *Error Handling* | RFC 9457 Problem Details via `ExceptionMapper`
-| ⭐ | *Unknown JSON Fields* | Know your JSON provider's default — JSON-B ignores, Jackson throws
+| ⭐ | *Unknown JSON Fields* | Know your JSON provider's default – JSON-B ignores, Jackson throws
 | ⭐ | *Binary Uploads* | Portable multipart + raw body via Jakarta REST `EntityPart`
 |===
 
 *Filters and Mappers* are the backbone. They separate infrastructure from business logic.
 
-* *All standard APIs* — Jakarta EE 11 + MicroProfile 7
-* *Zero vendor lock-in* — same artifact deploys on Quarkus, Liberty, Helidon
-* *82 tests* — runtime-agnostic, Testcontainers-based
+* *All standard APIs* – Jakarta EE 11 + MicroProfile 7
+* *Zero vendor lock-in* – same artifact deploys on Quarkus, Liberty, Helidon
+* *82 tests* – runtime-agnostic, Testcontainers-based
 
 ---
 
 link:toc.adoc[⬆️ TOC] /
 link:18_testing_isolation.adoc[⬅️ Test Isolation] /
 link:20_thank_you.adoc[➡️ Thank You]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:18_testing_isolation.adoc[⬅️ Testing – Container Lifecycle] /
+link:20_thank_you.adoc[➡️ Thank You! 🎉]

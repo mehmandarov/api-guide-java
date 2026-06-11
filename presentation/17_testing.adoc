@@ -1,5 +1,5 @@
 === Testing Strategy
-==== 82 Tests — Runtime-Agnostic by Design
+==== 82 Tests – Runtime-Agnostic by Design
 
 ---
 
@@ -30,3 +30,9 @@ REST Assured     → HTTP assertions  ← same for all runtimes
 link:toc.adoc[⬆️ TOC] /
 link:16c_uploads.adoc[⬅️ Binary Uploads] /
 link:18_testing_isolation.adoc[➡️ Test Isolation]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:16c_uploads.adoc[⬅️ Binary Uploads] /
+link:18_testing_isolation.adoc[➡️ Testing – Container Lifecycle]

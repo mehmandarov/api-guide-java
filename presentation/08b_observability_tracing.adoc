@@ -1,4 +1,4 @@
-=== Ch3 — Tracing
+=== Ch3 – Tracing
 ==== Enriching OpenTelemetry Spans with Domain Context
 
 ---
@@ -34,9 +34,9 @@ public class TracingFilter
 }
 ----
 
-* *No OTel agent?* `Span.current()` returns a no-op — zero overhead
+* *No OTel agent?* `Span.current()` returns a no-op – zero overhead
 * *With agent:* search Jaeger/Tempo by `api.version=v2`, `enduser.id=duke`, etc.
-* Standard OpenTelemetry API — works with any vendor's collector
+* Standard OpenTelemetry API – works with any vendor's collector
 
 ---
 
@@ -44,3 +44,8 @@ link:toc.adoc[⬆️ TOC] /
 link:08_observability.adoc[⬅️ Correlation IDs] /
 link:09_observability_liveness.adoc[➡️ Liveness Check]
 
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:08_observability.adoc[⬅️ The Lens] /
+link:09_observability_liveness.adoc[➡️ Liveness Check]

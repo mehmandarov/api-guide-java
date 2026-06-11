@@ -1,4 +1,4 @@
-# 🌐 HTTP Files — Quick Reference
+# 🌐 HTTP Files – Quick Reference
 
 This folder contains [JetBrains HTTP Client](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) `.http` files for exploring the API. They also work with the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension for VS Code.
 
@@ -46,7 +46,7 @@ Use these for ad-hoc exploration or when you want all calls for one resource in 
 | [`rooms.http`](rooms.http) | Room reads (read-only domain) | `GET /api/v1/rooms` |
 | [`versioning.http`](versioning.http) | URI vs. header-based versioning | `/api/v1/...`, `/api/v2/...`, `X-API-Version`, `Accept; version=` |
 | [`security.http`](security.http) | JWT + RBAC (401 / 403 / 201 flow) | `POST /api/v1/sessions` with various tokens |
-| [`signatures.http`](signatures.http) | HMAC-SHA256 request signature filter. ⚠️ **Filter is implemented but not applied to any endpoint by default** — see file header for how to enable. | `POST /api/v1/sessions` with `X-Signature` |
+| [`signatures.http`](signatures.http) | HMAC-SHA256 request signature filter. ⚠️ **Filter is implemented but not applied to any endpoint by default** – see file header for how to enable. | `POST /api/v1/sessions` with `X-Signature` |
 | [`health.http`](health.http) | MicroProfile Health probes | `GET /health`, `/health/live`, `/health/ready` |
 | [`errors.http`](errors.http) | RFC 9457 Problem Details responses | 404, 400 (validation + profanity), sanitization, OpenAPI |
 
@@ -56,8 +56,8 @@ These back the standalone bonus features and their companion blog posts.
 
 | File | Covers | Endpoints |
 |---|---|---|
-| [`unknown-fields.http`](unknown-fields.http) | What each JSON provider does with extra fields (JSON-B ignores, stock Jackson throws) — see `Ch7_UnknownFieldsTest` | `GET /api/unknown-fields/{id}` |
-| [`uploads.http`](uploads.http) | Binary uploads via multipart (`EntityPart`) and raw `application/octet-stream`; plus the Quarkus `@RestForm` variant — see `Ch8_UploadIT` | `POST /api/uploads/multipart`, `/api/uploads/raw`, `/api/uploads/quarkus` |
+| [`unknown-fields.http`](unknown-fields.http) | What each JSON provider does with extra fields (JSON-B ignores, stock Jackson throws) – see `Ch7_UnknownFieldsTest` | `GET /api/unknown-fields/{id}` |
+| [`uploads.http`](uploads.http) | Binary uploads via multipart (`EntityPart`) and raw `application/octet-stream`; plus the Quarkus `@RestForm` variant – see `Ch8_UploadIT` | `POST /api/uploads/multipart`, `/api/uploads/raw`, `/api/uploads/quarkus` |
 
 ### ⚙️ Configuration
 
@@ -73,14 +73,14 @@ If you're looking for the HTTP calls that back a specific chapter of the talk:
 
 | Chapter / Slide | Primary file | Also see |
 |---|---|---|
-| Ch1 — The Gatekeepers (sanitization, validation, audit) | `demos.http` § Ch1 | `errors.http`, `sessions.http` |
-| Ch2 — The Security Shield (JWT, RBAC, signatures) | `demos.http` § Ch2 | `security.http`, `signatures.http` |
-| Ch3 — The Lens (health, correlation, tracing) | `demos.http` § Ch3 | `health.http` |
-| Ch4 — The Living Contract (OpenAPI) | `demos.http` § Ch4 | `errors.http` (OpenAPI section) |
-| Ch5 — The Evolution (versioning) | `demos.http` § Ch5 | `versioning.http` |
-| Ch6 — Sane Error Handling (RFC 9457) | `demos.http` § Ch6 | `errors.http` |
-| ⭐ Bonus — Unknown JSON fields | `unknown-fields.http` | `Ch7_UnknownFieldsTest` (unit) |
-| ⭐ Bonus — Binary uploads | `uploads.http` | `Ch8_UploadIT` (integration) |
+| Ch1 – The Gatekeepers (sanitization, validation, audit) | `demos.http` § Ch1 | `errors.http`, `sessions.http` |
+| Ch2 – The Security Shield (JWT, RBAC, signatures) | `demos.http` § Ch2 | `security.http`, `signatures.http` |
+| Ch3 – The Lens (health, correlation, tracing) | `demos.http` § Ch3 | `health.http` |
+| Ch4 – The Living Contract (OpenAPI) | `demos.http` § Ch4 | `errors.http` (OpenAPI section) |
+| Ch5 – The Evolution (versioning) | `demos.http` § Ch5 | `versioning.http` |
+| Ch6 – Sane Error Handling (RFC 9457) | `demos.http` § Ch6 | `errors.http` |
+| ⭐ Bonus – Unknown JSON fields | `unknown-fields.http` | `Ch7_UnknownFieldsTest` (unit) |
+| ⭐ Bonus – Binary uploads | `uploads.http` | `Ch8_UploadIT` (integration) |
 
 ---
 
@@ -88,6 +88,6 @@ If you're looking for the HTTP calls that back a specific chapter of the talk:
 
 - **JetBrains IDEs:** click the green ▶︎ in the gutter next to any `###` block to fire that request.
 - **VS Code:** install [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client), then click `Send Request` above each block.
-- **CLI alternative:** every request can be translated to `curl` — but the env-file token substitution is the main reason to prefer `.http` files during a live demo.
-- **Body sanitization demos** (`<script>` payloads) are intentional — the server should respond `2xx` with the dangerous content stripped, never `5xx`. That's the whole point.
+- **CLI alternative:** every request can be translated to `curl` – but the env-file token substitution is the main reason to prefer `.http` files during a live demo.
+- **Body sanitization demos** (`<script>` payloads) are intentional – the server should respond `2xx` with the dangerous content stripped, never `5xx`. That's the whole point.
 

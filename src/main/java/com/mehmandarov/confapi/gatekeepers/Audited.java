@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Name-binding annotation — apply to resource classes or methods
+ * Name-binding annotation – apply to resource classes or methods
  * that should have audit logging enabled.
  *
  * <pre>

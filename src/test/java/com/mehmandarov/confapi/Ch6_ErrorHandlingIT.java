@@ -10,18 +10,18 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 /**
- * <strong>Bonus: Sane Error Handling — End-to-End</strong>
+ * <strong>Bonus: Sane Error Handling – End-to-End</strong>
  * <p>
  * Proves: every error status code (400, 401, 403, 404) returns a consistent
  * RFC 9457 Problem Details response with {@code application/problem+json}.
  * No stack traces leak. Clients always know what went wrong.
  */
 @ExtendWith(ConfApiExtension.class)
-@DisplayName("Ch6 IT — Sane Error Handling (RFC 9457)")
+@DisplayName("Ch6 IT – Sane Error Handling (RFC 9457)")
 class Ch6_ErrorHandlingIT {
 
     @Nested
-    @DisplayName("404 Not Found — resource does not exist")
+    @DisplayName("404 Not Found – resource does not exist")
     class NotFound {
 
         @Test
@@ -66,7 +66,7 @@ class Ch6_ErrorHandlingIT {
     }
 
     @Nested
-    @DisplayName("400 Validation Error — bad input is structured, not a stack trace")
+    @DisplayName("400 Validation Error – bad input is structured, not a stack trace")
     class ValidationError {
 
         @Test
@@ -96,7 +96,7 @@ class Ch6_ErrorHandlingIT {
     }
 
     @Nested
-    @DisplayName("401/403 — security errors are clean, not stack traces")
+    @DisplayName("401/403 – security errors are clean, not stack traces")
     class SecurityErrors {
 
         @Test

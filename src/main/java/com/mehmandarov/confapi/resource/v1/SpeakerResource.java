@@ -23,7 +23,7 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * Speaker resource — CRUD for conference speakers.
+ * Speaker resource – CRUD for conference speakers.
  */
 @Path("/v1/speakers")
 @Produces(MediaType.APPLICATION_JSON)

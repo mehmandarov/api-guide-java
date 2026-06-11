@@ -27,7 +27,7 @@ import java.net.URI;
 import java.util.List;
 
 /**
- * V1 Session resource — full CRUD with flat DTOs.
+ * V1 Session resource – full CRUD with flat DTOs.
  * <p>
  * Read operations are public; write operations require the ORGANIZER role.
  */
@@ -76,7 +76,7 @@ public class SessionResourceV1 {
     @APIResponse(responseCode = "401", description = "Not authenticated")
     @APIResponse(responseCode = "403", description = "Insufficient role")
     public Response create(
-            @RequestBody(description = "Session to create", required = true)
+            @RequestBody(description = "Session to create")
             // NOTE: Using the domain model directly as the request body is a deliberate
             // simplification for this demo. In production, a dedicated CreateSessionRequest DTO
             // should own the API input shape so that internal refactoring never becomes a
@@ -101,7 +101,7 @@ public class SessionResourceV1 {
     public SessionDtoV1 update(
             @Parameter(description = "Session ID", required = true)
             @PathParam("id") String id,
-            // NOTE: Same deliberate simplification as create() — domain model used as input DTO.
+            // NOTE: Same deliberate simplification as create() – domain model used as input DTO.
             @Valid Session session) {
         if (!repo.exists(id)) {
             throw new NotFoundException("Session not found: " + id);
@@ -125,4 +125,3 @@ public class SessionResourceV1 {
         return Response.noContent().build();
     }
 }
-

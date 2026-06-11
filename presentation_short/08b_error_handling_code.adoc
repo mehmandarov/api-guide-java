@@ -1,4 +1,4 @@
-=== Bonus — ExceptionMapper
+=== Bonus – ExceptionMapper
 ==== No `try/catch` in Resources. Ever.
 
 ---

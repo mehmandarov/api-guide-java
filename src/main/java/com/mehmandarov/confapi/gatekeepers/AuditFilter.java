@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.util.logging.Logger;
 
 /**
- * <strong>The Gatekeeper — Audit Filter</strong>
+ * <strong>The Gatekeeper – Audit Filter</strong>
  * <p>
  * A name-bound filter pair (request + response) that logs:
  * <ul>
@@ -36,7 +36,7 @@ public class AuditFilter implements ContainerRequestFilter, ContainerResponseFil
         request.setProperty(START_TIME, System.nanoTime());
 
         String caller = principalName(request.getSecurityContext());
-        LOG.info(() -> String.format("[AUDIT] >>> %s %s | caller=%s | at=%s",
+        LOG.info(() -> "[AUDIT] >>> %s %s | caller=%s | at=%s".formatted(
                 request.getMethod(),
                 request.getUriInfo().getRequestUri(),
                 caller,
@@ -54,7 +54,7 @@ public class AuditFilter implements ContainerRequestFilter, ContainerResponseFil
         long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
 
         String caller = principalName(request.getSecurityContext());
-        LOG.info(() -> String.format("[AUDIT] <<< %s %s | status=%d | caller=%s | elapsed=%dms",
+        LOG.info(() -> "[AUDIT] <<< %s %s | status=%d | caller=%s | elapsed=%dms".formatted(
                 request.getMethod(),
                 request.getUriInfo().getRequestUri(),
                 response.getStatus(),
@@ -69,4 +69,3 @@ public class AuditFilter implements ContainerRequestFilter, ContainerResponseFil
         return "anonymous";
     }
 }
-

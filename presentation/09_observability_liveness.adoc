@@ -1,5 +1,5 @@
-=== Ch3 — Liveness Check
-==== MicroProfile Health — Is the Process Alive?
+=== Ch3 – Liveness Check
+==== MicroProfile Health – Is the Process Alive?
 
 ---
 
@@ -21,10 +21,16 @@ public class StartupHealthCheck implements HealthCheck {
 }
 ----
 
-* `@Liveness` — Kubernetes uses this to decide whether to *restart* the pod
+* `@Liveness` – Kubernetes uses this to decide whether to *restart* the pod
 * Simple: if the process is alive, report UP
 
 [.small]#See also: https://github.com/mehmandarov/5-features-talk-demo/tree/main/demo-service1/src/main/java/health#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:08b_observability_tracing.adoc[⬅️ Tracing] /
+link:10_observability_readiness.adoc[➡️ Readiness Check]
 
 ---
 

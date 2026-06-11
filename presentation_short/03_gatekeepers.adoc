@@ -1,4 +1,4 @@
-=== Ch1 — The Gatekeepers
+=== Ch1 – The Gatekeepers
 ==== Business Logic Should Never See Dirty Input
 
 ---

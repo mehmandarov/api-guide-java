@@ -1,9 +1,9 @@
-=== Ch4 — OASFilter
+=== Ch4 – OASFilter
 ==== Cross-Cutting Spec Rules in One Place
 
 ---
 
-*Problem*: some standards apply to _every_ endpoint — repeating annotations on 20+ methods is fragile.
+*Problem*: some standards apply to _every_ endpoint – repeating annotations on 20+ methods is fragile.
 
 *Solution*: the runtime calls your `OASFilter.filterOperation()` for every operation.
 

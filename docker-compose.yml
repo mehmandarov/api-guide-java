@@ -1,4 +1,4 @@
-# docker-compose.yml — Local observability stack + containerized Conference API
+# docker-compose.yml – Local observability stack + containerized Conference API
 #
 # Start with: docker compose up -d --build
 # App:        http://localhost:8080

@@ -1,4 +1,4 @@
-=== Ch3 — Tracing & Health
+=== Ch3 – Tracing & Health
 ==== Enrich Spans With Domain Context
 
 ---
@@ -15,8 +15,8 @@ if (span.isRecording()) {
 
 ==== Health Checks
 
-* `@Liveness` — is the process alive? → Kubernetes *restarts* the pod
-* `@Readiness` — is the data loaded? → Kubernetes *routes traffic*
+* `@Liveness` – is the process alive? → Kubernetes *restarts* the pod
+* `@Readiness` – is the data loaded? → Kubernetes *routes traffic*
 
 [.small]#Code: link:../src/main/java/com/mehmandarov/confapi/observability/TracingFilter.java[TracingFilter]. *Full talk:* live Jaeger demo + liveness/readiness in depth.#
 

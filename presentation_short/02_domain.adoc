@@ -1,4 +1,4 @@
-=== The Domain — A Conference API
+=== The Domain – A Conference API
 
 ---
 

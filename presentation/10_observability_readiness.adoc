@@ -1,5 +1,5 @@
-=== Ch3 — Readiness Check
-==== MicroProfile Health — Is the Data Loaded?
+=== Ch3 – Readiness Check
+==== MicroProfile Health – Is the Data Loaded?
 
 ---
 
@@ -24,13 +24,19 @@ public class DataReadinessCheck implements HealthCheck {
 }
 ----
 
-* `@Readiness` — Kubernetes uses this to decide whether to *route traffic*
+* `@Readiness` – Kubernetes uses this to decide whether to *route traffic*
 
 ```bash
 curl http://localhost:8080/health/ready | jq
 ```
 
 [.small]#See also: https://github.com/mehmandarov/5-features-talk-demo/tree/main/demo-service1/src/main/java/health#
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:09_observability_liveness.adoc[⬅️ Liveness Check] /
+link:11_living_contract.adoc[➡️ The Living Contract]
 
 ---
 

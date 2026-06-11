@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 /**
- * <strong>The Gatekeeper — Body Sanitization Interceptor</strong>
+ * <strong>The Gatekeeper – Body Sanitization Interceptor</strong>
  * <p>
  * A {@code ReaderInterceptor} that sanitizes the JSON request body by
  * stripping HTML tags and {@code javascript:} protocol strings before

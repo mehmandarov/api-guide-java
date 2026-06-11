@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Name-binding annotation — apply to resource methods that require
+ * Name-binding annotation – apply to resource methods that require
  * request payload signature verification via HMAC-SHA256.
  * <p>
  * Clients must send a {@code X-Signature} header containing the

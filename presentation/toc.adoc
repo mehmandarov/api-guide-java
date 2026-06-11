@@ -1,65 +1,65 @@
 === 🛡️ An Opinionated Guide to Bulletproof APIs with Java
-==== Rustam Mehmandarov – https://rustam.no
+==== Jakarta EE 11 + MicroProfile 7
 ===== Table of Contents
 
-* link:00_title.adoc[Title]
+* link:00_title.adoc[🛡️ An Opinionated Guide to Bulletproof APIs with Java]
 * link:00b_about_me.adoc[About Me]
 * link:01_intro.adoc[Introduction]
-* link:01b_overview.adoc[What We'll Cover — 5 Patterns]
-* link:01c_domain.adoc[The Domain — A Conference API]
-* link:01d_api_domain_separation.adoc[API Model ≠ Domain Model]
+* link:01b_overview.adoc[What We'll Cover – 5 Patterns]
+* link:01c_domain.adoc[The Domain – A Conference API]
+* link:01d_api_domain_separation.adoc[Foundation – API Model ≠ Domain Model]
 
-*Ch1 — The Gatekeepers*
+*Ch1 – The Gatekeepers*
 
-* link:02_gatekeepers.adoc[The Gatekeepers — Overview]
-* link:02b_gatekeepers_chain.adoc[The Filter Chain]
-* link:03_gatekeepers_sanitization.adoc[Input Sanitization — Code]
-* link:02c_gatekeepers_audit.adoc[Audit Logging — @NameBinding]
-* link:04_gatekeepers_validation.adoc[Custom Validators — @NoProfanity]
-* link:04b_gatekeepers_chain_connect.adoc[How It Connects — @Valid to RFC 9457]
+* link:02_gatekeepers.adoc[Ch1 – The Gatekeepers]
+* link:02b_gatekeepers_chain.adoc[Ch1 – The Filter Chain]
+* link:03_gatekeepers_sanitization.adoc[Ch1 – Input Sanitization]
+* link:02c_gatekeepers_audit.adoc[Ch1 – Audit Logging]
+* link:04_gatekeepers_validation.adoc[Ch1 – Custom Validators]
+* link:04b_gatekeepers_chain_connect.adoc[Ch1 – How It Connects]
 
-*Ch2 — The Security Shield*
+*Ch2 – The Security Shield*
 
-* link:05_security_jwt.adoc[MicroProfile JWT Setup]
-* link:06_security_rbac.adoc[RBAC with Annotations]
-* link:07_security_signatures.adoc[Request Signatures — HMAC-SHA256]
+* link:05_security_jwt.adoc[Ch2 – The Security Shield]
+* link:06_security_rbac.adoc[Ch2 – RBAC with Annotations]
+* link:07_security_signatures.adoc[Ch2 – Request Signatures]
 
-*Ch3 — The Lens*
+*Ch3 – The Lens*
 
-* link:08_observability.adoc[Correlation IDs & Tracing]
-* link:08b_observability_tracing.adoc[Tracing — OpenTelemetry Spans]
-* link:09_observability_liveness.adoc[Liveness Check]
-* link:10_observability_readiness.adoc[Readiness Check]
+* link:08_observability.adoc[Ch3 – The Lens]
+* link:08b_observability_tracing.adoc[Ch3 – Tracing]
+* link:09_observability_liveness.adoc[Ch3 – Liveness Check]
+* link:10_observability_readiness.adoc[Ch3 – Readiness Check]
 
-*Ch4 — The Living Contract*
+*Ch4 – The Living Contract*
 
-* link:11_living_contract.adoc[OpenAPI from Code Annotations]
-* link:12_living_contract_oasfilter.adoc[OASFilter — Programmatic Enrichment]
-* link:12b_living_contract_oasfilter_code.adoc[OASFilter — Code]
+* link:11_living_contract.adoc[Ch4 – The Living Contract]
+* link:12_living_contract_oasfilter.adoc[Ch4 – OpenAPI Specification Filter (OASFilter)]
+* link:12b_living_contract_oasfilter_code.adoc[Ch4 – OASFilter Code]
 
-*Ch5 — The Evolution*
+*Ch5 – The Evolution*
 
-* link:13_evolution.adoc[Versioning Strategies]
-* link:14_evolution_code.adoc[Version Routing — Filter Code]
-* link:14b_evolution_demo.adoc[Version Demo]
+* link:13_evolution.adoc[Ch5 – The Evolution]
+* link:14_evolution_code.adoc[Ch5 – Version Routing]
+* link:14b_evolution_demo.adoc[Ch5 – Version Demo]
 
-*Bonus — Error Handling*
+*Bonus – Error Handling*
 
-* link:15_error_handling.adoc[RFC 9457 Problem Details]
-* link:15b_error_handling_libraries.adoc[Libraries & Trade-offs]
-* link:16_error_handling_code.adoc[ExceptionMapper — Code]
+* link:15_error_handling.adoc[Bonus – Sane Error Handling]
+* link:15b_error_handling_libraries.adoc[Bonus – Do I Have to Build This Myself?]
+* link:16_error_handling_code.adoc[Bonus – ExceptionMapper]
 
-*Bonus — More Patterns*
+*Bonus – More Patterns*
 
-* link:16b_unknown_fields.adoc[Unknown JSON Fields — Provider Defaults]
-* link:16c_uploads.adoc[Binary Uploads — Multipart & Raw]
+* link:16b_unknown_fields.adoc[Bonus – Unknown JSON Fields]
+* link:16c_uploads.adoc[Bonus – Binary Uploads]
 
 *Testing & Wrap-Up*
 
-* link:17_testing.adoc[Testing Strategy — 82 Tests]
-* link:18_testing_isolation.adoc[Test Isolation & Container Lifecycle]
+* link:17_testing.adoc[Testing Strategy]
+* link:18_testing_isolation.adoc[Testing – Container Lifecycle]
 * link:19_summary.adoc[Summary]
-* link:20_thank_you.adoc[Thank You]
+* link:20_thank_you.adoc[Thank You! 🎉]
 
 ---
-===== Rustam Mehmandarov — link:https://rustam.no[@rustam.no]
+===== Rustam Mehmandarov – link:https://rustam.no[@rustam.no]

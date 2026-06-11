@@ -9,18 +9,18 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 /**
- * <strong>Pattern 4: The Living Contract — End-to-End</strong>
+ * <strong>Pattern 4: The Living Contract – End-to-End</strong>
  * <p>
  * Proves: the OpenAPI spec is generated from code (not hand-written),
  * reflects all annotations, security schemes, tags, and OASFilter enrichments.
- * The spec IS the contract — if these tests pass, the contract is correct.
+ * The spec IS the contract – if these tests pass, the contract is correct.
  */
 @ExtendWith(ConfApiExtension.class)
-@DisplayName("Ch4 IT — The Living Contract (OpenAPI)")
+@DisplayName("Ch4 IT – The Living Contract (OpenAPI)")
 class Ch4_LivingContractIT {
 
     @Nested
-    @DisplayName("Spec Metadata — title, version, and structure")
+    @DisplayName("Spec Metadata – title, version, and structure")
     class Metadata {
 
         @Test
@@ -63,7 +63,7 @@ class Ch4_LivingContractIT {
     }
 
     @Nested
-    @DisplayName("Security Scheme — JWT is documented in the spec")
+    @DisplayName("Security Scheme – JWT is documented in the spec")
     class SecurityScheme {
 
         @Test
@@ -81,7 +81,7 @@ class Ch4_LivingContractIT {
     }
 
     @Nested
-    @DisplayName("OASFilter — programmatic enrichment of the spec")
+    @DisplayName("OASFilter – programmatic enrichment of the spec")
     class OASFilter {
 
         @Test

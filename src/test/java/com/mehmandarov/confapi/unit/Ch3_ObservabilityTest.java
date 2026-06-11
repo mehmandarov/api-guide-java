@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests prove: correlation IDs are generated/preserved correctly,
  * and health checks accurately reflect system state.
  */
-@DisplayName("Ch3 — The Lens (Observability)")
+@DisplayName("Ch3 – The Lens (Observability)")
 class Ch3_ObservabilityTest {
 
     @BeforeAll
@@ -29,7 +29,7 @@ class Ch3_ObservabilityTest {
     }
 
     @Nested
-    @DisplayName("Correlation ID — every request gets a traceable identifier")
+    @DisplayName("Correlation ID – every request gets a traceable identifier")
     class CorrelationId {
 
         @Test
@@ -39,7 +39,7 @@ class Ch3_ObservabilityTest {
         }
 
         @Test
-        @DisplayName("Property name is 'correlation.id' — available to all filters")
+        @DisplayName("Property name is 'correlation.id' – available to all filters")
         void propertyNameIsCorrect() {
             assertEquals("correlation.id", CorrelationIdFilter.PROPERTY_NAME);
         }
@@ -58,7 +58,7 @@ class Ch3_ObservabilityTest {
     }
 
     @Nested
-    @DisplayName("Health Checks — Kubernetes readiness/liveness signals")
+    @DisplayName("Health Checks – Kubernetes readiness/liveness signals")
     class HealthChecks {
 
         @Test
@@ -90,7 +90,7 @@ class Ch3_ObservabilityTest {
         @DisplayName("Readiness reports DOWN when no data is loaded")
         void readinessDownWhenEmpty() throws Exception {
             SessionRepository emptyRepo = new SessionRepository();
-            // Don't call init() — repo has zero sessions
+            // Don't call init() – repo has zero sessions
 
             DataReadinessCheck check = new DataReadinessCheck();
             injectRepo(check, emptyRepo);

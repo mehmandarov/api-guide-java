@@ -1,4 +1,4 @@
-=== Ch2 — RBAC with Annotations
+=== Ch2 – RBAC with Annotations
 ==== Zero Security Logic in Business Methods
 
 ---
@@ -32,4 +32,10 @@ public Response delete(@PathParam("id") String id) { ... }
 
 link:toc.adoc[⬆️ TOC] /
 link:05_security_jwt.adoc[⬅️ JWT Setup] /
+link:07_security_signatures.adoc[➡️ Request Signatures]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:05_security_jwt.adoc[⬅️ The Security Shield] /
 link:07_security_signatures.adoc[➡️ Request Signatures]

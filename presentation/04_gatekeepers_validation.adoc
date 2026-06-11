@@ -1,5 +1,5 @@
-=== Ch1 — Custom Validators
-==== `@NoProfanity` — Domain-Specific Constraints
+=== Ch1 – Custom Validators
+==== `@NoProfanity` – Domain-Specific Constraints
 
 ---
 
@@ -34,7 +34,13 @@ public class NoProfanityValidator
 }
 ----
 
-* Compose with `@NotBlank`, `@Size` — layer constraints on fields
+* Compose with `@NotBlank`, `@Size` – layer constraints on fields
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:02c_gatekeepers_audit.adoc[⬅️ Audit Logging] /
+link:04b_gatekeepers_chain_connect.adoc[➡️ How It Connects]
 
 ---
 

@@ -10,18 +10,18 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 /**
- * <strong>Pattern 1: The Gatekeepers — End-to-End</strong>
+ * <strong>Pattern 1: The Gatekeepers – End-to-End</strong>
  * <p>
  * Proves the full HTTP pipeline: sanitization filter → validation →
  * clean business logic → correct response. Your endpoint code never
  * touches dirty input.
  */
 @ExtendWith(ConfApiExtension.class)
-@DisplayName("Ch1 IT — The Gatekeepers")
+@DisplayName("Ch1 IT – The Gatekeepers")
 class Ch1_GatekeepersIT {
 
     @Nested
-    @DisplayName("Input Sanitization — dangerous payloads don't crash the server")
+    @DisplayName("Input Sanitization – dangerous payloads don't crash the server")
     class Sanitization {
 
         @Test
@@ -43,12 +43,12 @@ class Ch1_GatekeepersIT {
                 .post("/api/v1/sessions")
             .then()
                 .statusCode(anyOf(is(201), is(401)));
-            // 401 without JWT is fine — the point is it's NOT a 500.
+            // 401 without JWT is fine – the point is it's NOT a 500.
         }
     }
 
     @Nested
-    @DisplayName("Bean Validation — invalid input is rejected before business logic runs")
+    @DisplayName("Bean Validation – invalid input is rejected before business logic runs")
     class Validation {
 
         @Test
@@ -102,7 +102,7 @@ class Ch1_GatekeepersIT {
     }
 
     @Nested
-    @DisplayName("Read Endpoints — public data flows through the clean pipeline")
+    @DisplayName("Read Endpoints – public data flows through the clean pipeline")
     class PublicReads {
 
         @Test

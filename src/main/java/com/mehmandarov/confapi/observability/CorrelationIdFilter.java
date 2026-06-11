@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * <strong>The Lens — Correlation ID Filter</strong>
+ * <strong>The Lens – Correlation ID Filter</strong>
  * <p>
  * Ensures every request/response pair carries a unique correlation ID
  * for end-to-end request tracing across services and log aggregation.

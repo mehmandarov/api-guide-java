@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests prove: ProblemDetail follows RFC 9457, and the builder pattern
  * makes it easy to construct rich, standard error responses.
  */
-@DisplayName("Bonus — Sane Error Handling (RFC 9457)")
+@DisplayName("Bonus – Sane Error Handling (RFC 9457)")
 class Ch6_ErrorHandlingTest {
 
     @Nested
-    @DisplayName("ProblemDetail — the RFC 9457 standard error envelope")
+    @DisplayName("ProblemDetail – the RFC 9457 standard error envelope")
     class ProblemDetailBuilder {
 
         @Test
@@ -72,7 +72,7 @@ class Ch6_ErrorHandlingTest {
         }
 
         @Test
-        @DisplayName("Builder is fluent — all methods return the same instance")
+        @DisplayName("Builder is fluent – all methods return the same instance")
         void builderIsFluent() {
             ProblemDetail pd = ProblemDetail.of(500, "Error");
             assertSame(pd, pd.withType("urn:test").withInstance("/x").withExtension("k", "v"),
@@ -81,7 +81,7 @@ class Ch6_ErrorHandlingTest {
     }
 
     @Nested
-    @DisplayName("Content-Type — errors are 'application/problem+json'")
+    @DisplayName("Content-Type – errors are 'application/problem+json'")
     class ContentType {
 
         @Test

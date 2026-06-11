@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Custom Bean Validation constraint — rejects strings containing
+ * Custom Bean Validation constraint – rejects strings containing
  * a naive set of "profane" words.  Demonstrates how to build
  * domain-specific validators that keep resource code clean.
  */

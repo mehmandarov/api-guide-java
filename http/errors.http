@@ -1,12 +1,12 @@
 ### ============================
-### Error Handling — RFC 9457 Problem Details
+### Error Handling – RFC 9457 Problem Details
 ### ============================
 
-### 404 — Non-existent session
+### 404 – Non-existent session
 GET http://localhost:8080/api/v1/sessions/does-not-exist
 Accept: application/json
 
-### 400 — Validation error (empty title, missing required fields)
+### 400 – Validation error (empty title, missing required fields)
 POST http://localhost:8080/api/v1/sessions
 Content-Type: application/json
 Authorization: Bearer {{jwt_organizer}}
@@ -18,7 +18,7 @@ Authorization: Bearer {{jwt_organizer}}
   "durationMinutes": 5
 }
 
-### 400 — Custom validator: profanity check
+### 400 – Custom validator: profanity check
 POST http://localhost:8080/api/v1/sessions
 Content-Type: application/json
 Authorization: Bearer {{jwt_organizer}}
@@ -32,7 +32,7 @@ Authorization: Bearer {{jwt_organizer}}
   "durationMinutes": 50
 }
 
-### Input sanitization — HTML tags in body should be stripped
+### Input sanitization – HTML tags in body should be stripped
 POST http://localhost:8080/api/v1/sessions
 Content-Type: application/json
 Authorization: Bearer {{jwt_organizer}}

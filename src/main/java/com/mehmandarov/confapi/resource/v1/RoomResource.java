@@ -15,7 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import java.util.List;
 
 /**
- * Room resource — read-only (rooms are managed by venue staff, not the API).
+ * Room resource – read-only (rooms are managed by venue staff, not the API).
  */
 @Path("/v1/rooms")
 @Produces(MediaType.APPLICATION_JSON)

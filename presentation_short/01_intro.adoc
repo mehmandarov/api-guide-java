@@ -1,5 +1,5 @@
 === Introduction
-==== Jakarta EE 11 + MicroProfile 7 — Zero Vendor Lock-In
+==== Jakarta EE 11 + MicroProfile 7 – Zero Vendor Lock-In
 
 ---
 
@@ -11,7 +11,7 @@
 [.lead]
 *Thesis*: Jakarta EE + MicroProfile already give you the building blocks.
 
-[.small]#⏱️ This is the *short edition* — the full-length talk goes deeper and adds bonus topics.#
+[.small]#⏱️ This is the *short edition* – the full-length talk goes deeper and adds bonus topics.#
 
 ---
 

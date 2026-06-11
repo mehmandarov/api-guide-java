@@ -1,5 +1,5 @@
-=== Ch1 — Audit Logging
-==== `@NameBinding` — Selective Filter Activation
+=== Ch1 – Audit Logging
+==== `@NameBinding` – Selective Filter Activation
 
 ---
 
@@ -22,7 +22,7 @@ link:../src/main/java/com/mehmandarov/confapi/gatekeepers/AuditFilter.java[Audit
 public class AuditFilter
         implements ContainerRequestFilter, ContainerResponseFilter {
 
-    @Override // ← BEFORE the resource method — log the incoming request
+    @Override // ← BEFORE the resource method – log the incoming request
     public void filter(ContainerRequestContext request) {
         request.setProperty(START_TIME, System.nanoTime());
         LOG.info(() -> String.format("[AUDIT] >>> %s %s | caller=%s",
@@ -31,7 +31,7 @@ public class AuditFilter
                 principalName(request.getSecurityContext())));
     }
 
-    @Override // ← AFTER the resource method — log status + elapsed time
+    @Override // ← AFTER the resource method – log status + elapsed time
     public void filter(ContainerRequestContext request,
                        ContainerResponseContext response) {
         long elapsedMs = (System.nanoTime() - startNanos) / 1_000_000;
@@ -41,11 +41,17 @@ public class AuditFilter
 }
 ----
 
-* link:../src/main/java/com/mehmandarov/confapi/resource/v1/SessionResourceV1.java[`SessionResourceV1`], link:../src/main/java/com/mehmandarov/confapi/resource/v2/SessionResourceV2.java[`SessionResourceV2`], link:../src/main/java/com/mehmandarov/confapi/resource/v1/SpeakerResource.java[`SpeakerResource`] — `@Audited`
-* link:../src/main/java/com/mehmandarov/confapi/resource/v1/RoomResource.java[`RoomResource`] — not annotated → no audit logging
+* link:../src/main/java/com/mehmandarov/confapi/resource/v1/SessionResourceV1.java[`SessionResourceV1`], link:../src/main/java/com/mehmandarov/confapi/resource/v2/SessionResourceV2.java[`SessionResourceV2`], link:../src/main/java/com/mehmandarov/confapi/resource/v1/SpeakerResource.java[`SpeakerResource`] – `@Audited`
+* link:../src/main/java/com/mehmandarov/confapi/resource/v1/RoomResource.java[`RoomResource`] – not annotated → no audit logging
 
 ---
 
 link:toc.adoc[⬆️ TOC] /
 link:03_gatekeepers_sanitization.adoc[⬅️ Sanitization Code] /
+link:04_gatekeepers_validation.adoc[➡️ Custom Validators]
+
+---
+
+link:toc.adoc[⬆️ TOC] /
+link:03_gatekeepers_sanitization.adoc[⬅️ Input Sanitization] /
 link:04_gatekeepers_validation.adoc[➡️ Custom Validators]

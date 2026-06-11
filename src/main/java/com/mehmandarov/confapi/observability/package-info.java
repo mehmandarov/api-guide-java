@@ -6,10 +6,10 @@
  * <p>
  * Key classes:
  * <ul>
- *   <li>{@link com.mehmandarov.confapi.observability.TracingFilter} — OpenTelemetry span enrichment</li>
- *   <li>{@link com.mehmandarov.confapi.observability.CorrelationIdFilter} — {@code X-Request-Id} propagation</li>
- *   <li>{@link com.mehmandarov.confapi.observability.StartupHealthCheck} — {@code @Liveness} probe</li>
- *   <li>{@link com.mehmandarov.confapi.observability.DataReadinessCheck} — {@code @Readiness} probe</li>
+ *   <li>{@link com.mehmandarov.confapi.observability.TracingFilter} – OpenTelemetry span enrichment</li>
+ *   <li>{@link com.mehmandarov.confapi.observability.CorrelationIdFilter} – {@code X-Request-Id} propagation</li>
+ *   <li>{@link com.mehmandarov.confapi.observability.StartupHealthCheck} – {@code @Liveness} probe</li>
+ *   <li>{@link com.mehmandarov.confapi.observability.DataReadinessCheck} – {@code @Readiness} probe</li>
  * </ul>
  */
 package com.mehmandarov.confapi.observability;

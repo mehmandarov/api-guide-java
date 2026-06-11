@@ -30,11 +30,11 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests prove: V1 and V2 DTOs represent different API contracts,
  * and the version detection logic correctly parses headers.
  */
-@DisplayName("Ch5 — The Evolution (API Versioning)")
+@DisplayName("Ch5 – The Evolution (API Versioning)")
 class Ch5_EvolutionTest {
 
     @Nested
-    @DisplayName("V1 DTO — flat, foreign-key based (backward compatible)")
+    @DisplayName("V1 DTO – flat, foreign-key based (backward compatible)")
     class V1Flat {
 
         private Session session;
@@ -65,7 +65,7 @@ class Ch5_EvolutionTest {
     }
 
     @Nested
-    @DisplayName("V2 DTO — enriched with embedded speaker & room (breaking change)")
+    @DisplayName("V2 DTO – enriched with embedded speaker & room (breaking change)")
     class V2Enriched {
 
         private Session session;
@@ -124,7 +124,7 @@ class Ch5_EvolutionTest {
     }
 
     @Nested
-    @DisplayName("Version Detection — parsing X-API-Version and Accept headers")
+    @DisplayName("Version Detection – parsing X-API-Version and Accept headers")
     class VersionDetection {
 
         private HeaderVersionFilter filter;
@@ -221,7 +221,7 @@ class Ch5_EvolutionTest {
         @Override public int getLength() { return 0; }
         @Override public Locale getLanguage() { return null; }
 
-        // Jakarta REST 4.0 (EE 11) additions — no @Override so it compiles with 3.1 too
+        // Jakarta REST 4.0 (EE 11) additions – no @Override so it compiles with 3.1 too
         public boolean containsHeaderString(String name, String sep, java.util.function.Predicate<String> p) { return false; }
         public boolean containsHeaderString(String name, java.util.function.Predicate<String> p) { return false; }
     }

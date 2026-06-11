@@ -1,4 +1,4 @@
-=== Bonus — Sane Error Handling
+=== Bonus – Sane Error Handling
 ==== RFC 9457 Problem Details
 
 ---

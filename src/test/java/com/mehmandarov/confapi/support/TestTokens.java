@@ -21,7 +21,7 @@ import java.util.UUID;
  * These tokens are signed with the test private key
  * ({@code src/test/resources/test-private-key.pem}) that matches the
  * public key baked into the application ({@code META-INF/publicKey.pem}).
- * The container validates them through the standard MicroProfile JWT pipeline —
+ * The container validates them through the standard MicroProfile JWT pipeline –
  * no mocks, no fakes, no runtime-specific shortcuts.
  * <p>
  * Claims match the structure from {@code generate-jwt.sh}:
@@ -42,17 +42,17 @@ public final class TestTokens {
 
     private TestTokens() { }
 
-    /** Token with {@code groups: ["ORGANIZER"]} — full CRUD access. */
+    /** Token with {@code groups: ["ORGANIZER"]} – full CRUD access. */
     public static String forOrganizer() {
         return generate("organizer1", "ORGANIZER");
     }
 
-    /** Token with {@code groups: ["SPEAKER"]} — read + own sessions. */
+    /** Token with {@code groups: ["SPEAKER"]} – read + own sessions. */
     public static String forSpeaker() {
         return generate("speaker1", "SPEAKER");
     }
 
-    /** Token with {@code groups: ["ATTENDEE"]} — read-only. */
+    /** Token with {@code groups: ["ATTENDEE"]} – read-only. */
     public static String forAttendee() {
         return generate("attendee1", "ATTENDEE");
     }
