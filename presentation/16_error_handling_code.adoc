@@ -40,9 +40,3 @@ public class ConstraintViolationExceptionMapper
 link:toc.adoc[⬆️ TOC] /
 link:15b_error_handling_libraries.adoc[⬅️ Libraries & Trade-offs] /
 link:16b_unknown_fields.adoc[➡️ Unknown JSON Fields]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:15b_error_handling_libraries.adoc[⬅️ Do I Have to Build This Mys...] /
-link:16b_unknown_fields.adoc[➡️ Unknown JSON Fields]

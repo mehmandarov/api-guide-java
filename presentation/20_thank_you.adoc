@@ -18,8 +18,3 @@ https://github.com/mehmandarov/api-guide-java
 
 link:toc.adoc[⬆️ TOC] /
 link:19_summary.adoc[⬅️ Summary]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:19_summary.adoc[⬅️ Summary]

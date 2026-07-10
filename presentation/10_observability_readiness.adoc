@@ -37,9 +37,3 @@ curl http://localhost:8080/health/ready | jq
 link:toc.adoc[⬆️ TOC] /
 link:09_observability_liveness.adoc[⬅️ Liveness Check] /
 link:11_living_contract.adoc[➡️ The Living Contract]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:09_observability_liveness.adoc[⬅️ Liveness Check] /
-link:11_living_contract.adoc[➡️ The Living Contract]

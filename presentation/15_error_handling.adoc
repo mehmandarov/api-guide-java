@@ -32,9 +32,3 @@ Built with: link:../src/main/java/com/mehmandarov/confapi/error/ProblemDetail.ja
 link:toc.adoc[⬆️ TOC] /
 link:14b_evolution_demo.adoc[⬅️ Version Demo] /
 link:15b_error_handling_libraries.adoc[➡️ Libraries & Trade-offs]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:14b_evolution_demo.adoc[⬅️ Version Demo] /
-link:15b_error_handling_libraries.adoc[➡️ Do I Have to Build This Mys...]

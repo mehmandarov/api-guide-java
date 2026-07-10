@@ -32,9 +32,3 @@ public class HeaderVersionFilter implements ContainerRequestFilter {
 link:toc.adoc[⬆️ TOC] /
 link:13_evolution.adoc[⬅️ Versioning Strategies] /
 link:14b_evolution_demo.adoc[➡️ Version Demo]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:13_evolution.adoc[⬅️ The Evolution] /
-link:14b_evolution_demo.adoc[➡️ Version Demo]

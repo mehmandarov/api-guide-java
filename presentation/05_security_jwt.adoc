@@ -30,9 +30,3 @@ link:../src/main/java/com/mehmandarov/confapi/security/TokenClaimsFilter.java[To
 link:toc.adoc[⬆️ TOC] /
 link:04b_gatekeepers_chain_connect.adoc[⬅️ How It Connects] /
 link:06_security_rbac.adoc[➡️ RBAC with Annotations]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:04b_gatekeepers_chain_connect.adoc[⬅️ How It Connects] /
-link:06_security_rbac.adoc[➡️ RBAC with Annotations]

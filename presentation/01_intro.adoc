@@ -13,9 +13,3 @@
 link:toc.adoc[⬆️ TOC] /
 link:00b_about_me.adoc[⬅️ About Me] /
 link:01b_overview.adoc[➡️ What We'll Cover]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:00b_about_me.adoc[⬅️ About Me] /
-link:01b_overview.adoc[➡️ What We'll Cover – 5 Patterns]

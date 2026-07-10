@@ -41,9 +41,3 @@ public class NoProfanityValidator
 link:toc.adoc[⬆️ TOC] /
 link:02c_gatekeepers_audit.adoc[⬅️ Audit Logging] /
 link:04b_gatekeepers_chain_connect.adoc[➡️ How It Connects]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:02c_gatekeepers_audit.adoc[⬅️ Audit Logging] /
-link:04b_gatekeepers_chain_connect.adoc[➡️ How It Connects]

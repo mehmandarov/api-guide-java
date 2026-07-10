@@ -30,9 +30,3 @@ mvn verify -Pquarkus
 link:toc.adoc[⬆️ TOC] /
 link:17_testing.adoc[⬅️ Testing Strategy] /
 link:19_summary.adoc[➡️ Summary]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:17_testing.adoc[⬅️ Testing Strategy] /
-link:19_summary.adoc[➡️ Summary]

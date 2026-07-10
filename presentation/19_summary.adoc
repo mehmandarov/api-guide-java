@@ -29,9 +29,3 @@
 link:toc.adoc[⬆️ TOC] /
 link:18_testing_isolation.adoc[⬅️ Test Isolation] /
 link:20_thank_you.adoc[➡️ Thank You]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:18_testing_isolation.adoc[⬅️ Testing – Container Lifecycle] /
-link:20_thank_you.adoc[➡️ Thank You! 🎉]

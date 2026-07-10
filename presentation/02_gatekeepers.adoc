@@ -39,9 +39,3 @@ See link:01d_api_domain_separation.adoc[API Model ≠ Domain Model].#
 link:toc.adoc[⬆️ TOC] /
 link:01d_api_domain_separation.adoc[⬅️ API Model ≠ Domain Model] /
 link:02b_gatekeepers_chain.adoc[➡️ The Filter Chain]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:01d_api_domain_separation.adoc[⬅️ Foundation – API Model ≠ Do...] /
-link:02b_gatekeepers_chain.adoc[➡️ The Filter Chain]

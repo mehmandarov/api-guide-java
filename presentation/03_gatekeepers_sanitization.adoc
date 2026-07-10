@@ -36,9 +36,3 @@ Body sanitization handled by link:../src/main/java/com/mehmandarov/confapi/gatek
 link:toc.adoc[⬆️ TOC] /
 link:02b_gatekeepers_chain.adoc[⬅️ Filter Chain] /
 link:02c_gatekeepers_audit.adoc[➡️ Audit Logging]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:02b_gatekeepers_chain.adoc[⬅️ The Filter Chain] /
-link:02c_gatekeepers_audit.adoc[➡️ Audit Logging]

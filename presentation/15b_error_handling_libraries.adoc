@@ -50,9 +50,3 @@ _(this project)_
 link:toc.adoc[⬆️ TOC] /
 link:15_error_handling.adoc[⬅️ RFC 9457] /
 link:16_error_handling_code.adoc[➡️ ExceptionMapper Code]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:15_error_handling.adoc[⬅️ Sane Error Handling] /
-link:16_error_handling_code.adoc[➡️ ExceptionMapper]

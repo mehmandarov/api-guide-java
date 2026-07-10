@@ -37,9 +37,3 @@ public Response uploadRaw(InputStream body,
 link:toc.adoc[⬆️ TOC] /
 link:16b_unknown_fields.adoc[⬅️ Unknown JSON Fields] /
 link:17_testing.adoc[➡️ Testing Strategy]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:16b_unknown_fields.adoc[⬅️ Unknown JSON Fields] /
-link:17_testing.adoc[➡️ Testing Strategy]

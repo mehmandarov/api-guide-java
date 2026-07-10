@@ -31,9 +31,3 @@ new JsonMapper().readValue(overStuffedJson, Room.class);   // throws!
 link:toc.adoc[⬆️ TOC] /
 link:16_error_handling_code.adoc[⬅️ ExceptionMapper Code] /
 link:16c_uploads.adoc[➡️ Binary Uploads]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:16_error_handling_code.adoc[⬅️ ExceptionMapper] /
-link:16c_uploads.adoc[➡️ Binary Uploads]

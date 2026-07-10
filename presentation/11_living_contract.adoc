@@ -36,9 +36,3 @@ _Zero YAML files written. The code IS the contract._
 link:toc.adoc[⬆️ TOC] /
 link:10_observability_readiness.adoc[⬅️ Readiness Check] /
 link:12_living_contract_oasfilter.adoc[➡️ OASFilter]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:10_observability_readiness.adoc[⬅️ Readiness Check] /
-link:12_living_contract_oasfilter.adoc[➡️ OpenAPI Specification Filte...]

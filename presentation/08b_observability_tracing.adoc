@@ -43,9 +43,3 @@ public class TracingFilter
 link:toc.adoc[⬆️ TOC] /
 link:08_observability.adoc[⬅️ Correlation IDs] /
 link:09_observability_liveness.adoc[➡️ Liveness Check]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:08_observability.adoc[⬅️ The Lens] /
-link:09_observability_liveness.adoc[➡️ Liveness Check]

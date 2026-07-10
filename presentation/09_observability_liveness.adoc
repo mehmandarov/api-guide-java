@@ -31,9 +31,3 @@ public class StartupHealthCheck implements HealthCheck {
 link:toc.adoc[⬆️ TOC] /
 link:08b_observability_tracing.adoc[⬅️ Tracing] /
 link:10_observability_readiness.adoc[➡️ Readiness Check]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:08b_observability_tracing.adoc[⬅️ Tracing] /
-link:10_observability_readiness.adoc[➡️ Readiness Check]

@@ -41,9 +41,3 @@ _This project implements URI + header-based versioning:_
 link:toc.adoc[⬆️ TOC] /
 link:12b_living_contract_oasfilter_code.adoc[⬅️ OASFilter Code] /
 link:14_evolution_code.adoc[➡️ Version Routing Code]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:12b_living_contract_oasfilter_code.adoc[⬅️ OASFilter Code] /
-link:14_evolution_code.adoc[➡️ Version Routing]

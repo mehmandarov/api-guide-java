@@ -46,9 +46,3 @@ This three-layer pattern – domain / mapping / contract – is the foundation w
 link:toc.adoc[⬆️ TOC] /
 link:01c_domain.adoc[⬅️ The Domain] /
 link:02_gatekeepers.adoc[➡️ The Gatekeepers]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:01c_domain.adoc[⬅️ The Domain – A Conference API] /
-link:02_gatekeepers.adoc[➡️ The Gatekeepers]

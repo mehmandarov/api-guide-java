@@ -24,9 +24,3 @@ mp.openapi.filter=com.mehmandarov.confapi.openapi.ConferenceOASFilter
 link:toc.adoc[⬆️ TOC] /
 link:11_living_contract.adoc[⬅️ OpenAPI Annotations] /
 link:12b_living_contract_oasfilter_code.adoc[➡️ OASFilter Code]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:11_living_contract.adoc[⬅️ The Living Contract] /
-link:12b_living_contract_oasfilter_code.adoc[➡️ OASFilter Code]

@@ -28,9 +28,3 @@ _Each layer is a standard Jakarta EE API – no framework magic._
 link:toc.adoc[⬆️ TOC] /
 link:02_gatekeepers.adoc[⬅️ Gatekeepers] /
 link:03_gatekeepers_sanitization.adoc[➡️ Sanitization Code]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:02_gatekeepers.adoc[⬅️ The Gatekeepers] /
-link:03_gatekeepers_sanitization.adoc[➡️ Input Sanitization]

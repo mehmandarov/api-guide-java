@@ -49,9 +49,3 @@ public class AuditFilter
 link:toc.adoc[⬆️ TOC] /
 link:03_gatekeepers_sanitization.adoc[⬅️ Sanitization Code] /
 link:04_gatekeepers_validation.adoc[➡️ Custom Validators]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:03_gatekeepers_sanitization.adoc[⬅️ Input Sanitization] /
-link:04_gatekeepers_validation.adoc[➡️ Custom Validators]

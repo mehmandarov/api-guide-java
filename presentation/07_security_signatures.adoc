@@ -36,9 +36,3 @@ public class RequestSignatureFilter implements ContainerRequestFilter {
 link:toc.adoc[⬆️ TOC] /
 link:06_security_rbac.adoc[⬅️ RBAC] /
 link:08_observability.adoc[➡️ The Lens]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:06_security_rbac.adoc[⬅️ RBAC with Annotations] /
-link:08_observability.adoc[➡️ The Lens]

@@ -43,9 +43,3 @@ curl http://localhost:8080/openapi?format=json | jq '.paths["/api/v1/sessions"]'
 link:toc.adoc[⬆️ TOC] /
 link:12_living_contract_oasfilter.adoc[⬅️ OASFilter] /
 link:13_evolution.adoc[➡️ The Evolution]
-
----
-
-link:toc.adoc[⬆️ TOC] /
-link:12_living_contract_oasfilter.adoc[⬅️ OpenAPI Specification Filte...] /
-link:13_evolution.adoc[➡️ The Evolution]
