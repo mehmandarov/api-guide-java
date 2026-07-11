@@ -1,5 +1,5 @@
 === Ch1 – The Gatekeepers
-==== Business Logic Should Never See Dirty Input
+==== Keep Dirty Input Out of Business Logic
 
 ---
 
@@ -27,6 +27,8 @@ public Response create(@Valid Session s) {
     return Response.created(...).entity(repo.save(s)).build();
 }
 ----
+
+[.small]#_Dirty input_ = unauthenticated, unsanitized, or unvalidated data – malformed fields, injected HTML/JS, path traversal, or values that break business rules.#
 
 ---
 

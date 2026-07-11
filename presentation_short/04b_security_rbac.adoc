@@ -15,7 +15,8 @@ public Response create(@Valid Session session) { ... }
 [.lead]
 If your endpoint contains `if (user.hasRole(...))`, something went wrong.
 
-[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/ApiApplication.java[ApiApplication], link:../src/main/java/com/mehmandarov/confapi/resource/v1/SessionResourceV1.java[SessionResourceV1]. Try the 401→403→201 flow with `./generate-jwt.sh`. *Full talk:* HMAC-SHA256 request signatures + custom claim propagation.#
+[.small]#Code: link:../src/main/java/com/mehmandarov/confapi/ApiApplication.java[ApiApplication], link:../src/main/java/com/mehmandarov/confapi/resource/v1/SessionResourceV1.java[SessionResourceV1]. Try the 401→403→201 flow with `./generate-jwt.sh`.#
+[.small]#*Full talk:* HMAC-SHA256 request signatures + custom claim propagation.#
 
 ---
 

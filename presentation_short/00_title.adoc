@@ -2,7 +2,7 @@
 |===
 .^a|
 
-== 🛡️ An Opinionated Guide to Bulletproof APIs with Java
+== 🛡️ An Opinionated Guide to Bulletproof APIs with Code Examples
 ==== ⏱️ 5 Patterns in ~25 min
 
 ---
