@@ -1,0 +1,49 @@
+### ============================
+### TUS resumable uploads (demo)
+### ============================
+### Companion to the blog post:
+### "Resumable file uploads with TUS and Jakarta EE"
+###
+### The TUS core protocol in three requests: POST creates the upload,
+### HEAD returns the current offset, PATCH appends bytes at that offset.
+### Every request/response carries Tus-Resumable: 1.0.0.
+###
+### After the POST, copy the id from the Location header into the
+### requests below (or use a real TUS client - it does this for you).
+
+### 0. Capability discovery
+OPTIONS http://localhost:8080/api/tus
+Tus-Resumable: 1.0.0
+
+### 1. Create an upload (declares the total size in bytes)
+POST http://localhost:8080/api/tus
+Tus-Resumable: 1.0.0
+Upload-Length: 34
+
+### 2. Upload the first chunk (17 bytes), starting at offset 0
+PATCH http://localhost:8080/api/tus/{id}
+Tus-Resumable: 1.0.0
+Upload-Offset: 0
+Content-Type: application/offset+octet-stream
+
+FIRST-HALF-BYTES-
+
+### 3. Ask where to resume from (returns Upload-Offset: 17)
+HEAD http://localhost:8080/api/tus/{id}
+Tus-Resumable: 1.0.0
+
+### 4. Resume: upload the rest from offset 17
+PATCH http://localhost:8080/api/tus/{id}
+Tus-Resumable: 1.0.0
+Upload-Offset: 17
+Content-Type: application/offset+octet-stream
+
+SECOND-HALF-BYTES
+
+### 5. Wrong offset -> 409 Conflict with the correct Upload-Offset
+PATCH http://localhost:8080/api/tus/{id}
+Tus-Resumable: 1.0.0
+Upload-Offset: 1
+Content-Type: application/offset+octet-stream
+
+WILL-BE-REJECTED

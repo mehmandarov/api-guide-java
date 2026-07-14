@@ -1,0 +1,29 @@
+# syntax=docker/dockerfile:1.7
+# ============================================================
+# Conference API — Dev-mode image (Quarkus, live reload)
+# ============================================================
+# Runs `mvn quarkus:dev` with the project directory bind-mounted,
+# so source changes on the host reload inside the container.
+#
+# Build context: project root (compose sets build.context: .)
+# Run via compose (recommended):
+#   docker compose --profile dev up confapi-dev
+# Or manually:
+#   docker build -f docker/quarkus/Dockerfile.dev -t confapi:dev .
+#   docker run --rm -p 8080:8080 -v "$PWD":/workspace -v confapi-m2:/root/.m2 confapi:dev
+# ============================================================
+
+FROM maven:3.9-eclipse-temurin-25
+WORKDIR /workspace
+
+# Sources are bind-mounted at runtime; nothing is copied into the image.
+# The Maven repo lives in a named volume so dependencies download once.
+
+EXPOSE 8080
+
+# Dev mode binds to localhost by default – bind to all interfaces so the
+# mapped port works from the host. Polling instrumentation is not needed:
+# Quarkus checks file timestamps on each request, which works over bind mounts.
+CMD ["mvn", "-Pquarkus", "quarkus:dev", \
+     "-Dquarkus.http.host=0.0.0.0", \
+     "-Dquarkus.console.basic=true"]

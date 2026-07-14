@@ -16,6 +16,7 @@ This project demonstrates **5 essential patterns** for building production-grade
 | ⭐ | **Bonus: Sane Error Handling** – RFC 9457 Problem Details | `error` | `ExceptionMapper`, `application/problem+json` |
 | ⭐ | **Bonus: Unknown JSON Fields** – what each provider does with extra fields | `unknownfields` | JSON-B vs Jackson defaults, `@JsonIgnoreProperties` |
 | ⭐ | **Bonus: Binary Uploads** – receiving files as multipart or raw body | `upload` | Jakarta REST `EntityPart`, `application/octet-stream` |
+| ⭐ | **Bonus: Resumable Uploads (TUS)** – pause/resume large uploads over flaky networks | `upload.tus` | Pure `jakarta.ws.rs` implementation of the [TUS 1.0](https://tus.io/protocols/resumable-upload) core protocol |
 
 ## 🏗️ Tech Stack
 
@@ -106,6 +107,33 @@ docker compose up -d --build confapi
 ```
 
 > The shipped Compose setup targets the **Quarkus** profile via `docker/quarkus/Dockerfile`. Liberty/Helidon equivalents would live alongside it as `docker/liberty/Dockerfile` etc. – the Testcontainers `.it` variants are already in place.
+
+### C. Run in Docker with live reload (dev mode in a container)
+
+If you want the app containerized **and** still get live reload on file change, use the opt-in `dev` compose profile. It runs `mvn quarkus:dev` inside a container ([`docker/quarkus/Dockerfile.dev`](docker/quarkus/Dockerfile.dev)) with the project directory bind-mounted – edit a source file on the host and Quarkus recompiles on the next request.
+
+```bash
+# Start Jaeger + the dev-mode container (first run downloads dependencies – be patient)
+docker compose --profile dev up -d --build confapi-dev
+
+# Tail the logs and watch the reloads happen
+docker compose logs -f confapi-dev
+
+# Try it: edit any file under src/, then hit an endpoint
+curl http://localhost:8080/api/v1/sessions | jq
+
+# Stop everything (--profile dev also stops confapi-dev)
+docker compose --profile dev down
+```
+
+How it works:
+
+- The project root is bind-mounted at `/workspace`, so the container compiles the files you edit on the host. No image rebuild, no restart.
+- The Maven repository lives in a named volume (`confapi-m2`), so dependencies are downloaded once and reused across container restarts.
+- Reload is triggered on the **next HTTP request** – Quarkus dev mode checks file timestamps per request, which works fine over bind mounts (no inotify needed).
+- Don't run `confapi` and `confapi-dev` at the same time – both map port 8080.
+
+> **Note:** dev mode in a container is for demos and "works on my machine" debugging. For day-to-day development, plain `mvn quarkus:dev` on the host (option A) is faster.
 
 ## 🔐 JWT Authentication
 
@@ -233,6 +261,40 @@ Ready-to-run requests for every demo live in [`http/`](http/). Open them in JetB
 
 See [`http/README.md`](http/README.md) for the full catalogue, setup steps, and a chapter → file map.
 
+## 📤 Resumable Uploads (TUS)
+
+Bonus demo of the [TUS 1.0](https://tus.io/protocols/resumable-upload) resumable-upload protocol, implemented in pure `jakarta.ws.rs` so it runs on all three runtimes without change. Lives in `com.mehmandarov.confapi.upload.tus`.
+
+**Endpoints** (all under `/api/tus`, `@PermitAll` – no JWT required for the demo):
+
+| Method + Path | Purpose |
+|---|---|
+| `OPTIONS /api/tus` | Capability discovery (`Tus-Version`, `Tus-Extension: creation`) |
+| `POST /api/tus` | Create an upload (send `Upload-Length: <bytes>`); returns `201` + `Location: /api/tus/{id}` |
+| `HEAD /api/tus/{id}` | Ask where to resume – returns `Upload-Offset` |
+| `PATCH /api/tus/{id}` | Append a chunk at `Upload-Offset` (`Content-Type: application/offset+octet-stream`); returns new offset |
+| `DELETE /api/tus/{id}` | Terminate a single upload (TUS Termination extension) - deletes the partial file on the server |
+| `GET /api/tus` | **Demo-only** listing of every file in `/tmp/tus-uploads/` (name, size, in-progress flag, declared length). The demo page renders this as a live table. |
+| `DELETE /api/tus` | **Demo-only** nuke: wipes every file and sidecar under `/tmp/tus-uploads/`; the demo page has a "Purge server" button that hits this |
+| `GET  /api/tus/demo` | Serves the browser demo page (see below) |
+
+**Try it in the browser.** With the app running (`docker compose up -d --build` or any local runtime), open:
+
+> http://localhost:8080/api/tus/demo
+
+Pick a file, watch the progress bar, click **Pause / Resume**. Behind the scenes it uses [tus-js-client](https://github.com/tus/tus-js-client) to chunk the file (5 MB per `PATCH`) and to resume automatically on the next `start()` after a pause or network glitch. Ready-made raw HTTP requests for the same protocol are in [`http/tus.http`](http/tus.http).
+
+**Where uploaded files land.** Chunks are appended to `${java.io.tmpdir}/tus-uploads/<uuid>` – i.e. `/tmp/tus-uploads/` inside the container. To inspect them mid-upload:
+
+```bash
+docker compose exec confapi ls -la /tmp/tus-uploads     # or confapi-dev in dev profile
+```
+
+**Demo-only caveats** (called out in the `TusResource` Javadoc):
+
+- The `UPLOAD_LENGTHS` map is in-memory and `/tmp` is not persisted by `docker-compose.yml`, so **restarting the container drops both the files and their declared lengths**. A real deployment would persist metadata (DB) and files (mounted volume or object store).
+- `TusCorsFilter` opens `Access-Control-Allow-Origin: *` on `/api/tus*` so the HTML page also works when opened directly from disk (`file://…/src/main/resources/webdemo/tus-upload-demo.html`) against a locally-running app. Narrow that origin in production.
+
 ## 📁 Project Structure
 
 ```
@@ -252,6 +314,7 @@ src/main/java/com/mehmandarov/confapi/
 ├── error/                           # Bonus: RFC 9457 Problem Details mappers
 ├── unknownfields/                   # Bonus: extra-field demo endpoint + lean Room DTO
 └── upload/                          # Bonus: binary uploads (multipart EntityPart + raw body)
+    └── tus/                         # Bonus: resumable uploads (TUS 1.0) + browser demo page
 
 src/test/java/com/mehmandarov/confapi/
 ├── unit/                            # Unit tests (no container, no Docker)

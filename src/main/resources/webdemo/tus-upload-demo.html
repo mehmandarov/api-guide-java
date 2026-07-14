@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Resumable upload demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/tus-js-client@4/dist/tus.min.js"></script>
+    <link rel="stylesheet" href="tus-upload-demo.css">
+</head>
+<body>
+    <!--
+      Companion to the blog post "Resumable file uploads with TUS and Jakarta EE".
+      Two ways to run it:
+        1. Served by the app:  http://localhost:8080/api/tus/demo
+           (works on every supported runtime - Quarkus, Liberty, Helidon -
+            via TusDemoPageResource). Same-origin, no CORS needed.
+        2. Opened from disk:   file://.../tus-upload-demo.html
+           while the API runs on localhost:8080. TusCorsFilter on the server
+           side supplies the CORS headers this cross-origin case needs.
+    -->
+
+    <h1>Resumable upload demo (TUS)</h1>
+    <p class="subtitle">Pick a file. Try <em>Stop</em> mid-upload, then re-select the same file (or refresh the page and re-select it) to see it resume from the last byte the server has.</p>
+
+    <div class="row">
+        <input type="file" id="file">
+    </div>
+
+    <div class="row buttons">
+        <button id="toggle" disabled>Pause</button>
+        <button id="stop"   class="warning" disabled>Stop (simulate broken connection)</button>
+        <button id="cancel" class="danger"  disabled>Cancel (delete on server)</button>
+    </div>
+
+    <div class="row">
+        <progress id="progress" value="0" max="100"></progress>
+    </div>
+
+    <div class="row">
+        <span id="status"></span>
+    </div>
+
+    <p class="hint">
+        <strong>Pause</strong>: keeps the same upload alive in memory - press again to resume.<br>
+        <strong>Stop</strong>: drops the upload object but keeps the URL in <code>localStorage</code>. Re-select the same file (even after a full page refresh) and it picks up where it left off.<br>
+        <strong>Cancel</strong>: sends <code>DELETE /api/tus/{id}</code> (TUS Termination extension), removes the partial file from the server, and clears <code>localStorage</code>.
+    </p>
+
+    <hr>
+    <div class="row buttons">
+        <button id="refreshList" type="button">Refresh list</button>
+        <button id="purge" class="danger" type="button">Purge server (demo only)</button>
+    </div>
+    <table id="fileList">
+        <thead><tr><th>File</th><th>Size</th><th>State</th></tr></thead>
+        <tbody></tbody>
+    </table>
+    <p class="hint">
+        <strong>Files on server</strong>: live view of <code>/tmp/tus-uploads/</code>, fetched from <code>GET /api/tus</code>. Auto-refreshes after upload / cancel / purge.<br>
+        <strong>Purge</strong>: sends <code>DELETE /api/tus</code> to wipe every file and sidecar; also clears this browser's <code>localStorage</code>.
+    </p>
+
+    <script>
+        let upload = null;
+        let paused = false;
+
+        const progress  = document.getElementById("progress");
+        const statusEl  = document.getElementById("status");
+        const toggle    = document.getElementById("toggle");
+        const stopBtn   = document.getElementById("stop");
+        const cancelBtn = document.getElementById("cancel");
+        const fileInput = document.getElementById("file");
+        const fileListBody = document.querySelector("#fileList tbody");
+
+        // Same-origin when the page is served by the app, absolute URL when opened from file://.
+        const TUS_BASE = (location.protocol === "file:" ? "http://localhost:8080" : location.origin) + "/api/tus";
+
+        function fmtBytes(n) {
+            if (n < 1024) return n + " B";
+            if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+            return (n / 1048576).toFixed(1) + " MB";
+        }
+
+        async function refreshFileList() {
+            try {
+                const res = await fetch(TUS_BASE, { headers: { "Accept": "application/json" } });
+                const files = await res.json();
+                fileListBody.innerHTML = "";
+                if (files.length === 0) {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = '<td colspan="3" class="empty">(no files)</td>';
+                    fileListBody.appendChild(tr);
+                    return;
+                }
+                for (const f of files) {
+                    const tr = document.createElement("tr");
+                    const state = f.inProgress
+                        ? (f.length ? `in progress - ${Math.round(100 * f.size / f.length)}%` : "in progress")
+                        : "complete";
+                    tr.innerHTML =
+                        `<td>${f.name}</td>` +
+                        `<td>${fmtBytes(f.size)}${f.length ? " / " + fmtBytes(f.length) : ""}</td>` +
+                        `<td class="${f.inProgress ? 'partial' : 'complete'}">${state}</td>`;
+                    fileListBody.appendChild(tr);
+                }
+            } catch (err) {
+                fileListBody.innerHTML = `<tr><td colspan="3" class="empty">Failed to list: ${err}</td></tr>`;
+            }
+        }
+
+        // Mirror the server-side sanitizeFilename() so the "Saved as ..."
+        // message tells the truth about what actually landed on disk.
+        function sanitizeName(name) {
+            const base = name.split(/[\\/]/).pop();
+            const cleaned = base.replace(/[^A-Za-z0-9._-]/g, "_");
+            return cleaned.length > 120 ? cleaned.slice(0, 120) : (cleaned || "upload");
+        }
+
+        // Some browsers restore the previously selected file after a refresh.
+        // Force a clean state so the UI never lies about what's "chosen".
+        window.addEventListener("pageshow", () => { fileInput.value = ""; });
+
+        function setBusyUi(busy) {
+            toggle.disabled    = !busy;
+            stopBtn.disabled   = !busy;
+            cancelBtn.disabled = !busy;
+        }
+
+        function resetUi(label) {
+            paused = false;
+            toggle.textContent = "Pause";
+            setBusyUi(false);
+            progress.value = 0;
+            fileInput.value = "";      // clear the "Browse..." selection
+            if (label !== undefined) statusEl.textContent = label;
+        }
+
+        fileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Same-origin when the page is served by the app, absolute URL when opened from file://.
+            const endpoint = TUS_BASE;
+
+            upload = new tus.Upload(file, {
+                endpoint: endpoint,
+                chunkSize: 5 * 1024 * 1024,                // 5 MB per PATCH
+                retryDelays: [0, 1000, 3000, 5000],         // auto-retry on transient failures
+                // filename + filetype are surfaced to the server via the
+                // Upload-Metadata header (base64-encoded per the TUS spec);
+                // the server uses `filename` to name the final file on disk.
+                metadata: { filename: file.name, filetype: file.type },
+                onProgress: (sent, total) => {
+                    progress.value = (sent / total) * 100;
+                    statusEl.textContent =
+                        `${(sent / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB` +
+                        ` (${((sent / total) * 100).toFixed(1)}%)`;
+                },
+                onSuccess: () => {
+                    // The TUS URL always uses the opaque {uuid} - that's how
+                    // the protocol identifies uploads. The file ON DISK is
+                    // separately renamed by the server to {shortId}-{filename}
+                    // (see TusResource.append). Surface both so it's clear:
+                    const uuid = upload.url.substring(upload.url.lastIndexOf("/") + 1);
+                    const shortId = uuid.slice(0, 8);
+                    const diskName = `${shortId}-${sanitizeName(file.name)}`;
+                    statusEl.textContent =
+                        `Done. Saved on server as "${diskName}"  ·  TUS URL: ${upload.url}`;
+                    setBusyUi(false);
+                    fileInput.value = "";   // ready for the next upload
+                    refreshFileList();
+                },
+                onError: (err) => {
+                    statusEl.textContent = "Error: " + err;
+                    setBusyUi(false);
+                }
+            });
+
+            // Resume detection is CLIENT-SIDE only: tus-js-client stores upload
+            // URLs in localStorage keyed by a fingerprint of the file
+            // (size + lastModified + name + type by default). It is NOT a
+            // content hash - two different files with the same fingerprint
+            // would collide. The server has no way to know it is "the same
+            // file"; it just accepts appends at the offset the client claims.
+            upload.findPreviousUploads().then((previous) => {
+                if (previous.length > 0) {
+                    upload.resumeFromPreviousUpload(previous[0]);
+                    statusEl.textContent = "Resuming previous upload...";
+                } else {
+                    statusEl.textContent = "Starting new upload...";
+                }
+                upload.start();
+                setBusyUi(true);
+                refreshFileList();
+            });
+        });
+
+        // Pause / Resume: keeps the same Upload instance alive.
+        //   abort()  -> pause (stops sending; offset preserved on server)
+        //   start()  -> resume from the current server offset
+        toggle.addEventListener("click", () => {
+            if (!upload) return;
+            paused = !paused;
+            paused ? upload.abort() : upload.start();
+            toggle.textContent = paused ? "Resume" : "Pause";
+        });
+
+        // Stop: simulate a broken connection.
+        //   abort(false) closes the in-flight request but keeps the URL in
+        //   localStorage. We drop the Upload reference and reset the UI so
+        //   the next file pick (of the SAME file) - or a page refresh
+        //   followed by re-selecting that file - calls findPreviousUploads()
+        //   and resumes from the last server-side offset.
+        stopBtn.addEventListener("click", async () => {
+            if (!upload) return;
+            try {
+                await upload.abort(false);
+                statusEl.textContent = "Stopped. Re-select the same file (or refresh + re-select) to resume.";
+            } catch (err) {
+                statusEl.textContent = "Stop failed: " + err;
+            } finally {
+                upload = null;
+                fileInput.value = "";      // let the same file be chosen again
+                paused = false;
+                toggle.textContent = "Pause";
+                setBusyUi(false);
+                // Progress bar left in place so you can see how far it got;
+                // it resets on the next file selection.
+            }
+        });
+
+        // Cancel: full termination.
+        //   abort(true) also calls the TUS Termination extension
+        //   (DELETE /api/tus/{id}), so the partial file is removed from the
+        //   server and the entry is cleared from localStorage.
+        cancelBtn.addEventListener("click", async () => {
+            if (!upload) return;
+            try {
+                await upload.abort(true);
+                statusEl.textContent = "Cancelled - partial file deleted on server.";
+            } catch (err) {
+                statusEl.textContent = "Cancel failed: " + err;
+            } finally {
+                upload = null;
+                fileInput.value = "";
+                resetUi();
+                refreshFileList();
+            }
+        });
+
+        // Stop also updates the file list (the .part file stays visible).
+        stopBtn.addEventListener("click", () => setTimeout(refreshFileList, 100));
+
+        document.getElementById("refreshList").addEventListener("click", refreshFileList);
+
+        // Purge: demo-only nuke. Wipes every upload on the server AND clears
+        // this browser's tus-js-client urlStorage so we truly start fresh.
+        document.getElementById("purge").addEventListener("click", async () => {
+            if (!confirm("Delete ALL uploads on the server?")) return;
+            try {
+                const res = await fetch(TUS_BASE, { method: "DELETE" });
+                const body = await res.json().catch(() => ({}));
+                // Wipe any tus-js-client "resume this" entries in this browser.
+                Object.keys(localStorage)
+                      .filter(k => k.startsWith("tus::"))
+                      .forEach(k => localStorage.removeItem(k));
+                if (upload) { try { await upload.abort(false); } catch (_) {} upload = null; }
+                fileInput.value = "";
+                resetUi(`Purged. Removed ${body.removed ?? "?"} file(s) on the server; cleared localStorage.`);
+            } catch (err) {
+                statusEl.textContent = "Purge failed: " + err;
+            } finally {
+                refreshFileList();
+            }
+        });
+
+        // Populate the file list on load, and keep it fresh while an upload
+        // is in progress (cheap enough for a demo - one small GET per second).
+        refreshFileList();
+        setInterval(() => { if (upload) refreshFileList(); }, 1000);
+    </script>
+</body>
+</html>

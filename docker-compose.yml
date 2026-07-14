@@ -30,3 +30,26 @@ services:
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://jaeger:4317"
       OTEL_SERVICE_NAME: "confapi"
 
+  # Dev mode in a container: source is bind-mounted, Quarkus live-reloads on
+  # file change. Opt-in via the "dev" profile so the default `up` is untouched:
+  #   docker compose --profile dev up confapi-dev
+  confapi-dev:
+    profiles: ["dev"]
+    build:
+      context: .
+      dockerfile: docker/quarkus/Dockerfile.dev
+    image: confapi:dev
+    depends_on:
+      - jaeger
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/workspace                # live source – edits on the host reload in the container
+      - confapi-m2:/root/.m2        # persistent Maven repo – dependencies download once
+    environment:
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://jaeger:4317"
+      OTEL_SERVICE_NAME: "confapi"
+
+volumes:
+  confapi-m2:
+
