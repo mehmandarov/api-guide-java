@@ -176,7 +176,7 @@
         <profile>
             <id>quarkus</id>
             <properties>
-                <quarkus.version>3.36.1</quarkus.version>
+                <quarkus.version>3.37.2</quarkus.version>
             </properties>
             <dependencyManagement>
                 <dependencies>
