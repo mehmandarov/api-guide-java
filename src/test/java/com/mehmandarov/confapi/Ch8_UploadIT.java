@@ -1,12 +1,14 @@
 package com.mehmandarov.confapi;
 
 import com.mehmandarov.confapi.support.ConfApiExtension;
+import io.restassured.config.EncoderConfig;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.nio.charset.StandardCharsets;
 
+import static io.restassured.RestAssured.config;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
@@ -98,6 +100,10 @@ class Ch8_UploadIT {
             byte[] body = "PNG-BYTES-PRETEND".getBytes(StandardCharsets.UTF_8);
 
             given()
+                // Binary content types carry no charset – stop REST Assured from
+                // appending a default one, so the echoed Content-Type stays "image/png".
+                .config(config().encoderConfig(EncoderConfig.encoderConfig()
+                        .appendDefaultContentCharsetToContentTypeIfUndefined(false)))
                 .contentType("image/png")
                 .header("X-File-Name", "headshot.png")
                 .body(body)
