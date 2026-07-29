@@ -11,7 +11,7 @@
 # ============================================================
 
 # --- Build stage -------------------------------------------------------------
-FROM maven:3.9-eclipse-temurin-25 AS build
+FROM maven:3-eclipse-temurin-26 AS build
 WORKDIR /workspace
 
 # Prime the dependency cache (better layer reuse on source-only changes)
