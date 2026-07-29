@@ -24,7 +24,12 @@ jobs:
           cache: maven
 
       - name: Build and run tests
-        run: mvn -B -ntp verify
+        # -Pquarkus activates the Quarkus runtime profile, which produces
+        # target/quarkus-app/ (fast-jar). The Testcontainers-based IT tests
+        # (ConfApiContainer) build a Docker image that COPYs that directory,
+        # so without this profile the image build fails with
+        # "Cannot mkdir: /app is not a directory".
+        run: mvn -B -ntp -Pquarkus verify
 
       - name: Upload test reports
         if: always()
