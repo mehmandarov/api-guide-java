@@ -34,6 +34,12 @@ import java.util.Map;
  * </ul>
  * Both stream the bytes rather than buffering them. Companion code for the blog
  * post "Receiving binary: REST endpoints that take file uploads".
+ * <p>
+ * <strong>Runtime note:</strong> the multipart endpoint uses the standard
+ * {@link EntityPart} API (Jakarta REST 3.1+). Fully compliant Jakarta EE
+ * runtimes support it out of the box; Quarkus REST does not implement it yet
+ * and offers its own {@code @RestForm} mechanism instead
+ * (see {@code snippets/QuarkusUploadResource.java}).
  */
 @Path("/uploads")
 @Tag(name = "Demos", description = "Standalone demos referenced from the blog")
@@ -75,7 +81,7 @@ public class UploadResource {
 
     @POST
     @Path("/raw")
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Consumes(MediaType.WILDCARD)
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Accept a single binary body; metadata travels in headers")
     @APIResponse(responseCode = "200", description = "Summary of what was received")
