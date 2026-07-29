@@ -13,7 +13,7 @@
 #   docker run --rm -p 8080:8080 -v "$PWD":/workspace -v confapi-m2:/root/.m2 confapi:dev
 # ============================================================
 
-FROM maven:3.9-eclipse-temurin-25
+FROM maven:3-eclipse-temurin-26
 WORKDIR /workspace
 
 # Sources are bind-mounted at runtime; nothing is copied into the image.
