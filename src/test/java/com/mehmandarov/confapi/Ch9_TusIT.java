@@ -152,7 +152,7 @@ class Ch9_TusIT {
     class Discovery {
 
         @Test
-        @DisplayName("OPTIONS advertises version and the creation extension")
+        @DisplayName("OPTIONS advertises version and the supported extensions")
         void optionsDiscovery() {
             given()
                 .header("Tus-Resumable", TUS)
@@ -161,7 +161,7 @@ class Ch9_TusIT {
             .then()
                 .statusCode(204)
                 .header("Tus-Version", TUS)
-                .header("Tus-Extension", "creation");
+                .header("Tus-Extension", "creation,termination");
         }
     }
 }

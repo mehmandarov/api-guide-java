@@ -269,7 +269,7 @@ Bonus demo of the [TUS 1.0](https://tus.io/protocols/resumable-upload) resumable
 
 | Method + Path | Purpose |
 |---|---|
-| `OPTIONS /api/tus` | Capability discovery (`Tus-Version`, `Tus-Extension: creation`) |
+| `OPTIONS /api/tus` | Capability discovery (`Tus-Version`, `Tus-Extension: creation,termination`) |
 | `POST /api/tus` | Create an upload (send `Upload-Length: <bytes>`); returns `201` + `Location: /api/tus/{id}` |
 | `HEAD /api/tus/{id}` | Ask where to resume – returns `Upload-Offset` |
 | `PATCH /api/tus/{id}` | Append a chunk at `Upload-Offset` (`Content-Type: application/offset+octet-stream`); returns new offset |

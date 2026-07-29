@@ -1,6 +1,7 @@
 package com.mehmandarov.confapi.gatekeepers;
 
 import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.ext.Provider;
 import jakarta.ws.rs.ext.ReaderInterceptor;
 import jakarta.ws.rs.ext.ReaderInterceptorContext;
@@ -38,8 +39,13 @@ public class InputSanitizationInterceptor implements ReaderInterceptor {
     public Object aroundReadFrom(ReaderInterceptorContext ctx)
             throws IOException, WebApplicationException {
 
+        // Only sanitize textual/JSON payloads. Binary bodies (multipart
+        // uploads, application/octet-stream, images, PDFs, …) must pass
+        // through untouched – decoding them as UTF-8 text and re-encoding
+        // corrupts the bytes (and the multipart boundary structure),
+        // which would otherwise surface as a 500 at deserialization time.
         InputStream original = ctx.getInputStream();
-        if (original != null) {
+        if (original != null && shouldSanitize(ctx.getMediaType())) {
             ByteArrayOutputStream buf = new ByteArrayOutputStream(1024);
             original.transferTo(buf);
             byte[] rawBytes = buf.toByteArray();
@@ -58,6 +64,19 @@ public class InputSanitizationInterceptor implements ReaderInterceptor {
         }
 
         return ctx.proceed();
+    }
+
+    /**
+     * Sanitization only makes sense for text-based payloads. Skip anything
+     * that isn't JSON or {@code text/*}. A {@code null} media type is treated
+     * as sanitizable so the interceptor stays testable in isolation.
+     */
+    private static boolean shouldSanitize(MediaType mediaType) {
+        if (mediaType == null) {
+            return true;
+        }
+        return "text".equalsIgnoreCase(mediaType.getType())
+                || mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE);
     }
 }
 
