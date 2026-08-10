@@ -266,7 +266,7 @@
         <profile>
             <id>helidon</id>
             <properties>
-                <helidon.version>4.5.1</helidon.version>
+                <helidon.version>4.5.2</helidon.version>
             </properties>
             <dependencyManagement>
                 <dependencies>
