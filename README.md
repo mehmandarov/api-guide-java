@@ -406,3 +406,7 @@ The integration tests share a **single container** across all IT classes. This k
 
 Apache 2.0
 
+## Important note
+
+Code, slides, text contents are owned by Rustam Mehmandarov and cannot be reproduced without a prior agreement.
+
