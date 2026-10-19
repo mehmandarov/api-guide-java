@@ -5,6 +5,8 @@
 
 *The trap*: the server adds a new field. Your client maps the response onto a lean DTO. Does it break? *It depends entirely on the JSON provider.*
 
+[.small]#Note: this slide is about *server -> client* responses (client-side deserialization). Handling extra fields in *client -> server* request payloads is a separate behavior/configuration.#
+
 [cols="1,2,2"]
 |===
 | Provider | Unknown field – default | How to change it
