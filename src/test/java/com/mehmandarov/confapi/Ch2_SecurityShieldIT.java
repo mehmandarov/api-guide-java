@@ -6,6 +6,8 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.time.LocalDateTime;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
@@ -20,17 +22,23 @@ import static org.hamcrest.Matchers.*;
 @DisplayName("Ch2 IT – The Security Shield")
 class Ch2_SecurityShieldIT {
 
-    private static final String SESSION_BODY = """
+    private static String sessionBody() {
+        return """
             {
               "title": "Secure Session",
               "abstract": "Testing RBAC with Jakarta Security.",
               "level": "ADVANCED",
               "track": "Security",
               "speakerId": "spk-duke",
-              "startTime": "2026-10-16T14:00:00",
+              "startTime": "%s",
               "durationMinutes": 50
             }
-            """;
+            """.formatted(futureStartTime());
+    }
+
+    private static String futureStartTime() {
+        return LocalDateTime.now().plusDays(2).withNano(0).toString();
+    }
 
     @Nested
     @DisplayName("Unauthenticated – no token means no access to write operations")
@@ -41,7 +49,7 @@ class Ch2_SecurityShieldIT {
         void postWithoutToken() {
             given()
                 .contentType(ContentType.JSON)
-                .body(SESSION_BODY)
+                .body(sessionBody())
             .when()
                 .post("/api/v1/sessions")
             .then()
@@ -70,7 +78,7 @@ class Ch2_SecurityShieldIT {
             given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + TestTokens.forAttendee())
-                .body(SESSION_BODY)
+                .body(sessionBody())
             .when()
                 .post("/api/v1/sessions")
             .then()
@@ -106,7 +114,7 @@ class Ch2_SecurityShieldIT {
             given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + TestTokens.forOrganizer())
-                .body(SESSION_BODY)
+                .body(sessionBody())
             .when()
                 .post("/api/v1/sessions")
             .then()
@@ -135,10 +143,10 @@ class Ch2_SecurityShieldIT {
                       "level": "INTERMEDIATE",
                       "track": "Updated",
                       "speakerId": "spk-duke",
-                      "startTime": "2026-10-16T15:00:00",
+                      "startTime": "%s",
                       "durationMinutes": 90
                     }
-                    """)
+                    """.formatted(futureStartTime()))
             .when()
                 .put("/api/v1/sessions/" + sessionId)
             .then()
@@ -152,7 +160,7 @@ class Ch2_SecurityShieldIT {
             String id = given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + TestTokens.forOrganizer())
-                .body(SESSION_BODY)
+                .body(sessionBody())
             .when()
                 .post("/api/v1/sessions")
             .then()
@@ -176,4 +184,3 @@ class Ch2_SecurityShieldIT {
         }
     }
 }
-
