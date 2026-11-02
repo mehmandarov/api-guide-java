@@ -2,9 +2,8 @@
 |===
 .^a|
 
-== 🛡️ An Opinionated Guide to Bulletproof APIs with Java
+== 🛡️ An Opinionated Guide to Bulletproof APIs 
 
----
 ===== Rustam Mehmandarov
 link:https://rustam.no[@rustam.no]
 
